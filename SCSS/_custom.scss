@@ -8,7 +8,12 @@ $font-family-sans-serif: "Roboto", sans-serif !default;
 $font-family-serif: "Grechen Fuemen", serif !default;
 .bg-ecogreen {
     background-color: $ecogreen !important;
-  }
+}
+
+.bg-ecogreen_light {
+background-color: $ecogreen_light !important;
+}
+
 .text-font-family-sans-serif {
     font-family: $font-family-sans-serif !important;
 }

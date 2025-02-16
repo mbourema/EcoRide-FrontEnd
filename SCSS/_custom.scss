@@ -1,0 +1,18 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Grechen+Fuemen&display=swap");
+$secondary : #DAC058;
+$ecogreen : #7FDCC3;
+$ecogreen_light : #DAE7DC;
+$title : #EC1616;
+$font-family-sans-serif: "Roboto", sans-serif !default;
+$font-family-serif: "Grechen Fuemen", serif !default;
+.bg-ecogreen {
+    background-color: $ecogreen !important;
+  }
+.text-font-family-sans-serif {
+    font-family: $font-family-sans-serif !important;
+}
+.text-font-family-serif {
+    font-family: $font-family-serif !important;
+}
+@import "../node_modules/bootstrap/scss/bootstrap";

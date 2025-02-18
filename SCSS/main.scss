@@ -1,5 +1,11 @@
 @import 'custom';
 
+body {
+    background-color: var(--ecogreen-light); 
+    margin: 0;
+    padding: 0;
+}
+
 .bi-tree {
     font-size: 24px;
     color: black;    
@@ -107,17 +113,118 @@
 }
 
 
-@media (max-width: 992px) {
-    .search-form {
+//Infos perso navbar
+
+#infos_perso {
+    width: 100%;  /* Ou définir un pourcentage comme 80%, 90%, etc. */
+    margin-left: 10%;
+}
+
+@media (max-width: 930px) {
+    #infos_perso {
+        margin-left: 5%;
+    }
+}
+
+@media (max-width: 900px) {
+    #infos_perso {
+        margin-left: 2%;
+    }
+}
+
+@media (max-width: 850px) {
+    #infos_perso {
+        margin-left: 0;
+    }
+}
+
+// Pages covoiturages
+/* 🛠️ Ajustements généraux */
+.filters {
+    max-width: 500px;
+    margin: auto;
+}
+
+/* 🎛️ Champs du formulaire */
+.filter-form .form-control {
+    width: 200px;
+}
+
+.covoiturages .card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+}
+
+/* 📸 Image du conducteur */
+.covoiturages img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+    .filter-form {
         flex-direction: column;
         align-items: center;
+    }
+
+    .filter-form .form-control {
         width: 100%;
     }
 
-    .search-form input, .search-form button {
-        width: 100%;
-        max-width: 300px;
+    .covoiturages .card {
+        flex-direction: column;
+        text-align: center;
     }
+}
+
+// Page de connexion :
+/* 📌 Centrage et style du formulaire */
+.login-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 🛠️ Champs du formulaire */
+.login-form .form-control {
+    border-radius: 8px;
+}
+
+/* 🔘 Bouton */
+.login-form .btn {
+    font-size: 1.2em;
+    padding: 10px;
+}
+
+//Page d'inscription
+/* 📌 Conteneur du formulaire */
+.register-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-group .btn {
+    font-size: 1.1em;
+}
+
+.register-form .form-control {
+    border-radius: 8px;
+}
+
+.register-form .btn {
+    font-size: 1.2em;
+    padding: 10px;
 }
 
 

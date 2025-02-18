@@ -3,3 +3,57 @@
         <h1>Les covoiturages disponibles</h1>
     </div>
 </div>
+<div class="container-fluid">
+    <section class="filters p-3 rounded">
+        <form class="filter-form d-flex flex-wrap justify-content-center align-items-end gap-3">
+            <div class="form-group">
+            <select class="form-control">
+                <option value="">Écologique ou non</option>
+                <option value="ecologique">Écologique</option>
+                <option value="non_ecologique">Non Écologique</option>
+            </select>
+            </div>
+            <div class="form-group">
+            <input id="Duree" type="number" class="form-control" placeholder="Durée max (min)">
+            <div class="invalid-feedback">
+                Veuillez renseigner une durée valide (exemple: 120)
+            </div>
+            </div>
+            <div class="form-group">
+            <input id="Prix" type="number" class="form-control" placeholder="Prix max (€)">
+            <div class="invalid-feedback">
+                Veuillez renseigner un prix valide (exemple: 15)
+            </div>
+            </div>
+            <div class="form-group">
+            <input id="Note" type="number" class="form-control" placeholder="Note min (1-5)">
+            <div class="invalid-feedback">
+                Veuillez renseigner une note valide (exemple: 3)
+            </div>
+            </div>
+            <button id="Filtre" class="btn btn-dark">Filtrer</button>
+        </form>
+    </section>
+    <section class="covoiturages mt-4">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+                <div class="card p-3 d-flex flex-row align-items-center rounded-3 bg-ecogreen shadow-sm mb-3">
+                    <!-- 📌 Infos à gauche -->
+                    <div class="covoit-info flex-grow-1">
+                        <h5>Pseudo: <span>JohnDoe</span></h5>
+                        <p>Note: ⭐⭐⭐⭐☆ (4.5)</p>
+                        <p>Places disponibles: 2</p>
+                        <p>Départ: 10/03/2025 14:00</p>
+                        <p>Arrivée: 10/03/2025 18:00</p>
+                        <p>Voyage: <span class="badge bg-success">Écologique</span></p>
+                    </div>
+                    <div class="text-center">
+                        <img src="https://i.ibb.co/GfSbCHmh/le-metier-de-developpeur.jpg" class="rounded-circle" alt="Conducteur">
+                        <br>
+                        <button class="btn btn-secondary mt-2">Détails</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

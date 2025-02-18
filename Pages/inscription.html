@@ -3,3 +3,125 @@
         <h1>Inscription</h1>
     </div>
 </div>
+<section class="register-container bg-ecogreen">
+    <h2 class="text-center mb-3">Créer un compte</h2>
+    <div class="btn-group w-100 mb-4" role="group" id="roleSelection">
+        <button type="button" class="btn btn-outline-dark" data-role="passager">Passager</button>
+        <button type="button" class="btn btn-outline-dark" data-role="conducteur">Conducteur</button>
+        <button type="button" class="btn btn-outline-dark" data-role="les_deux">Les deux</button>
+    </div>
+    <form id="inscriptionForm" class="register-form" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="Nom" class="form-label">Nom</label>
+                <div class="form-group">
+                <input id="Nom" name="Nom" type="text" class="form-control" required>
+                <div class="invalid-feedback">
+                    Veuillez renseigner un nom
+                </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="Prenom" class="form-label">Prénom</label>
+                <div class="form-group">
+                <input id="Prenom" name="Prenom" type="text" class="form-control" required>
+                <div class="invalid-feedback">
+                    Veuillez renseigner un prénom
+                </div>
+                </div>
+            </div>
+        </div>     
+        <div class="mb-3">
+            <label for="Email" class="form-label">Email</label>
+            <div class="form-group">
+            <input id="Email" name="Email" type="email" class="form-control" required>
+            <div class="invalid-feedback">
+                Veuillez renseigner un email valide (exemple: email@email.com)
+            </div>
+        </div>
+        </div>      
+        <div class="mb-3">
+            <label for="Mdp" class="form-label">Mot de passe</label>
+            <div class="form-group">
+            <input id="Mdp" name="Mdp" type="password" class="form-control" required>
+            <div class="invalid-feedback">
+                Veuillez renseigner un mot de passe qui contient au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial
+            </div>
+        </div>
+        </div> 
+        <div class="mb-3">
+            <label for="MdpConfirm" class="form-label">Confirmer votre mot de passe</label>
+            <div class="form-group">
+            <input id="MdpConfirm" name="MdpConfirm" type="password" class="form-control" required>
+            <div class="invalid-feedback">
+                Les mots de passe ne correspondent pas
+            </div>
+        </div>
+        </div>       
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="Telephone" class="form-label">Numéro de téléphone</label>
+                <div class="form-group">
+                <input id="Telephone" name="Telephone" type="tel" class="form-control" required>
+                <div class="invalid-feedback">
+                    Veuillez rentrer un numéro de téléphone valide
+                </div>
+            </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="Pseudo" class="form-label">Pseudo</label>
+                <div class="form-group">
+                <input id="Pseudo" name="Pseudo" type="text" class="form-control" required>
+                <div class="invalid-feedback">
+                    Veuillez rentrer un pseudo
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="Adresse" class="form-label">Adresse</label>
+            <div class="form-group">
+            <input id="Adresse" name="Adresse" type="text" class="form-control" required>
+            <div class="invalid-feedback">
+                Veuillez rentrer une adresse valide (exemple : 2 rue du Champs 75000 Paris)
+            </div>
+        </div>
+        </div>
+        <div class="mb-3">
+            <label for="Naissance" class="form-label">Date de naissance</label>
+            <div class="form-group">
+            <input id="Naissance" name="Naissance" type="date" class="form-control" required>
+            <div class="invalid-feedback">
+                Veuillez rentrer une date de naissance valide (exemple : 07/01/1999)
+            </div>
+        </div>
+        </div>
+        <div id="conducteurFields" class="d-none">
+            <div class="mb-3">
+                <label for="Photo" class="form-label">Photo de profil (URL)</label>
+                <p style="font-size: 12px; color: red;">Comment obtenir l'url de votre photo ? Rien de plus simple ! Rendez vous sur ce site : <a href="https://fr.imgbb.com/" target="_blank">imgbb</a>
+                , uploader votre photo, accédez y via l'url générée puis copier son lien ici ! (formats png, jpg, jpeg et gif acceptés)</p>
+                <div class="form-group">
+                    <input id="Photo" name="Photo" type="url" class="form-control" placeholder="Entrez l'URL de votre photo" required>
+                    <div class="invalid-feedback">
+                        Veuillez entrer une URL valide.
+                    </div>
+                </div>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="fumeur" name="fumeur">
+                <label class="form-check-label" for="fumeur">Autoriser les fumeurs</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="animaux" name="animal">
+                <label class="form-check-label" for="animaux">Autoriser les animaux</label>
+            </div>
+            <div class="mb-3">
+                <label for="preferences" class="form-label">Préférences personnelles</label>
+                <textarea id="preferences" name="preferences" class="form-control" rows="3" placeholder="Vos préférences..."></textarea>
+            </div>
+        </div>        
+        <button id="inscription" type="submit" class="btn btn-secondary w-100">S'inscrire</button>
+    </form>    
+    <p class="text-font-family-sans-serif">Vous avez déjà un compte ? <a href="/connexion">Connecter-vous ici !</a></p>
+</section>

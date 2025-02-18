@@ -6,6 +6,20 @@ $ecogreen_light : #DAE7DC;
 $title : #EC1616;
 $font-family-sans-serif: "Roboto", sans-serif !default;
 $font-family-serif: "Grechen Fuemen", serif !default;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 850px,
+  xl: 1320px,
+  xxl: 1400px
+);
+
+:root {
+    --ecogreen-light: #DAE7DC;
+}
+
 .bg-ecogreen {
     background-color: $ecogreen !important;
 }

@@ -1,3 +1,5 @@
+import { setCookie, roleCookieName, pseudoCookieName, nbCreditsCookieName, apiUrl, setToken, idConnected } from "./index.js";
+
 const inputEmail = document.getElementById("Email");
 const inputMotDePasse = document.getElementById("Mdp");
 const buttonConnection = document.getElementById("connexion");
@@ -73,7 +75,6 @@ function validateMotDePasseRegex(input) {
     }
 }
 
-//Gerer la connexion
 
 buttonConnection.addEventListener("click", function(event) {
     event.preventDefault(); // Empêcher l'envoi du formulaire par défaut
@@ -82,17 +83,13 @@ buttonConnection.addEventListener("click", function(event) {
 
 // Fonction pour gérer la connexion pour la page de connexion
 function checkCredentials(){
-    //On récupère les données du formulaire de connexion
     let dataForm = new FormData(formulaireConnexion);
-    //On défini le header
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    //On récupère les données des champs du formulaire dans un fichier JSON
     let raw = JSON.stringify({
         "email": dataForm.get("Email"),
         "mdp": dataForm.get("Mdp")
     });
-    //On met les options de la requête dans un objet
     let requestOptions = {
         method: 'POST',
         headers: myHeaders,
@@ -111,11 +108,9 @@ function checkCredentials(){
 
         } 
         else {
-            // Ajouter la classe is-invalid si les champs sont invalides
             inputEmail.classList.add("is-invalid");
             inputMotDePasse.classList.add("is-invalid");
         
-            // Ajouter un gestionnaire d'événements pour retirer la classe 'is-invalid' quand l'utilisateur commence à saisir
             inputEmail.addEventListener("input", function() {
                 if (inputEmail.value !== "") {
                     inputEmail.classList.remove("is-invalid");
@@ -132,13 +127,14 @@ function checkCredentials(){
     .then(result => {
         const token = result.api_token;
         setToken(token);
-        //placer ces tokens en cookie
 
         setCookie(roleCookieName, result.roles, 7);
 
         setCookie(pseudoCookieName, result.pseudo, 7);
 
         setCookie(nbCreditsCookieName, result.nbCredit, 7);
+
+        setCookie(idConnected, result.id, 7);
         window.location.replace("/");
     })
     .catch(error => console.log('error', error));   

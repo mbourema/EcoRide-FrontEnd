@@ -1,5 +1,102 @@
 <div class="hero-scene text-center text-white text-font-family-serif">
     <div class="hero-scene-content">
-        <h1>Ajouter une voiture</h1>
+        <h1>Ajouter voiture</h1>
     </div>
+</div>
+<div class="container-fluid bg-ecogreen_light">
+    <section class="login-container bg-ecogreen">
+        <form id="voitureForm" class="login-form">
+            <div class="mb-3">
+                <label for="marque" class="form-label">Marque</label>
+                <div class="form-group">
+                    <select id="marque" name="marque" class="form-control" required>
+                        <option value="" disabled selected>Choisir une marque</option>
+                        <option value="Alfa Romeo">Alfa Romeo</option>
+                        <option value="Audi">Audi</option>
+                        <option value="BMW">BMW</option>
+                        <option value="Dacia">Dacia</option>
+                        <option value="Fiat">Fiat</option>
+                        <option value="Peugeot">Peugeot</option>
+                        <option value="Renault">Renault</option>
+                        <option value="Volkswagen">Volkswagen</option>
+                        <option value="Mercedes">Mercedes</option>
+                        <option value="Ford">Ford</option>
+                        <option value="Nissan">Nissan</option>
+                        <option value="Opel">Opel</option>
+                        <option value="Volvo">Volvo</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Veuillez choisir une marque.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="modele" class="form-label">Modèle</label>
+                <div class="form-group">
+                    <input id="modele" name="modele" type="text" class="form-control" placeholder="Modèle de la voiture" required>
+                    <div class="invalid-feedback">
+                        Veuillez remplir le champ modèle.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="immatriculation" class="form-label">Immatriculation</label>
+                <div class="form-group">
+                    <input id="immatriculation" name="immatriculation" type="text" class="form-control" placeholder="Numéro d'immatriculation" required>
+                    <div class="invalid-feedback">
+                        Veuillez remplir le champ immatriculation.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="energie" class="form-label">Énergie</label>
+                <div class="form-group">
+                    <select id="energie" name="energie" class="form-control" required>
+                        <option value="" disabled selected>Choisir une énergie</option>
+                        <option value="Diesel">Diesel</option>
+                        <option value="Essence">Essence</option>
+                        <option value="Electrique">Electrique</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Veuillez choisir une énergie.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="couleur" class="form-label">Couleur</label>
+                <div class="form-group">
+                    <input id="couleur" name="couleur" type="text" class="form-control" placeholder="Couleur de la voiture" required>
+                    <div class="invalid-feedback">
+                        Veuillez remplir le champ couleur.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="date_immatriculation" class="form-label">Date de première immatriculation</label>
+                <div class="form-group">
+                    <input id="date_immatriculation" name="date_immatriculation" type="date" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Veuillez remplir la date de première immatriculation.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="places" class="form-label">Nombre de places</label>
+                <div class="form-group">
+                    <input id="places" name="places" type="number" class="form-control" placeholder="Nombre de places" required>
+                    <div class="invalid-feedback">
+                        Veuillez remplir le champ nombre de places.
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-warning w-100">Ajouter la voiture</button>
+        </form>
+    </section>
 </div>

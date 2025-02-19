@@ -1,3 +1,5 @@
+import {apiUrl} from "./index.js";
+
 let selectedRole = null;
 const formInscription = document.getElementById("inscriptionForm");
 const fumeurCheckbox = document.getElementById("fumeur");

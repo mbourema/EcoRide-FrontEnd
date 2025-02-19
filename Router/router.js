@@ -1,3 +1,4 @@
+import { getRole, isConnected, showAndHideElementsForRoles } from "../JS/index.js";
 import Route from "./route.js";
 import { allRoutes, websiteName } from "./allRoutes.js";
 
@@ -24,20 +25,29 @@ const getRouteByUrl = (url) => {
 // Fonction pour charger le contenu de la page
 const LoadContentPage = async () => {
   const path = window.location.pathname;
-  // Récupération de l'URL actuelle
   const actualRoute = getRouteByUrl(path);
-  //Vérifier les droits d'accès à la page
+
+  // Vérifier si la route nécessite une autorisation
   const allRolesArray = actualRoute.authorize;
-  if(allRolesArray.length > 0){
-    if(allRolesArray.includes("disconnected")){
-      if(isConnected()){
-        window.location.replace("/");
+  if (allRolesArray.length > 0) {
+    
+    if (allRolesArray.includes("disconnected")) {
+      if (isConnected()) {
+        window.location.replace("/accueil");
+        return;
       }
-    }
-    else{
-      const roleUser = getRole();
-      if(!allRolesArray.includes(roleUser)){
-        window.location.replace("/");
+    } else {
+      const roleUser = getRole(); // Peut être null ou undefined
+      if (!roleUser) {
+        // Redirige si l'utilisateur n'a pas de rôle (déconnecté ou cookie supprimé)
+        window.location.replace("/accueil");
+        return;
+      }
+
+      const userRoles = roleUser.split(","); // Toujours un tableau même avec un seul rôle
+      if (!userRoles.some(role => allRolesArray.includes(role))) {
+        window.location.replace("/accueil");
+        return;
       }
     }
   }
@@ -48,13 +58,10 @@ const LoadContentPage = async () => {
   document.getElementById("main-page").innerHTML = html;
 
   // Ajout du contenu JavaScript
-  if (actualRoute.pathJS != "") {
-    // Création d'une balise script
+  if (actualRoute.pathJS !== "") {
     let scriptTag = document.createElement("script");
-    scriptTag.setAttribute("type", "text/javascript");
+    scriptTag.setAttribute("type", "module"); // Assurer que c'est un module
     scriptTag.setAttribute("src", actualRoute.pathJS);
-
-    // Ajout de la balise script au corps du document
     document.querySelector("body").appendChild(scriptTag);
   }
   // Changement du titre de la page

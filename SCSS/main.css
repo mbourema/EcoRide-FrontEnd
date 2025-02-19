@@ -12106,13 +12106,11 @@ body {
     margin-left: 0;
   }
 }
-/* 🛠️ Ajustements généraux */
 .filters {
   max-width: 500px;
   margin: auto;
 }
 
-/* 🎛️ Champs du formulaire */
 .filter-form .form-control {
   width: 200px;
 }
@@ -12126,7 +12124,6 @@ body {
   border-radius: 15px;
 }
 
-/* 📸 Image du conducteur */
 .covoiturages img {
   width: 80px;
   height: 80px;
@@ -12134,7 +12131,6 @@ body {
      object-fit: cover;
 }
 
-/* 📱 Responsive */
 @media (max-width: 768px) {
   .filter-form {
     flex-direction: column;
@@ -12148,7 +12144,6 @@ body {
     text-align: center;
   }
 }
-/* 📌 Centrage et style du formulaire */
 .login-container {
   max-width: 400px;
   margin: 40px auto;
@@ -12157,18 +12152,15 @@ body {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 🛠️ Champs du formulaire */
 .login-form .form-control {
   border-radius: 8px;
 }
 
-/* 🔘 Bouton */
 .login-form .btn {
   font-size: 1.2em;
   padding: 10px;
 }
 
-/* 📌 Conteneur du formulaire */
 .register-container {
   max-width: 500px;
   margin: 40px auto;
@@ -12188,4 +12180,8 @@ body {
 .register-form .btn {
   font-size: 1.2em;
   padding: 10px;
+}
+
+#carsSection h2, #carsSection .h2, #carpoolsSection h2, #carpoolsSection .h2 {
+  display: none;
 }/*# sourceMappingURL=main.css.map */

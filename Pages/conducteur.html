@@ -3,3 +3,38 @@
         <h1>Espace conducteur</h1>
     </div>
 </div>
+<div class="mt-4 text-center">
+    <div class="mb-2">
+        Souhaitez-vous ajouter une voiture ? 
+        <a href="/voiture" class="btn btn-link">Cliquez ici</a>
+    </div>
+    <div>
+        Souhaitez-vous ajouter un voyage ? 
+        <a href="/covoiturage" class="btn btn-link">Cliquez ici</a>
+    </div>
+    <br>
+    <div id="demarrer">
+        Souhaitez-vous démarrer un covoiturage ? Appuyez sur ce bouton :
+        <button id="startButton" class="btn btn-success">Démarrer votre covoiturage</button>
+    </div>
+    
+    <div id="arrivee" style="display: none;">
+        Vous êtes arrivés à destination ? :
+        <button id="arriveeButton" class="btn btn-danger">Nous sommes arrivés à destination</button>
+    </div>
+</div>
+
+<section id="carsSection" class="mt-5">
+    <h2 class="text-center">Vos voitures</h2>
+    <br>
+    <div id="carsList" class="row row-cols-1 row-cols-md-2 g-4 bg-ecogreen mx-auto rounded-3" style="max-width: 95%;">
+    </div>
+</section>
+
+<section id="carpoolsSection" class="mt-5">
+    <h2 class="text-center">Vos covoiturages</h2>
+    <br>
+    <div id="carpoolsList" class="row row-cols-1 row-cols-md-2 g-4 bg-ecogreen mx-auto rounded-3 mb-3" style="max-width: 95%;">
+    </div>
+</section>
+

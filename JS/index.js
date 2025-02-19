@@ -1,10 +1,10 @@
 const tokenCookieName = "accesstoken";
 const signOutBtn = document.getElementById("SignoutBtn");
-const info = document.getElementById("info");
-const roleCookieName = "role";
-const pseudoCookieName = "pseudo";
-const nbCreditsCookieName = "crédits";
-const apiUrl = "http://127.0.0.1:8000";
+export const roleCookieName = "role";
+export const pseudoCookieName = "pseudo";
+export const nbCreditsCookieName = "crédits";
+export const idConnected = "id";
+export const apiUrl = "http://127.0.0.1:8000";
 const inputVilleDepart = document.getElementById("VilleDepart");
 const inputVilleArrivee = document.getElementById("VilleArrivee");
 const inputDateDepart = document.getElementById("DateDepart");
@@ -101,7 +101,7 @@ function validateDate(input) {
 }
 
 // Créer un cookie à partir de son nom, de sa valeur et de sa durée d'expiration en jours
-function setCookie(name,value,days) {
+export function setCookie(name,value,days) {
     var expires = "";
     if (days) {
         var date = new Date();
@@ -112,7 +112,7 @@ function setCookie(name,value,days) {
 }
 
 //Récupérer la valeur d'un cookie à partir de son nom
-function getCookie(name) {
+export function getCookie(name) {
     let nameEQ = name + "=";
     let ca = document.cookie.split(';');
     for(let i=0;i < ca.length;i++) {
@@ -124,31 +124,35 @@ function getCookie(name) {
 }
 
 //Création du cookie jeton
-function setToken(token){
+export function setToken(token){
     setCookie(tokenCookieName, token, 7);
 }
 
 //Obtenir la valeur du jeton de connexion
-function getToken(){
+export function getToken(){
     return getCookie(tokenCookieName);
 }
 
 //Obtenir la valeur du cookie role
-function getRole(){
+export function getRole(){
     return getCookie(roleCookieName);
 }
 
-function getPseudo(){
+export function getPseudo(){
     return getCookie(pseudoCookieName);
 }
 
-function getCredit(){
+export function getCredit(){
     return getCookie(nbCreditsCookieName);
+}
+
+export function getId(){
+    return getCookie(idConnected);
 }
 
 
 // Supprimer un cookie à partir de son nom
-function eraseCookie(name) {  
+export function eraseCookie(name) {  
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
@@ -158,6 +162,7 @@ function signout(){
     eraseCookie(roleCookieName);
     eraseCookie(pseudoCookieName);
     eraseCookie(nbCreditsCookieName);
+    eraseCookie(idConnected);
     window.location.reload();
 }
 
@@ -165,7 +170,7 @@ function signout(){
 signOutBtn.addEventListener("click", signout);
 
 // Fonction qui vérifie si on est connexté sur le site par la présence ou non du cookie jeton
-function isConnected(){
+export function isConnected(){
     if(getToken() == null || getToken == undefined){
         return false;
     }
@@ -174,7 +179,7 @@ function isConnected(){
     }
 }
 //Afficher ou pas des éléments sur le site en fonction du role
-function showAndHideElementsForRoles(){
+export function showAndHideElementsForRoles(){
     const userConnected = isConnected();
     const role = getRole();
 
@@ -215,7 +220,7 @@ function showAndHideElementsForRoles(){
 }
 
 //Fonction pour transformer le codes HTML en texte pour éviter l'injection de code HTML via failles XSS
-function sanitizeHtml(text){
+export function sanitizeHtml(text){
     const tempHtml = document.createElement('div');
     
     tempHtml.textContent = text;
@@ -224,7 +229,7 @@ function sanitizeHtml(text){
 }
 
 //Fonction pour récupérer les informations de l'utilisateur
-function getInfoUser() {
+export function getInfoUser() {
     let token = getToken();
     console.log(token);
     if (!token) {
@@ -257,6 +262,7 @@ function getInfoUser() {
         });
 }
 
+
 document.addEventListener("DOMContentLoaded", function() {
     // Récupérer les informations des cookies
     const pseudo = getCookie(pseudoCookieName);
@@ -269,6 +275,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">${nbCredit}</span>`;
     }
 });
+
 
 
 

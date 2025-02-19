@@ -1,5 +1,105 @@
 <div class="hero-scene text-center text-white text-font-family-serif">
     <div class="hero-scene-content">
-        <h1>Ajouter un covoiturage</h1>
+        <h1>Ajouter covoiturage</h1>
     </div>
+</div>
+<div class="container-fluid bg-ecogreen_light">
+    <section class="login-container bg-ecogreen">
+        <form id="covoiturageForm" class="login-form">
+            
+            <div class="mb-3">
+                <label for="date_depart" class="form-label">Date de départ</label>
+                <div class="form-group">
+                    <input id="date_depart" name="date_depart" type="datetime-local" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Veuillez remplir la date et l'heure de départ.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="date_arrivee" class="form-label">Date d'arrivée</label>
+                <div class="form-group">
+                    <input id="date_arrivee" name="date_arrivee" type="datetime-local" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Veuillez remplir la date et l'heure d'arrivée.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="lieu_depart" class="form-label">Lieu de départ</label>
+                <div class="form-group">
+                    <input id="lieu_depart" name="lieu_depart" type="text" class="form-control" placeholder="Lieu de départ" required>
+                    <div class="invalid-feedback">
+                        Veuillez indiquer le lieu de départ (exemple : Strasbourg).
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="lieu_arrivee" class="form-label">Lieu d'arrivée</label>
+                <div class="form-group">
+                    <input id="lieu_arrivee" name="lieu_arrivee" type="text" class="form-control" placeholder="Lieu d'arrivée" required>
+                    <div class="invalid-feedback">
+                        Veuillez indiquer le lieu d'arrivée (exemple : Paris).
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="places_disponibles" class="form-label">Nombre de places disponibles</label>
+                <div class="form-group">
+                    <input id="places_disponibles" name="places_disponibles" type="number" class="form-control" placeholder="Nombre de places" required min="1">
+                    <div class="invalid-feedback">
+                        Veuillez indiquer le nombre de places disponibles.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="prix_personne" class="form-label">Prix par personne (€)</label>
+                <div class="form-group">
+                    <input id="prix_personne" name="prix_personne" type="number" class="form-control" placeholder="Prix par personne" required min="0" step="0.01">
+                    <div class="invalid-feedback">
+                        Veuillez indiquer un prix par personne.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="voiture" class="form-label">Voiture choisie</label>
+                <div class="form-group">
+                    <select id="voiture" name="voiture" class="form-control" required>
+                        <option value="" disabled selected>Choisir une voiture</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Veuillez choisir une voiture parmi votre liste de voiture.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="pseudo_conducteur" class="form-label">Pseudo du conducteur</label>
+                <div class="form-group">
+                    <input id="pseudo_conducteur" name="pseudo_conducteur" type="text" class="form-control" placeholder="Votre pseudo" required>
+                    <div class="invalid-feedback">
+                        Veuillez indiquer votre pseudo.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email_conducteur" class="form-label">Email du conducteur</label>
+                <div class="form-group">
+                    <input id="email_conducteur" name="email_conducteur" type="email" class="form-control" placeholder="Votre email" required>
+                    <div class="invalid-feedback">
+                        Veuillez fournir une adresse email valide.
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-warning w-100">Proposer un trajet</button>
+        </form>
+    </section>
 </div>

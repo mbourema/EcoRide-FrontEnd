@@ -210,7 +210,6 @@ formulaireCovoiturage.addEventListener("submit", function(event) {
 
 function ProposerTrajet() {
     let dataForm = new FormData(formulaireCovoiturage);
-
     let dateDepart = dataForm.get("date_depart");
     let dateArrivee = dataForm.get("date_arrivee");
     let lieuDepart = dataForm.get("lieu_depart");

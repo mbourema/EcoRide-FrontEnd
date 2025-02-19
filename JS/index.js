@@ -100,6 +100,199 @@ function validateDate(input) {
     }
 }
 
+buttonRechercher.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    // Vérification des valeurs
+    const villeDepart = inputVilleDepart.value.trim();
+    const villeArrivee = inputVilleArrivee.value.trim();
+    const dateDepart = inputDateDepart.value.trim();
+
+    if (villeDepart && villeArrivee && dateDepart) {
+        // Créer l'URL avec les paramètres de la requête
+        const url = `${apiUrl}/covoiturage/list?ville_depart=${villeDepart}&ville_arrivee=${villeArrivee}&date_depart=${dateDepart}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                // Appeler la fonction pour afficher les covoiturages
+                afficherCovoiturages(data);
+            })
+            .catch(error => {
+                console.error("Erreur de requête API", error);
+            });
+    }
+});
+
+// Ajouter un événement sur le bouton de recherche
+buttonRechercher.addEventListener("click", function(event) {
+    event.preventDefault(); // Empêcher la soumission du formulaire par défaut
+
+    // Vérification des valeurs
+    const villeDepart = inputVilleDepart.value.trim();
+    const villeArrivee = inputVilleArrivee.value.trim();
+    const dateDepart = inputDateDepart.value.trim();
+
+    if (villeDepart && villeArrivee && dateDepart) {
+        // Construire l'URL avec les paramètres de la recherche
+        const url = `/covoiturages?ville_depart=${encodeURIComponent(villeDepart)}&ville_arrivee=${encodeURIComponent(villeArrivee)}&date_depart=${encodeURIComponent(dateDepart)}`;
+
+        // Rediriger vers la page des covoiturages
+        window.location.href = url;
+    }
+});
+
+// Fonction pour récupérer les paramètres de l'URL
+function getSearchParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return {
+        villeDepart: urlParams.get('ville_depart'),
+        villeArrivee: urlParams.get('ville_arrivee'),
+        dateDepart: urlParams.get('date_depart')
+    };
+}
+
+// Fonction pour récupérer la note moyenne d'un conducteur
+async function getMoyenneNote(pseudo) {
+    const urlAvis = `http://127.0.0.1:8000/avis/fulllist/conducteur/${pseudo}`;
+
+    try {
+        const response = await fetch(urlAvis);
+
+        if (response.status === 404) {
+            return "Pas de note pour le moment !"; // Aucun avis trouvé
+        }
+
+        if (!response.ok) {
+            throw new Error(`Erreur lors de la récupération des avis: ${response.status}`);
+        }
+
+        const avis = await response.json();
+
+        // Calcul de la moyenne des notes
+        if (avis.length > 0) {
+            const totalNotes = avis.reduce((sum, avis) => sum + avis.note, 0);
+            return (totalNotes / avis.length).toFixed(1); // Retourner une moyenne arrondie à 1 décimale
+        }
+
+        return "Pas de note pour le moment !";
+    } catch (error) {
+        console.error("Erreur lors de la récupération des avis :", error);
+        return "Pas de note pour le moment !";
+    }
+}
+
+// Fonction pour récupérer l'énergie de la voiture
+async function getEnergieVoiture(voitureId) {
+    const urlVoiture = `http://127.0.0.1:8000/api/voitures/details/${voitureId}`;
+
+    try {
+        const response = await fetch(urlVoiture);
+        if (!response.ok) {
+            throw new Error(`Erreur lors de la récupération de l'énergie: ${response.status}`);
+        }
+
+        const voiture = await response.json();
+        return voiture.energie || "Non spécifié"; // Retourne l'énergie ou un message par défaut
+    } catch (error) {
+        console.error("Erreur lors de la récupération de l'énergie de la voiture :", error);
+        return "Non spécifié";
+    }
+}
+
+// Fonction pour afficher les covoiturages dans la page
+async function afficherCovoiturages(covoiturages) {
+    const containerCovoiturages = document.querySelector('.covoiturages .row'); // Sélecteur pour les éléments de covoiturages
+
+    // Vider les anciennes cartes de covoiturages
+    containerCovoiturages.innerHTML = '';
+
+    // Récupérer la date de départ entrée par l'utilisateur
+    const searchParams = getSearchParams();
+    const dateDepartUser = new Date(searchParams.dateDepart);
+
+    for (const covoiturage of covoiturages) {
+        const dateDepartCovoiturage = new Date(covoiturage.date_depart);
+        const dateArriveeCovoiturage = new Date(covoiturage.date_arrivee);
+
+        // Vérifier si la ville de départ et d'arrivée correspondent, et si la date de départ est correcte
+        if (
+            covoiturage.lieu_depart.toLowerCase() === searchParams.villeDepart.toLowerCase() &&
+            covoiturage.lieu_arrivee.toLowerCase() === searchParams.villeArrivee.toLowerCase() &&
+            dateDepartCovoiturage.toDateString() === dateDepartUser.toDateString()
+        ) {
+            // Récupérer la note moyenne du conducteur
+            const moyenneNote = await getMoyenneNote(covoiturage.pseudo_conducteur);
+
+            // Récupérer l'énergie de la voiture
+            const energieVoiture = await getEnergieVoiture(covoiturage.voiture_id);
+
+            // Calcul de la durée du trajet en minutes
+            const dureeMinutes = Math.round((dateArriveeCovoiturage - dateDepartCovoiturage) / (1000 * 60));
+
+            // Créer la structure HTML du covoiturage
+            const card = document.createElement('div');
+            card.classList.add('col');
+            card.innerHTML = `
+                <div class="card p-3 d-flex flex-row align-items-center rounded-3 bg-ecogreen shadow-sm mb-3">
+                    <div class="covoit-info flex-grow-1">
+                        <p><strong>Pseudo :</strong> <span>${covoiturage.pseudo_conducteur}</span></p>
+                        <p><strong>Note moyenne :</strong> <span>${moyenneNote}</span></p>
+                        <p><strong>Prix :</strong> ${covoiturage.prix_personne} €</p>
+                        <p><strong>Places disponibles :</strong> ${covoiturage.nb_places}</p>
+                        <p><strong>Énergie du véhicule :</strong> ${energieVoiture}</p>
+                        <p><strong>Durée du trajet :</strong> ${dureeMinutes} min</p>
+                        <p><strong>Départ :</strong> ${new Date(covoiturage.date_depart).toLocaleString()}</p>
+                        <p><strong>Arrivée :</strong> ${new Date(covoiturage.date_arrivee).toLocaleString()}</p>
+                        <p><strong>Voyage :</strong> <span class="badge bg-success">${covoiturage.statut}</span></p>
+                    </div>
+                    <div class="text-center">
+                        <img src="${covoiturage.photo_conducteur}" class="rounded-circle" alt="Conducteur" style="width: 100%; max-width: 250px; height: 250px; object-fit: cover;">
+                        <br>
+                        <button id="detail-${covoiturage.id}" class="btn btn-secondary mt-2">Détails</button>
+                    </div>
+                </div>
+            `;
+
+            containerCovoiturages.appendChild(card);
+        }
+    }
+
+    if (containerCovoiturages.innerHTML === '') {
+        const noResultsMessage = document.createElement('p');
+        noResultsMessage.textContent = 'Aucun covoiturage disponible pour ces critères !';
+
+        noResultsMessage.style.cssText = `
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        `;
+
+        containerCovoiturages.appendChild(noResultsMessage);
+    }
+}
+
+// Exécuter la recherche des covoiturages après le chargement de la page
+document.addEventListener("DOMContentLoaded", function() {
+    const searchParams = getSearchParams();
+
+    if (searchParams.villeDepart && searchParams.villeArrivee && searchParams.dateDepart) {
+        const url = `http://127.0.0.1:8000/covoiturage/list?ville_depart=${searchParams.villeDepart}&ville_arrivee=${searchParams.villeArrivee}&date_depart=${searchParams.dateDepart}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                afficherCovoiturages(data);
+            })
+            .catch(error => {
+                console.error("Erreur de requête API", error);
+            });
+    }
+});
+
+
 // Créer un cookie à partir de son nom, de sa valeur et de sa durée d'expiration en jours
 export function setCookie(name,value,days) {
     var expires = "";
@@ -178,6 +371,7 @@ export function isConnected(){
         return true;
     }
 }
+
 //Afficher ou pas des éléments sur le site en fonction du role
 export function showAndHideElementsForRoles(){
     const userConnected = isConnected();

@@ -33,13 +33,13 @@ function loadCars() {
                 carElement.classList.add('col');
                 carElement.innerHTML = `
                     <div class="card p-3 d-flex flex-column align-items-start rounded-3 shadow-sm mb-3 bg-ecogreen_light">
-                        <p>Marque: ${car.marque.nom}</p>
-                        <p>Modèle: ${car.modele}</p>
-                        <p>Plaque d'immatriculation: ${car.immatriculation}</p>
-                        <p>Énergie: ${car.energie}</p>
-                        <p>Couleur: ${car.couleur}</p>
-                        <p>Date de première immatriculation: ${car.date_premiere_immatriculation}</p>
-                        <p>Nombre de places: ${car.nb_places}</p>
+                        <p><strong>Marque : </strong>${car.marque.nom}</p>
+                        <p><strong>Modèle : </strong>${car.modele}</p>
+                        <p><strong>Plaque d'immatriculation : </strong>${car.immatriculation}</p>
+                        <p><strong>Énergie : </strong>${car.energie}</p>
+                        <p><strong>Couleur : </strong>${car.couleur}</p>
+                        <p><strong>Date de première immatriculation : </strong>${car.date_premiere_immatriculation}</p>
+                        <p><strong>Nombre de places : </strong>${car.nb_places}</p>
                     </div>
                 `;
                 carsListContainer.appendChild(carElement);
@@ -83,12 +83,12 @@ function loadCarpools() {
                 carpoolElement.classList.add('col');
                 carpoolElement.innerHTML = `
                     <div class="card p-3 d-flex flex-column align-items-start rounded-3 shadow-sm mb-3 bg-ecogreen_light">
-                        <h5>Covoiturage ID: ${carpool.id}</h5>
-                        <p>Montant: ${carpool.prix_personne}€</p>
-                        <p>Date de départ: ${new Date(carpool.date_depart).toLocaleString()}</p>
-                        <p>Lieu de départ: ${carpool.lieu_depart}</p>
-                        <p>Date d'arrivée: ${new Date(carpool.date_arrivee).toLocaleString()}</p>
-                        <p>Lieu d'arrivée: ${carpool.lieu_arrivee}</p>
+                        <p><strong>Covoiturage ID : </strong>${carpool.id}</p>
+                        <p><strong>Montant : </strong>${carpool.prix_personne}€</p>
+                        <p><strong>Date de départ : </strong>${new Date(carpool.date_depart).toLocaleString()}</p>
+                        <p><strong>Lieu de départ : </strong>${carpool.lieu_depart}</p>
+                        <p><strong>Date d'arrivée : </strong>${new Date(carpool.date_arrivee).toLocaleString()}</p>
+                        <p><strong>Lieu d'arrivée : </strong>${carpool.lieu_arrivee}</p>
                     </div>
                 `;
                 carpoolsListContainer.appendChild(carpoolElement);

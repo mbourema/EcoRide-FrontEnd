@@ -22,53 +22,58 @@ const getRouteByUrl = (url) => {
   }
 };
 
-// Fonction pour charger le contenu de la page
 const LoadContentPage = async () => {
   const path = window.location.pathname;
   const actualRoute = getRouteByUrl(path);
 
-  // Vérifier si la route nécessite une autorisation
-  const allRolesArray = actualRoute.authorize;
+  if (!actualRoute) { 
+    console.error(`Aucune route trouvée pour le chemin : ${path}`);
+    window.location.replace("/accueil"); // Redirige vers l'accueil si la route n'existe pas
+    return;
+  }
+
+  const allRolesArray = actualRoute.authorize || []; // Assure que c'est un tableau
+
   if (allRolesArray.length > 0) {
-    
     if (allRolesArray.includes("disconnected")) {
       if (isConnected()) {
         window.location.replace("/accueil");
         return;
       }
     } else {
-      const roleUser = getRole(); // Peut être null ou undefined
+      const roleUser = getRole();
       if (!roleUser) {
-        // Redirige si l'utilisateur n'a pas de rôle (déconnecté ou cookie supprimé)
         window.location.replace("/accueil");
         return;
       }
 
-      const userRoles = roleUser.split(","); // Toujours un tableau même avec un seul rôle
+      const userRoles = roleUser.split(",");
       if (!userRoles.some(role => allRolesArray.includes(role))) {
         window.location.replace("/accueil");
         return;
       }
     }
   }
+
   // Récupération du contenu HTML de la route
-  // Ici, l'argument data est un objet Response qui représente la réponse de la requête HTTP
   const html = await fetch(actualRoute.pathHtml).then((data) => data.text());
-  // Ajout du contenu HTML à l'élément avec l'ID "main-page"
   document.getElementById("main-page").innerHTML = html;
 
   // Ajout du contenu JavaScript
   if (actualRoute.pathJS !== "") {
     let scriptTag = document.createElement("script");
-    scriptTag.setAttribute("type", "module"); // Assurer que c'est un module
+    scriptTag.setAttribute("type", "module");
     scriptTag.setAttribute("src", actualRoute.pathJS);
     document.querySelector("body").appendChild(scriptTag);
   }
+
   // Changement du titre de la page
   document.title = actualRoute.title + " - " + websiteName;
+  
   // Afficher et masquer les éléments en fonction du rôle
   showAndHideElementsForRoles();
 };
+
 
 
 // Fonction pour gérer les événements de routage (clic sur les liens)

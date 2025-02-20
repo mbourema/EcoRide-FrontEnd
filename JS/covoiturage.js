@@ -1,4 +1,4 @@
-import { apiUrl, getId, getToken } from "./index.js";
+import { apiUrl, getId, getToken, sanitizeHtml } from "./index.js";
 
 const inputDateDepart = document.getElementById("date_depart");
 const inputDateArrivee = document.getElementById("date_arrivee");
@@ -210,15 +210,15 @@ formulaireCovoiturage.addEventListener("submit", function(event) {
 
 function ProposerTrajet() {
     let dataForm = new FormData(formulaireCovoiturage);
-    let dateDepart = dataForm.get("date_depart");
-    let dateArrivee = dataForm.get("date_arrivee");
-    let lieuDepart = dataForm.get("lieu_depart");
-    let lieuArrivee = dataForm.get("lieu_arrivee");
-    let placesDisponibles = dataForm.get("places_disponibles");
-    let prixPersonne = dataForm.get("prix_personne");
+    let dateDepart = sanitizeHtml(dataForm.get("date_depart"));
+    let dateArrivee = sanitizeHtml(dataForm.get("date_arrivee"));
+    let lieuDepart = sanitizeHtml(dataForm.get("lieu_depart"));
+    let lieuArrivee = sanitizeHtml(dataForm.get("lieu_arrivee"));
+    let placesDisponibles = sanitizeHtml(dataForm.get("places_disponibles"));
+    let prixPersonne = sanitizeHtml(dataForm.get("prix_personne"));
     let voiture = dataForm.get("voiture");
-    let pseudoConducteur = dataForm.get("pseudo_conducteur");
-    let emailConducteur = dataForm.get("email_conducteur");
+    let pseudoConducteur = sanitizeHtml(dataForm.get("pseudo_conducteur"));
+    let emailConducteur = sanitizeHtml(dataForm.get("email_conducteur"));
 
     // Création des en-têtes et de la requête
     let token = getToken();

@@ -103,7 +103,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    max-width: 500px; /* Pour éviter que ça prenne toute la largeur */
+    max-width: 500px; 
 }
 
 
@@ -116,7 +116,7 @@ body {
 //Infos perso navbar
 
 #infos_perso {
-    width: 100%;  /* Ou définir un pourcentage comme 80%, 90%, etc. */
+    width: 100%; 
     margin-left: 10%;
 }
 

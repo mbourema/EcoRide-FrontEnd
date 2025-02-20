@@ -1,4 +1,5 @@
-import {apiUrl} from "./index.js";
+import {apiUrl, sanitizeHtml} from "./index.js";
+
 
 let selectedRole = null;
 const formInscription = document.getElementById("inscriptionForm");
@@ -194,18 +195,18 @@ function InscrireUtilisateur() {
     let dataForm = new FormData(formInscription);
     
     // Récupération des données via FormData
-    let name = dataForm.get("Nom");
-    let prenom = dataForm.get("Prenom");
-    let email = dataForm.get("Email");
-    let mdp = dataForm.get("Mdp");
-    let telephone = dataForm.get("Telephone");
-    let adresse = dataForm.get("Adresse");
+    let name = sanitizeHtml(dataForm.get("Nom")); 
+    let prenom = sanitizeHtml(dataForm.get("Prenom")); 
+    let email = sanitizeHtml(dataForm.get("Email")); 
+    let mdp = dataForm.get("Mdp"); // Mot de passe n'a pas besoin d'être assaini
+    let telephone = sanitizeHtml(dataForm.get("Telephone")); 
+    let adresse = sanitizeHtml(dataForm.get("Adresse")); 
     let dateNaissance = dataForm.get("Naissance");
-    let pseudo = dataForm.get("Pseudo");
+    let pseudo = sanitizeHtml(dataForm.get("Pseudo")); 
     let photo = inputPhoto.value.trim(); 
     let fumeur = fumeurCheckbox.checked ? true : false;
     let animal = animauxCheckbox.checked ? true : false;
-    let preferencesPerso = dataForm.get("preferences");
+    let preferencesPerso = sanitizeHtml(dataForm.get("preferences")); 
 
     // Vérifie l'URL de la photo si le rôle sélectionné nécessite une photo
     if ((selectedRole.includes(3)) && !photo) {
@@ -232,7 +233,6 @@ function InscrireUtilisateur() {
         "preference": preferencesPerso
     });
 
-
     let requestOptions = {
         method: "POST",
         headers: myHeaders,
@@ -257,6 +257,7 @@ function InscrireUtilisateur() {
         alert('L\'inscription a échoué');
     });
 }
+
 
 
 

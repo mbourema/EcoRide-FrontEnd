@@ -4,7 +4,7 @@ export const roleCookieName = "role";
 export const pseudoCookieName = "pseudo";
 export const nbCreditsCookieName = "crédits";
 export const idConnected = "id";
-export const apiUrl = "http://127.0.0.1:8000";
+export const apiUrl = "http://127.0.0.1:8001";
 const inputVilleDepart = document.getElementById("VilleDepart");
 const inputVilleArrivee = document.getElementById("VilleArrivee");
 const inputDateDepart = document.getElementById("DateDepart");
@@ -100,38 +100,17 @@ function validateDate(input) {
     }
 }
 
-buttonRechercher.addEventListener("click", function(event) {
-    event.preventDefault();
-
-    // Vérification des valeurs
-    const villeDepart = inputVilleDepart.value.trim();
-    const villeArrivee = inputVilleArrivee.value.trim();
-    const dateDepart = inputDateDepart.value.trim();
-
-    if (villeDepart && villeArrivee && dateDepart) {
-        // Créer l'URL avec les paramètres de la requête
-        const url = `${apiUrl}/covoiturage/list?ville_depart=${villeDepart}&ville_arrivee=${villeArrivee}&date_depart=${dateDepart}`;
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                // Appeler la fonction pour afficher les covoiturages
-                afficherCovoiturages(data);
-            })
-            .catch(error => {
-                console.error("Erreur de requête API", error);
-            });
-    }
-});
-
 // Ajouter un événement sur le bouton de recherche
 buttonRechercher.addEventListener("click", function(event) {
     event.preventDefault(); // Empêcher la soumission du formulaire par défaut
 
     // Vérification des valeurs
-    const villeDepart = inputVilleDepart.value.trim();
-    const villeArrivee = inputVilleArrivee.value.trim();
+    let villeDepart = inputVilleDepart.value.trim();
+    let villeArrivee = inputVilleArrivee.value.trim();
     const dateDepart = inputDateDepart.value.trim();
+
+    villeDepart = sanitizeHtml(villeDepart);
+    villeArrivee = sanitizeHtml(villeArrivee);
 
     if (villeDepart && villeArrivee && dateDepart) {
         // Construire l'URL avec les paramètres de la recherche
@@ -154,7 +133,7 @@ function getSearchParams() {
 
 // Fonction pour récupérer la note moyenne d'un conducteur
 async function getMoyenneNote(pseudo) {
-    const urlAvis = `http://127.0.0.1:8000/avis/fulllist/conducteur/${pseudo}`;
+    const urlAvis = `${apiUrl}/avis/fulllist/conducteur/${pseudo}`;
 
     try {
         const response = await fetch(urlAvis);
@@ -184,7 +163,7 @@ async function getMoyenneNote(pseudo) {
 
 // Fonction pour récupérer l'énergie de la voiture
 async function getEnergieVoiture(voitureId) {
-    const urlVoiture = `http://127.0.0.1:8000/api/voitures/details/${voitureId}`;
+    const urlVoiture = `${apiUrl}/api/voitures/details/${voitureId}`;
 
     try {
         const response = await fetch(urlVoiture);
@@ -210,6 +189,7 @@ async function afficherCovoiturages(covoiturages) {
     // Récupérer la date de départ entrée par l'utilisateur
     const searchParams = getSearchParams();
     const dateDepartUser = new Date(searchParams.dateDepart);
+
 
     for (const covoiturage of covoiturages) {
         const dateDepartCovoiturage = new Date(covoiturage.date_depart);
@@ -254,7 +234,14 @@ async function afficherCovoiturages(covoiturages) {
                 </div>
             `;
 
+            // Ajouter la carte au conteneur
             containerCovoiturages.appendChild(card);
+
+            // Ajouter un événement au bouton "Détails"
+            document.getElementById(`detail-${covoiturage.id}`).addEventListener("click", function () {
+                const url = `/detail?conducteur_id=${covoiturage.conducteur_id}&voiture_id=${covoiturage.voiture_id}&pseudo=${covoiturage.pseudo_conducteur}&covoiturage_id=${covoiturage.id}`;
+                window.location.href = url;
+            });
         }
     }
 
@@ -274,12 +261,13 @@ async function afficherCovoiturages(covoiturages) {
     }
 }
 
+
 // Exécuter la recherche des covoiturages après le chargement de la page
 document.addEventListener("DOMContentLoaded", function() {
     const searchParams = getSearchParams();
 
     if (searchParams.villeDepart && searchParams.villeArrivee && searchParams.dateDepart) {
-        const url = `http://127.0.0.1:8000/covoiturage/list?ville_depart=${searchParams.villeDepart}&ville_arrivee=${searchParams.villeArrivee}&date_depart=${searchParams.dateDepart}`;
+        const url = `${apiUrl}/covoiturage/list?ville_depart=${searchParams.villeDepart}&ville_arrivee=${searchParams.villeArrivee}&date_depart=${searchParams.dateDepart}`;
 
         fetch(url)
             .then(response => response.json())
@@ -421,41 +409,6 @@ export function sanitizeHtml(text){
     
     return tempHtml.innerHTML;
 }
-
-//Fonction pour récupérer les informations de l'utilisateur
-export function getInfoUser() {
-    let token = getToken();
-    console.log(token);
-    if (!token) {
-        console.error('Le jeton d\'authentification est manquant.');
-        return;
-    }
-
-    let myHeaders = new Headers();
-    myHeaders.append("X-AUTH-TOKEN", token);
-    myHeaders.append("Accept", "application/json");  // En-tête Accept
-
-    let requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-    };
-
-    return fetch(apiUrl + "/api/utilisateurs/details/2", requestOptions)
-        .then(response => {
-            if (response.ok) {
-                alert("les infos ont été récupérées !")
-                return response.json();
-            } else {
-                throw new Error("Impossible de récupérer les informations utilisateurs");
-            }
-        })
-        .catch(error => {
-            console.log('Erreur lors de la récupération des données utilisateurs', error);
-            throw error; // Re-propage l'erreur pour permettre une gestion en amont
-        });
-}
-
 
 document.addEventListener("DOMContentLoaded", function() {
     // Récupérer les informations des cookies

@@ -1,4 +1,4 @@
-import {apiUrl, getId, getToken} from "./index.js";
+import {apiUrl, getId, getToken, sanitizeHtml} from "./index.js";
 
 const inputMarque = document.getElementById("marque");
 const inputModele = document.getElementById("modele");
@@ -216,12 +216,12 @@ function AjouterVoiture() {
     let raw = JSON.stringify({
         "utilisateur_id": getId(),
         "marque_id": marque,
-        "modele": modele,
-        "immatriculation": immatriculation,  
-        "energie": energie,
-        "couleur": couleur,
-        "date_premiere_immatriculation": date_immatriculation,
-        "nb_places": nb_place
+        "modele": sanitizeHtml(modele),
+        "immatriculation": sanitizeHtml(immatriculation),  
+        "energie": sanitizeHtml(energie),
+        "couleur": sanitizeHtml(couleur),
+        "date_premiere_immatriculation": sanitizeHtml(date_immatriculation),
+        "nb_places": sanitizeHtml(nb_place)
     });
     console.log(raw);
 

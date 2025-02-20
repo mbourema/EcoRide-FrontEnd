@@ -1,0 +1,56 @@
+<div class="hero-scene text-center text-white text-font-family-serif">
+    <div class="hero-scene-content">
+        <h1>Rediger un avis</h1>
+    </div>
+</div>
+<div class="container-fluid bg-ecogreen_light">
+    <section class="login-container bg-ecogreen">
+        <h2 class="text-center mb-3">Donnez votre avis</h2>
+        <form id="avisForm" class="login-form">
+            <!-- Sélection du covoiturage -->
+            <div class="mb-3">
+                <label for="covoiturageSelect" class="form-label">Choisissez un covoiturage</label>
+                <select id="covoiturageSelect" class="form-select" required>
+                    <option value="">Sélectionnez un covoiturage</option>
+                    <!-- Options générées par JavaScript -->
+                </select>
+                <div class="invalid-feedback">
+                    Veuillez sélectionner un covoiturage.
+                </div>
+            </div>
+
+            <!-- Note -->
+            <div class="mb-3">
+                <label for="note" class="form-label">Note</label>
+                <input type="number" id="note" name="note" class="form-control" min="1" max="5" step="0.5" required>
+                <div class="invalid-feedback">
+                    La note doit être entre 1 et 5.
+                </div>
+            </div>
+
+            <!-- Signalement -->
+            <div class="mb-3">
+                <label for="signaler" class="form-label">Souhaitez-vous signaler ce covoiturage ?</label>
+                <input type="checkbox" id="signaler" name="signaler" class="form-check-input">
+            </div>
+
+            <!-- Justification pour signalement -->
+            <div class="mb-3" id="justificationContainer" style="display: none;">
+                <label for="justification" class="form-label">Justification</label>
+                <textarea id="justification" name="justification" class="form-control" rows="3" placeholder="Veuillez expliquer pourquoi vous signalez ce covoiturage..."></textarea>
+            </div>
+
+            <!-- Commentaire -->
+            <div class="mb-3">
+                <label for="commentaire" class="form-label">Commentaire</label>
+                <textarea id="commentaire" name="commentaire" class="form-control" rows="3" required></textarea>
+                <div class="invalid-feedback">
+                    Le commentaire ne peut pas être vide.
+                </div>
+            </div>
+
+            <!-- Bouton soumettre -->
+            <button id="submitAvis" type="submit" class="btn btn-warning w-100">Soumettre l'avis</button>
+        </form>
+    </section>
+</div>

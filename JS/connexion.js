@@ -1,4 +1,4 @@
-import { setCookie, roleCookieName, pseudoCookieName, nbCreditsCookieName, apiUrl, setToken, idConnected } from "./index.js";
+import { setCookie, roleCookieName, pseudoCookieName, nbCreditsCookieName, apiUrl, setToken, idConnected, sanitizeHtml } from "./index.js";
 
 const inputEmail = document.getElementById("Email");
 const inputMotDePasse = document.getElementById("Mdp");
@@ -87,8 +87,8 @@ function checkCredentials(){
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     let raw = JSON.stringify({
-        "email": dataForm.get("Email"),
-        "mdp": dataForm.get("Mdp")
+        "email": sanitizeHtml(dataForm.get("Email")),
+        "mdp": sanitizeHtml(dataForm.get("Mdp"))
     });
     let requestOptions = {
         method: 'POST',

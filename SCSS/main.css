@@ -12184,10 +12184,4 @@ body {
 
 #carsSection h2, #carsSection .h2, #carpoolsSection h2, #carpoolsSection .h2 {
   display: none;
-}
-
-.img-responsive {
-  width: 100%;
-  max-width: 250px;
-  height: auto; /* Garder les proportions */
 }/*# sourceMappingURL=main.css.map */

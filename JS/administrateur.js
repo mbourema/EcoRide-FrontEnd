@@ -19,7 +19,7 @@ async function getTotalCredits() {
         });
 
         if (!response.ok) {
-            throw new Error(`Erreur récupération des paiements : ${response.status}`);
+            alert("Aucun paiement n'a été effectué sur la plateforme");
         }
 
         const paiements = await response.json();
@@ -36,7 +36,6 @@ async function getTotalCredits() {
         displayTotalCredits(totalCredits);
     } catch (error) {
         console.error("Erreur lors de la récupération des paiements :", error);
-        alert("Erreur lors de la récupération des paiements.");
     }
 }
 

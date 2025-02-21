@@ -115,7 +115,7 @@ export async function afficherTousLesPaiements() {
         });
 
         if (!response.ok) {
-            throw new Error(`Erreur récupération des paiements : ${response.status}`);
+            alert("Vous n'avez pas encore effectué de paiements.");
         }
 
         const paiements = await response.json();
@@ -155,7 +155,6 @@ export async function afficherTousLesPaiements() {
 
     } catch (error) {
         console.error("Erreur lors de la récupération des paiements :", error);
-        alert("Erreur lors de la récupération des paiements.");
     }
 }
 

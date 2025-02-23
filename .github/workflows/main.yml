@@ -17,6 +17,7 @@ jobs:
         local-dir: "JS/"
         password: ${{ secrets.ftp_password }}
         server-dir: /home/ecoridespaacetree/
+        passive: true
         exclude: |
           **/.git*
           **/.git*/**

@@ -114,7 +114,7 @@ buttonRechercher.addEventListener("click", function(event) {
 
     if (villeDepart && villeArrivee && dateDepart) {
         // Construire l'URL avec les paramètres de la recherche
-        const url = `${apiUrl}/covoiturages?ville_depart=${encodeURIComponent(villeDepart)}&ville_arrivee=${encodeURIComponent(villeArrivee)}&date_depart=${encodeURIComponent(dateDepart)}`;
+        const url = `/covoiturages?ville_depart=${encodeURIComponent(villeDepart)}&ville_arrivee=${encodeURIComponent(villeArrivee)}&date_depart=${encodeURIComponent(dateDepart)}`;
         // Rediriger vers la page des covoiturages
         window.location.href = url;
     }

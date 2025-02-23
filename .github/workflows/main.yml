@@ -14,7 +14,7 @@ jobs:
         server: ftp-ecoridespaacetree.alwaysdata.net
         username: ecoridespaacetree
         protocol: ftps
-        log-level: verbose
+        local-dir: "JS/"
         password: ${{ secrets.ftp_password }}
         server-dir: /home/ecoridespaacetree/
         exclude: |

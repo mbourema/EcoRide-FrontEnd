@@ -13,6 +13,7 @@ jobs:
       with:
         server: ftp-ecoridespaacetree.alwaysdata.net
         username: ecoridespaacetree
+        protocol: ftps
         password: ${{ secrets.ftp_password }}
         server-dir: /home/ecoridespaacetree/
         exclude: |

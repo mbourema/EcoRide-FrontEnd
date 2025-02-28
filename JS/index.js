@@ -156,7 +156,7 @@ async function getMoyenneNote(pseudo) {
         return "Pas de note pour le moment !";
     } catch (error) {
         console.error("Erreur lors de la récupération des avis :", error);
-        return "Pas de note pour le moment !";
+        return "Pas d'avis pour le moment !";
     }
 }
 
@@ -194,11 +194,24 @@ async function afficherCovoiturages(covoiturages) {
         const dateDepartCovoiturage = new Date(covoiturage.date_depart);
         const dateArriveeCovoiturage = new Date(covoiturage.date_arrivee);
 
-        // Vérifier si la ville de départ et d'arrivée correspondent, et si la date de départ est correcte
+        // Fonction pour normaliser les chaînes de texte (enlever les espaces superflus et ignorer la casse)
+        function formateText(text) {
+            return text.trim().toLowerCase().replace(/\s+/g, ' ');
+        }
+        
+        // Fonction pour vérifier si les dates sont proches
+        
+        function isCloseEnough(date1, date2, toleranceDays = 1) {
+            const diffTime = Math.abs(date1 - date2); // Différence en millisecondes
+            const diffDays = diffTime / (1000 * 3600 * 24); // Convertir en jours
+            return diffDays <= toleranceDays; // Si la différence est inférieure ou égale à la tolérance
+        }
+        
+        // Comparer les lieux et la date avec plus de souplesse
         if (
-            covoiturage.lieu_depart.toLowerCase() === searchParams.villeDepart.toLowerCase() &&
-            covoiturage.lieu_arrivee.toLowerCase() === searchParams.villeArrivee.toLowerCase() &&
-            dateDepartCovoiturage.toDateString() === dateDepartUser.toDateString()
+            formateText(covoiturage.lieu_depart) === formateText(searchParams.villeDepart) &&
+            formateText(covoiturage.lieu_arrivee) === formateText(searchParams.villeArrivee) &&
+            isCloseEnough(dateDepartCovoiturage, dateDepartUser)
         ) {
             // Récupérer la note moyenne du conducteur
             const moyenneNote = await getMoyenneNote(covoiturage.pseudo_conducteur);

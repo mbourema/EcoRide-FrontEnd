@@ -1,1 +1,5 @@
+/*    /index.html   200
 
+/JS/*    /JS/$1   200
+/SCSS/*   /SCSS/$1   200
+/node_modules/* /node_modules/$1 200

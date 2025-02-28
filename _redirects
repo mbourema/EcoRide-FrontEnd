@@ -1,5 +1,8 @@
 /*    /index.html   200
 
+# Servir les fichiers JS
 /JS/*    /JS/$1   200
+
+# Servir les fichiers SCSS
 /SCSS/*   /SCSS/$1   200
-/node_modules/* /node_modules/$1 200
+

@@ -90,8 +90,23 @@ function validatePrenom() {
 
 function validateEmail() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isValid = emailRegex.test(inputEmail.value.trim());
-    toggleInputValidation(inputEmail, isValid);
+    fetch(apiUrl + "/api/utilisateurs/liste", {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => response.json()) 
+    .then(users => {
+        const inputValue = inputEmail.value.trim();
+        const emailExists = users.some(user => user.email === inputValue);
+
+        const isValid = emailRegex.test(inputEmail.value.trim()) && !emailExists;
+        toggleInputValidation(inputEmail, isValid);
+    })
+    .catch(error => {
+        console.error('Erreur lors de la récupération des utilisateurs :', error);
+    });
 }
 
 function validateMotDePasse() {

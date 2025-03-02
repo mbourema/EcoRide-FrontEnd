@@ -12,11 +12,6 @@ function setupInscriptionPage() {
     const conducteurFields = document.getElementById("conducteurFields");
     const inputPhoto = document.getElementById("Photo");
 
-    if (!roleButtons.length || !conducteurFields || !inputPhoto) {
-        console.warn("Les éléments du formulaire ne sont pas encore chargés.");
-        return;
-    }
-
     roleButtons.forEach(button => {
         button.addEventListener("click", function () {
             roleButtons.forEach(btn => btn.classList.remove("btn-success", "text-white"));
@@ -40,12 +35,15 @@ function setupInscriptionPage() {
 }
 
 // Attendre que le contenu soit injecté avant d’exécuter le script
-const checkPageLoaded = setInterval(() => {
+const observer = new MutationObserver((mutations, obs) => {
     if (document.getElementById("roleSelection")) {
-        clearInterval(checkPageLoaded);
+        obs.disconnect(); // Arrête d'observer les changements
         setupInscriptionPage();
     }
-}, 100);
+});
+
+observer.observe(document.body, { childList: true, subtree: true });
+
 
 const inputNom = document.getElementById("Nom");
 const inputPrenom = document.getElementById("Prenom");

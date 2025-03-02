@@ -88,7 +88,7 @@ function checkCredentials(){
     myHeaders.append("Content-Type", "application/json");
     let raw = JSON.stringify({
         "email": sanitizeHtml(dataForm.get("Email")),
-        "mdp": sanitizeHtml(dataForm.get("Mdp"))
+        "mdp": dataForm.get("Mdp")
     });
     let requestOptions = {
         method: 'POST',

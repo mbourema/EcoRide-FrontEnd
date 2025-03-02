@@ -35,15 +35,12 @@ function setupInscriptionPage() {
 }
 
 // Attendre que le contenu soit injecté avant d’exécuter le script
-const observer = new MutationObserver((mutations, obs) => {
+const checkPageLoaded = setInterval(() => {
     if (document.getElementById("roleSelection")) {
-        obs.disconnect(); // Arrête d'observer les changements
+        clearInterval(checkPageLoaded);
         setupInscriptionPage();
     }
-});
-
-observer.observe(document.body, { childList: true, subtree: true });
-
+}, 100);
 
 const inputNom = document.getElementById("Nom");
 const inputPrenom = document.getElementById("Prenom");

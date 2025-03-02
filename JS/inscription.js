@@ -112,8 +112,23 @@ function validateTelephone() {
 }
 
 function validatePseudo() {
-    const isValid = inputPseudo.value.trim() !== "";
-    toggleInputValidation(inputPseudo, isValid);
+    fetch(apiUrl + "/api/utilisateurs/liste", {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => response.json())  // Convertit la réponse en JSON
+    .then(users => {
+        const inputValue = inputPseudo.value.trim();
+        const pseudoExists = users.some(user => user.pseudo === inputValue);
+
+        const isValid = inputValue !== "" && !pseudoExists;
+        toggleInputValidation(inputPseudo, isValid);
+    })
+    .catch(error => {
+        console.error('Erreur lors de la récupération des utilisateurs :', error);
+    });
 }
 
 function validateAdresse() {

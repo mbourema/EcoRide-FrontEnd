@@ -50,7 +50,11 @@ function validateDateArrivee() {
 // Validation du lieu de départ
 function validateLieuDepart() {
     const LieuDepartRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/; 
-
+    let query = inputLieuDepart.value.trim();
+    if (query.length < 3){
+        fetch(`https://geo.api.gouv.fr/communes?nom={query}&fields=departement&boost=population&limit=5`)
+            .then(response => response.json());
+    }
     if (inputLieuDepart.value.trim() === "" || !LieuDepartRegex.test(inputLieuDepart.value.trim())) {
         inputLieuDepart.classList.remove("is-valid");
         inputLieuDepart.classList.add("is-invalid");

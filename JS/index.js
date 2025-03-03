@@ -56,7 +56,7 @@ function validateVille(input) {
         fetch(`https://geo.api.gouv.fr/communes?nom=${query}&fields=nom,code&boost=population&limit=5`)
             .then(response => response.json())
             .then(data => {
-                displayResults(data, resultsContainer, VilleUser);
+                displayResults(data, resultsContainer, query);
             })
             .catch(error => console.error("Erreur API:", error));
     } else {

@@ -46,18 +46,16 @@ function validateDateArrivee() {
     toggleSubmitButton();
 }
 
-// Validation du lieu de départ
-
 function validateLieuDepart() {
-    const resultsContainer = document.getElementById("autocomplete-results1");
+    const resultsContainer = document.getElementById("autocomplete-results-depart");
     const LieuDepartRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/;
     let query = inputLieuDepart.value.trim();
 
-    if (query.length >= 2) { // ✅ Envoyer la requête si ≥ 3 caractères
+    if (query.length >= 2) { 
         fetch(`https://geo.api.gouv.fr/communes?nom=${query}&fields=nom,code&boost=population&limit=5`)
             .then(response => response.json())
             .then(data => {
-                displayResults(data);
+                displayResults(data, resultsContainer, inputLieuDepart);
             })
             .catch(error => console.error("Erreur API:", error));
     } else {
@@ -75,18 +73,16 @@ function validateLieuDepart() {
     toggleSubmitButton();
 }
 
-
-// Validation du lieu d'arrivée
 function validateLieuArrivee() {
-    const resultsContainer = document.getElementById("autocomplete-results2");
+    const resultsContainer = document.getElementById("autocomplete-results-arrivee");
     const LieuArriveeRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/;
     let query = inputLieuArrivee.value.trim();
 
-    if (query.length >= 2) { // ✅ Envoyer la requête si ≥ 2 caractères
+    if (query.length >= 2) { 
         fetch(`https://geo.api.gouv.fr/communes?nom=${query}&fields=nom,code&boost=population&limit=5`)
             .then(response => response.json())
             .then(data => {
-                displayResults(data); 
+                displayResults(data, resultsContainer, inputLieuArrivee);
             })
             .catch(error => console.error("Erreur API:", error));
     } else {
@@ -103,21 +99,20 @@ function validateLieuArrivee() {
     toggleSubmitButton();
 }
 
-// Fonction pour afficher les suggestions dans une liste
-function displayResults(villes) {
-    resultsContainer.innerHTML = ""; // Nettoyer les anciens résultats
+function displayResults(villes, resultsContainer, inputField) {
+    resultsContainer.innerHTML = ""; 
+
     villes.forEach(ville => {
         let li = document.createElement("li");
         li.textContent = `${ville.nom} (${ville.code})`;
         li.classList.add("autocomplete-item");
         li.addEventListener("click", () => {
-            inputLieuDepart.value = ville.nom; 
+            inputField.value = ville.nom;
             resultsContainer.innerHTML = ""; 
         });
         resultsContainer.appendChild(li);
     });
 }
-
 
 // Validation du nombre de places disponibles
 function validatePlacesDisponibles() {

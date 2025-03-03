@@ -182,10 +182,13 @@ async function getEnergieVoiture(voitureId) {
 async function afficherCovoiturages(covoiturages) {
     const containerCovoiturages = document.querySelector('.covoiturages .row'); // Sélecteur pour les éléments de covoiturages
 
-    if (containerCovoiturages) {
-        // Vider les anciennes cartes de covoiturages
-        containerCovoiturages.innerHTML = '';
-    }
+    const checkPageLoaded = setInterval(() => {
+        if (containerCovoiturages) {
+            clearInterval(checkPageLoaded);
+            // Vider les anciennes cartes de covoiturages
+            containerCovoiturages.innerHTML = '';
+        }
+    }, 100);
 
     // Récupérer la date de départ entrée par l'utilisateur
     const searchParams = getSearchParams();

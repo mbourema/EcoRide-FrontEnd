@@ -196,7 +196,6 @@ function AjouterVoiture() {
 
     // Création des en-têtes et de la requête
     let token = getToken();
-        console.log(token);
         if (!token) {
             console.error('Le jeton d\'authentification est manquant.');
             return;
@@ -216,7 +215,6 @@ function AjouterVoiture() {
         "date_premiere_immatriculation": sanitizeHtml(date_immatriculation),
         "nb_places": sanitizeHtml(nb_place)
     });
-    console.log(raw);
 
 
     let requestOptions = {

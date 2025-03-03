@@ -209,7 +209,7 @@ async function afficherCovoiturages(covoiturages) {
         
         // Fonction pour vérifier si les dates sont proches
         
-        function isCloseEnough(date1, date2, toleranceDays = 1) {
+        function isCloseEnough(date1, date2, toleranceDays = 2) {
             const diffTime = Math.abs(date1 - date2); // Différence en millisecondes
             const diffDays = diffTime / (1000 * 3600 * 24); // Convertir en jours
             return diffDays <= toleranceDays; // Si la différence est inférieure ou égale à la tolérance
@@ -219,7 +219,7 @@ async function afficherCovoiturages(covoiturages) {
         if (
             formateText(covoiturage.lieu_depart) === formateText(searchParams.villeDepart) &&
             formateText(covoiturage.lieu_arrivee) === formateText(searchParams.villeArrivee) &&
-            isCloseEnough(dateDepartUser, dateDepartCovoiturage)
+            isCloseEnough(dateDepartCovoiturage, dateDepartUser)
         ) {
             // Récupérer la note moyenne du conducteur
             const moyenneNote = await getMoyenneNote(covoiturage.pseudo_conducteur);

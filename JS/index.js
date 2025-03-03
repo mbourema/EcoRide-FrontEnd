@@ -182,11 +182,6 @@ async function getEnergieVoiture(voitureId) {
 async function afficherCovoiturages(covoiturages) {
     const containerCovoiturages = document.querySelector('.covoiturages .row'); // Sélecteur pour les éléments de covoiturages
 
-    if (containerCovoiturages.innerHTML) {
-        // Vider les anciennes cartes de covoiturages
-        containerCovoiturages.innerHTML = '';
-    }
-
     // Récupérer la date de départ entrée par l'utilisateur
     const searchParams = getSearchParams();
     const dateDepartUser = new Date(searchParams.dateDepart);

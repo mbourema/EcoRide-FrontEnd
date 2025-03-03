@@ -47,10 +47,10 @@ function toggleSubmitButton() {
 
 // Fonction pour valider la ville
 function validateVille(input) {
+    const resultsContainer = document.getElementById("autocomplete-results");
     const VilleRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/;  // Ville doit commencer par une majuscule suivi de minuscules, espaces et apostrophes permis
     const VilleUser = input.value.trim(); 
-    const resultsContainer = document.getElementById("autocomplete-results");
-    let query = VilleUser.value.trim();
+    const query = input.value.trim(); 
 
     if (query.length >= 2) { 
         fetch(`https://geo.api.gouv.fr/communes?nom=${query}&fields=nom,code&boost=population&limit=5`)

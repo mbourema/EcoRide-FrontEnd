@@ -99,7 +99,15 @@ function checkCredentials(){
     fetch(apiUrl + "/api/utilisateurs/connexion", requestOptions)
     .then(response => {
         if (response.ok) {
-            alert("Connexion réussie !")
+            Swal.fire({
+                text: "Connexion réussie !",
+                icon: "success",
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 2000, 
+                timerProgressBar: true
+              });              
             return response.json();
         } 
         else if (response.status === 429) {

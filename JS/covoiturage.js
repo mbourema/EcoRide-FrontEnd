@@ -109,8 +109,8 @@ function displayResults(villes, resultsContainer, inputField) {
         li.addEventListener("click", () => {
             inputField.value = ville.nom;
             resultsContainer.innerHTML = ""; 
-            inputLieuArrivee.classList.add("is-valid");
-            inputLieuArrivee.classList.remove("is-invalid");
+            inputField.classList.add("is-valid");
+            inputField.classList.remove("is-invalid");
         });
         resultsContainer.appendChild(li);
     });

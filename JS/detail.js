@@ -104,7 +104,7 @@ async function afficherDetails() {
                 <div class="voyage-info flex-grow-1">
                     <p><strong>Marque :</strong> <span>${marqueDetails.libelle}</span></p>
                     <p><strong>Modele :</strong> ${voitureDetails.modele} </p>
-                    <p><strong>Energie utilisée :</strong> ${voitureDetails.energie}</p>
+                    <p><strong>Type véhicule :</strong> ${voitureDetails.energie}</p>
                     <p><strong>Préférences :</strong> ${conducteurDetails.preference}</p>
                 </div>
                 <div class="text-center">

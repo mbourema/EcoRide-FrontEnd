@@ -269,7 +269,7 @@ async function afficherCovoiturages(covoiturages) {
                         <p><strong>Note moyenne :</strong> <span>${moyenneNote}</span></p>
                         <p><strong>Prix :</strong> ${covoiturage.prix_personne} €</p>
                         <p><strong>Places disponibles :</strong> ${covoiturage.nb_places}</p>
-                        <p><strong>Énergie du véhicule :</strong> ${energieVoiture}</p>
+                        <p><strong>Type véhicule :</strong> ${energieVoiture}</p>
                         <p><strong>Durée du trajet :</strong> ${dureeMinutes} min</p>
                         <p><strong>Départ :</strong> ${new Date(covoiturage.date_depart).toLocaleString()}</p>
                         <p><strong>Arrivée :</strong> ${new Date(covoiturage.date_arrivee).toLocaleString()}</p>

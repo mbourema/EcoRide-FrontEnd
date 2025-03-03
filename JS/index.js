@@ -139,7 +139,7 @@ async function getMoyenneNote(pseudo) {
 
         // Vérification AVANT d'essayer d'analyser la réponse en JSON
         if (response.status === 404) {
-            return "Pas de note pour le moment !"; // ✅ Empêche toute autre exécution
+            return "Pas de note pour le moment !";
         }
 
         if (!response.ok) {

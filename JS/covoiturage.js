@@ -118,7 +118,7 @@ function displayResults(villes, resultsContainer, inputField) {
 
 // Validation du nombre de places disponibles
 function validatePlacesDisponibles() {
-    if (inputPlacesDisponibles.value.trim() === "" || inputPlacesDisponibles.value <= 0) {
+    if (inputPlacesDisponibles.value.trim() === "" || inputPlacesDisponibles.value <= 0 || inputPlacesDisponibles.value > 7) {
         inputPlacesDisponibles.classList.remove("is-valid");
         inputPlacesDisponibles.classList.add("is-invalid");
     } else {

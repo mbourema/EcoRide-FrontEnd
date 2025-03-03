@@ -49,8 +49,20 @@ function toggleSubmitButton() {
 function validateVille(input) {
     const VilleRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/;  // Ville doit commencer par une majuscule suivi de minuscules, espaces et apostrophes permis
     const VilleUser = input.value.trim(); 
+    const resultsContainer = document.getElementById("autocomplete-results");
+    let query = VilleUser.value.trim();
 
-    if (VilleUser === "") {
+    if (query.length >= 2) { 
+        fetch(`https://geo.api.gouv.fr/communes?nom=${query}&fields=nom,code&boost=population&limit=5`)
+            .then(response => response.json())
+            .then(data => {
+                displayResults(data, resultsContainer, VilleUser);
+            })
+            .catch(error => console.error("Erreur API:", error));
+    } else {
+        resultsContainer.innerHTML = "";
+    } 
+    if (query === "") {
         input.classList.remove("is-invalid");
         input.classList.remove("is-valid");
         return false; 
@@ -65,6 +77,23 @@ function validateVille(input) {
         input.classList.add("is-invalid");
         return false; 
     }
+}
+
+function displayResults(villes, resultsContainer, inputField) {
+    resultsContainer.innerHTML = ""; 
+
+    villes.forEach(ville => {
+        let li = document.createElement("li");
+        li.textContent = `${ville.nom} (${ville.code})`;
+        li.classList.add("autocomplete-item");
+        li.addEventListener("click", () => {
+            inputField.value = ville.nom;
+            resultsContainer.innerHTML = ""; 
+            inputField.classList.add("is-valid");
+            inputField.classList.remove("is-invalid");
+        });
+        resultsContainer.appendChild(li);
+    });
 }
 
 // Fonction pour valider la date

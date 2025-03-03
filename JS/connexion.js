@@ -100,7 +100,6 @@ function checkCredentials(){
     .then(response => {
         if (response.ok) {
             alert("Connexion réussie !")
-            console.log("Les modifications sont arrivées")
             return response.json();
         } 
         else if (response.status === 429) {

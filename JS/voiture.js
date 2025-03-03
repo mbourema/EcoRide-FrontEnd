@@ -141,13 +141,6 @@ function AjouterVoiture() {
     let couleur = dataForm.get("couleur");
     let date_immatriculation = dataForm.get("date_immatriculation");
     let nb_place = dataForm.get("places");
-    console.log(marque);
-    console.log(modele);
-    console.log(immatriculation);
-    console.log(energie);
-    console.log(couleur);
-    console.log(date_immatriculation);
-    console.log(nb_place);
 
 
     if (marque === "Alfa Romeo"){
@@ -244,7 +237,7 @@ function AjouterVoiture() {
         }
     })
     .then(result => {
-        document.location.reload();
+        window.location.href= `/conducteur`;
     })
     .catch(error => {
         alert('Erreur');

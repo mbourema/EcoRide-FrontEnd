@@ -262,7 +262,7 @@ function ProposerTrajet() {
         }
     })
     .then(result => {
-        document.location.reload();
+        window.location.href= `/conducteur`;
     })
     .catch(error => {
         alert('Erreur');

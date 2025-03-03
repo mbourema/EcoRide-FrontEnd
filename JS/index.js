@@ -137,28 +137,31 @@ async function getMoyenneNote(pseudo) {
     try {
         const response = await fetch(urlAvis);
 
+        // Vérification AVANT d'essayer d'analyser la réponse en JSON
         if (response.status === 404) {
-            return "Pas de note pour le moment !"; // Aucun avis trouvé
+            return "Pas de note pour le moment !"; // ✅ Empêche toute autre exécution
         }
 
         if (!response.ok) {
             throw new Error(`Erreur lors de la récupération des avis: ${response.status}`);
         }
 
-        const avis = await response.json();
-
-        // Calcul de la moyenne des notes
-        if (avis.length > 0) {
-            const totalNotes = avis.reduce((sum, avis) => sum + avis.note, 0);
-            return (totalNotes / avis.length).toFixed(1); // Retourner une moyenne arrondie à 1 décimale
+        // Vérification si la réponse contient bien du JSON avant de parser
+        const avis = await response.json().catch(() => null);
+        if (!Array.isArray(avis) || avis.length === 0) {
+            return "Pas de note pour le moment !";
         }
 
-        return "Pas de note pour le moment !";
+        // Calcul de la moyenne des notes
+        const totalNotes = avis.reduce((sum, avis) => sum + (avis.note || 0), 0);
+        return (totalNotes / avis.length).toFixed(1);
+
     } catch (error) {
         console.error("Erreur lors de la récupération des avis :", error);
         return "Pas d'avis pour le moment !";
     }
 }
+
 
 // Fonction pour récupérer l'énergie de la voiture
 async function getEnergieVoiture(voitureId) {

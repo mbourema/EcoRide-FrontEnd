@@ -46,26 +46,24 @@ function validateDateArrivee() {
     toggleSubmitButton();
 }
 
-
 // Validation du lieu de départ
-const resultsContainer = document.getElementById("autocomplete-results");
 
 function validateLieuDepart() {
+    const resultsContainer = document.getElementById("autocomplete-results1");
     const LieuDepartRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/;
     let query = inputLieuDepart.value.trim();
 
-    if (query.length >= 3) { // ✅ Envoyer la requête si ≥ 3 caractères
+    if (query.length >= 2) { // ✅ Envoyer la requête si ≥ 3 caractères
         fetch(`https://geo.api.gouv.fr/communes?nom=${query}&fields=nom,code&boost=population&limit=5`)
             .then(response => response.json())
             .then(data => {
-                displayResults(data); // ✅ Afficher les résultats
+                displayResults(data);
             })
             .catch(error => console.error("Erreur API:", error));
     } else {
-        resultsContainer.innerHTML = ""; // Vider la liste si < 3 caractères
+        resultsContainer.innerHTML = "";
     }
 
-    // ✅ Validation du champ
     if (query === "" || !LieuDepartRegex.test(query)) {
         inputLieuDepart.classList.remove("is-valid");
         inputLieuDepart.classList.add("is-invalid");
@@ -77,26 +75,25 @@ function validateLieuDepart() {
     toggleSubmitButton();
 }
 
-// ✅ Fonction pour afficher les suggestions dans une liste
-function displayResults(villes) {
-    resultsContainer.innerHTML = ""; // Nettoyer les anciens résultats
-    villes.forEach(ville => {
-        let li = document.createElement("li");
-        li.textContent = `${ville.nom} (${ville.code})`;
-        li.classList.add("autocomplete-item");
-        li.addEventListener("click", () => {
-            inputLieuDepart.value = ville.nom; // Remplir l'input au clic
-            resultsContainer.innerHTML = ""; // Cacher la liste
-        });
-        resultsContainer.appendChild(li);
-    });
-}
 
 // Validation du lieu d'arrivée
 function validateLieuArrivee() {
-    const LieuArriveeRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/; 
+    const resultsContainer = document.getElementById("autocomplete-results2");
+    const LieuArriveeRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/;
+    let query = inputLieuArrivee.value.trim();
 
-    if (inputLieuArrivee.value.trim() === "" || !LieuArriveeRegex.test(inputLieuArrivee.value.trim())) {
+    if (query.length >= 2) { // ✅ Envoyer la requête si ≥ 2 caractères
+        fetch(`https://geo.api.gouv.fr/communes?nom=${query}&fields=nom,code&boost=population&limit=5`)
+            .then(response => response.json())
+            .then(data => {
+                displayResults(data); 
+            })
+            .catch(error => console.error("Erreur API:", error));
+    } else {
+        resultsContainer.innerHTML = "";
+    } 
+
+    if (query === "" || !LieuArriveeRegex.test(inputLieuArrivee.value.trim())) {
         inputLieuArrivee.classList.remove("is-valid");
         inputLieuArrivee.classList.add("is-invalid");
     } else {
@@ -105,6 +102,22 @@ function validateLieuArrivee() {
     }
     toggleSubmitButton();
 }
+
+// Fonction pour afficher les suggestions dans une liste
+function displayResults(villes) {
+    resultsContainer.innerHTML = ""; // Nettoyer les anciens résultats
+    villes.forEach(ville => {
+        let li = document.createElement("li");
+        li.textContent = `${ville.nom} (${ville.code})`;
+        li.classList.add("autocomplete-item");
+        li.addEventListener("click", () => {
+            inputLieuDepart.value = ville.nom; 
+            resultsContainer.innerHTML = ""; 
+        });
+        resultsContainer.appendChild(li);
+    });
+}
+
 
 // Validation du nombre de places disponibles
 function validatePlacesDisponibles() {

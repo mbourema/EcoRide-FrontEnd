@@ -224,5 +224,26 @@ body {
     display: none;
 }
 
+// Suggestions de villes
+.autocomplete-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    max-width: 300px;
+    background: white;
+    position: absolute;
+}
+
+.autocomplete-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.autocomplete-item:hover {
+    background-color: #f0f0f0;
+}
+
+
 
 

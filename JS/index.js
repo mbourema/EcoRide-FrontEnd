@@ -470,6 +470,10 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("pseudo_presentation").innerHTML = `Bienvenue <span class="text-danger">${pseudo}</span> !`;
         document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">${nbCredit}</span>`;
     }
+    else {
+        document.getElementById("pseudo_presentation").innerHTML = `Bienvenue <span class="text-danger">${pseudo}</span> !`;
+        document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">0</span>`;
+    }
 });
 
 

@@ -304,9 +304,10 @@ function ProposerTrajet() {
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: false
-            })}).then (() => {
+            }).then (() => {
                 window.location.href= `/conducteur`;
             });
+        });
         } else {
             Swal.fire({
                 text: "Erreur lors de la proposition du trajet.",
@@ -320,12 +321,12 @@ function ProposerTrajet() {
     })
     .catch(error => {
         Swal.fire({
-            text: "Erreur lors de la proposition du trajet.",
-            icon: "error",
-            position: "center",
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: false
-        })
+                text: "Erreur lors de la proposition du trajet.",
+                icon: "error",
+                position: "center",
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: false
+            })
     });
 }

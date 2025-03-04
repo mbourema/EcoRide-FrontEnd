@@ -46,11 +46,11 @@ function toggleSubmitButton() {
 }
 
 // Fonction pour valider la ville de départ
-function villeDepart(input) {
+function villeDepart() {
     const resultsContainer = document.getElementById("autocomplete-results-depart");
     const VilleRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/;  // Ville doit commencer par une majuscule suivi de minuscules, espaces et apostrophes permis
-    const VilleUser = input.value.trim(); 
-    const query = input.value.trim(); 
+    const VilleUser = inputVilleDepart.value.trim(); 
+    const query = inputVilleDepart.value.trim(); 
 
     if (query.length >= 2) { 
         fetch(`https://geo.api.gouv.fr/communes?nom=${query}&fields=nom,code&boost=population&limit=5`)
@@ -80,11 +80,11 @@ function villeDepart(input) {
 }
 
 // Fonction pour valider la ville d'arrivée
-function villeArrivee(input) {
+function villeArrivee() {
     const resultsContainer = document.getElementById("autocomplete-results-arrivee");
     const VilleRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/;  // Ville doit commencer par une majuscule suivi de minuscules, espaces et apostrophes permis
-    const VilleUser = input.value.trim(); 
-    const query = input.value.trim(); 
+    const VilleUser = inputVilleArrivee.value.trim(); 
+    const query = inputVilleArrivee.value.trim(); 
 
     if (query.length >= 2) { 
         fetch(`https://geo.api.gouv.fr/communes?nom=${query}&fields=nom,code&boost=population&limit=5`)

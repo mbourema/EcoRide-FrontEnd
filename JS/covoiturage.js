@@ -47,7 +47,7 @@ function validateDateArrivee() {
 }
 
 function validateLieuDepart() {
-    const resultsContainer = document.getElementById("autocomplete-results-depart");
+    const resultsContainer = document.getElementById("autocomplete-results-1");
     const LieuDepartRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/;
     let query = inputLieuDepart.value.trim();
 
@@ -74,7 +74,7 @@ function validateLieuDepart() {
 }
 
 function validateLieuArrivee() {
-    const resultsContainer = document.getElementById("autocomplete-results-arrivee");
+    const resultsContainer = document.getElementById("autocomplete-results-2");
     const LieuArriveeRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/;
     let query = inputLieuArrivee.value.trim();
 

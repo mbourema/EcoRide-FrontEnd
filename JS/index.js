@@ -56,7 +56,7 @@ function villeDepart(input) {
         fetch(`https://geo.api.gouv.fr/communes?nom=${query}&fields=nom,code&boost=population&limit=5`)
             .then(response => response.json())
             .then(data => {
-                displayResults(data, resultsContainer, input);
+                displayResults(data, resultsContainer, inputVilleDepart);
             })
             .catch(error => console.error("Erreur API:", error));
     } else {
@@ -90,7 +90,7 @@ function villeArrivee(input) {
         fetch(`https://geo.api.gouv.fr/communes?nom=${query}&fields=nom,code&boost=population&limit=5`)
             .then(response => response.json())
             .then(data => {
-                displayResults(data, resultsContainer, input);
+                displayResults(data, resultsContainer, inputVilleArrivee);
             })
             .catch(error => console.error("Erreur API:", error));
     } else {

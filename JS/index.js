@@ -63,18 +63,18 @@ function villeDepart() {
         resultsContainer.innerHTML = "";
     } 
     if (query === "") {
-        input.classList.remove("is-invalid");
-        input.classList.remove("is-valid");
+        inputVilleDepart.classList.remove("is-invalid");
+        inputVilleDepart.classList.remove("is-valid");
         return false; 
     }
 
     if (VilleUser.match(VilleRegex)) {
-        input.classList.add("is-valid");
-        input.classList.remove("is-invalid");
+        inputVilleDepart.classList.add("is-valid");
+        inputVilleDepart.classList.remove("is-invalid");
         return true; 
     } else {
-        input.classList.remove("is-valid");
-        input.classList.add("is-invalid");
+        inputVilleDepart.classList.remove("is-valid");
+        inputVilleDepart.classList.add("is-invalid");
         return false; 
     }
 }
@@ -97,18 +97,18 @@ function villeArrivee() {
         resultsContainer.innerHTML = "";
     } 
     if (query === "") {
-        input.classList.remove("is-invalid");
-        input.classList.remove("is-valid");
+        inputVilleArrivee.classList.remove("is-invalid");
+        inputVilleArrivee.classList.remove("is-valid");
         return false; 
     }
 
     if (VilleUser.match(VilleRegex)) {
-        input.classList.add("is-valid");
-        input.classList.remove("is-invalid");
+        inputVilleArrivee.classList.add("is-valid");
+        inputVilleArrivee.classList.remove("is-invalid");
         return true; 
     } else {
-        input.classList.remove("is-valid");
-        input.classList.add("is-invalid");
+        inputVilleArrivee.classList.remove("is-valid");
+        inputVilleArrivee.classList.add("is-invalid");
         return false; 
     }
 }

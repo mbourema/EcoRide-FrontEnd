@@ -246,15 +246,9 @@ async function getEnergieVoiture(voitureId) {
 
 // Fonction pour afficher les covoiturages dans la page
 async function afficherCovoiturages(covoiturages) {
-    const containerCovoiturages = document.querySelector('.covoiturages .row'); // Sélecteur pour les éléments de covoiturages
+    const containerCovoiturages = await waitForElement('.covoiturages .row'); // Sélecteur pour les éléments de covoiturages
 
-    const checkPageLoaded = setInterval(() => {
-        if (containerCovoiturages) {
-            clearInterval(checkPageLoaded);
-            // Vider les anciennes cartes de covoiturages
-            containerCovoiturages.innerHTML = '';
-        }
-    }, 100);
+    containerCovoiturages.innerHTML = '';
 
     // Récupérer la date de départ entrée par l'utilisateur
     const searchParams = getSearchParams();

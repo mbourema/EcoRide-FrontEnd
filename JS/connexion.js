@@ -99,32 +99,39 @@ function checkCredentials(){
     fetch(apiUrl + "/api/utilisateurs/connexion", requestOptions)
     .then(response => {
         if (response.ok) {
-            Swal.fire({
-                text: "Connexion réussie !",
-                icon: "success",
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 10000, 
-                timerProgressBar: true
-              });              
-            return response.json();
-        } 
-        else if (response.status === 429) {
+            return response.json().then(result => {
+                Swal.fire({
+                    text: "Connexion réussie !",
+                    icon: "success",
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true
+                }).then(() => {
+                    // Une fois l'alerte fermée, on continue avec la redirection
+                    const token = result.api_token;
+                    setToken(token);
+                    setCookie(roleCookieName, result.roles, 7);
+                    setCookie(pseudoCookieName, result.pseudo, 7);
+                    setCookie(nbCreditsCookieName, result.nbCredit, 7);
+                    setCookie(idConnected, result.id, 7);
+                    
+                    window.location.replace("/");
+                });
+            });
+        } else if (response.status === 429) {
             alert("Trop de tentatives ! Veuillez réessayer plus tard.");
             location.reload(); 
-
-        } 
-        else {
+        } else {
             inputEmail.classList.add("is-invalid");
             inputMotDePasse.classList.add("is-invalid");
-        
+
             inputEmail.addEventListener("input", function() {
                 if (inputEmail.value !== "") {
                     inputEmail.classList.remove("is-invalid");
                 }
             });
-        
+
             inputMotDePasse.addEventListener("input", function() {
                 if (inputMotDePasse.value !== "") {
                     inputMotDePasse.classList.remove("is-invalid");
@@ -132,18 +139,6 @@ function checkCredentials(){
             });
         }        
     })
-    .then(result => {
-        const token = result.api_token;
-        setToken(token);
-
-        setCookie(roleCookieName, result.roles, 7);
-
-        setCookie(pseudoCookieName, result.pseudo, 7);
-
-        setCookie(nbCreditsCookieName, result.nbCredit, 7);
-
-        setCookie(idConnected, result.id, 7);
-    })
-    .catch(error => console.log('error', error));   
+    .catch(error => console.log('error', error));      
 }
 

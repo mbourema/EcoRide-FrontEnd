@@ -120,7 +120,14 @@ function checkCredentials(){
                 });
             });
         } else if (response.status === 429) {
-            alert("Trop de tentatives ! Veuillez réessayer plus tard.");
+            Swal.fire({
+                text: "Trop de tentatives ! Attendre avant de réessayer",
+                icon: "warning",
+                position: "center",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: false
+            })
             location.reload(); 
         } else {
             inputEmail.classList.add("is-invalid");

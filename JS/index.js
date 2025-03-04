@@ -22,13 +22,13 @@ function validateVilleDepart() {
 
 // Fonction pour valider la ville d'arrivée
 function validateVilleArrivee() {
-    const isValid = validateVille(inputVilleArrivee);
+    const isValid = villeDepart(inputVilleArrivee);
     toggleSubmitButton();  // Vérifier si le bouton doit être activé ou non
 }
 
 // Fonction pour valider la date de départ
 function validateDateDepart() {
-    const isValid = validateDate(inputDateDepart);
+    const isValid = villeArrivee(inputDateDepart);
     toggleSubmitButton();  // Vérifier si le bouton doit être activé ou non
 }
 
@@ -45,9 +45,43 @@ function toggleSubmitButton() {
     }
 }
 
-// Fonction pour valider la ville
-function validateVille(input) {
-    const resultsContainer = document.getElementById("autocomplete-results");
+// Fonction pour valider la ville de départ
+function villeDepart(input) {
+    const resultsContainer = document.getElementById("autocomplete-results1");
+    const VilleRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/;  // Ville doit commencer par une majuscule suivi de minuscules, espaces et apostrophes permis
+    const VilleUser = input.value.trim(); 
+    const query = input.value.trim(); 
+
+    if (query.length >= 2) { 
+        fetch(`https://geo.api.gouv.fr/communes?nom=${query}&fields=nom,code&boost=population&limit=5`)
+            .then(response => response.json())
+            .then(data => {
+                displayResults(data, resultsContainer, input);
+            })
+            .catch(error => console.error("Erreur API:", error));
+    } else {
+        resultsContainer.innerHTML = "";
+    } 
+    if (query === "") {
+        input.classList.remove("is-invalid");
+        input.classList.remove("is-valid");
+        return false; 
+    }
+
+    if (VilleUser.match(VilleRegex)) {
+        input.classList.add("is-valid");
+        input.classList.remove("is-invalid");
+        return true; 
+    } else {
+        input.classList.remove("is-valid");
+        input.classList.add("is-invalid");
+        return false; 
+    }
+}
+
+// Fonction pour valider la ville d'arrivée
+function villeArrivee(input) {
+    const resultsContainer = document.getElementById("autocomplete-results2");
     const VilleRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/;  // Ville doit commencer par une majuscule suivi de minuscules, espaces et apostrophes permis
     const VilleUser = input.value.trim(); 
     const query = input.value.trim(); 

@@ -4,7 +4,6 @@ import { apiUrl, getToken } from "./index.js";
 async function getTotalCredits() {
     const token = getToken();  // Récupère le token d'authentification
     if (!token) {
-        alert("Erreur : Token manquant !");
         return;
     }
 
@@ -19,7 +18,14 @@ async function getTotalCredits() {
         });
 
         if (!response.ok) {
-            alert("Aucun paiement n'a été effectué sur la plateforme");
+            Swal.fire({
+                text: "Aucun paiement n'a été effectué sur la plateforme",
+                icon: "error",
+                position: "center",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: false
+            });
         }
 
         const paiements = await response.json();

@@ -8,7 +8,6 @@ async function getCovoiturages() {
     const utilisateurId = getId();
 
     if (!token || !utilisateurId) {
-        alert("Erreur : Token ou ID utilisateur manquant !");
         return;
     }
 
@@ -35,8 +34,14 @@ async function getCovoiturages() {
         // Passer les paiements filtrés à la fonction populateCovoiturageSelect
         populateCovoiturageSelect(paiementsUtilisateur);
     } catch (error) {
-        console.error("Erreur lors de la récupération des paiements :", error);
-        alert("Erreur lors de la récupération des paiements.");
+        Swal.fire({
+            text: "Erreur lors de la récupération des paiements",
+            icon: "error",
+            position: "center",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: false
+        });
     }
 }
 
@@ -84,7 +89,14 @@ document.getElementById("avisForm").addEventListener("submit", function(event) {
 
     // Vérifications simples des champs
     if (!covoiturageId || !note || !commentaire) {
-        alert("Tous les champs obligatoires doivent être remplis.");
+        Swal.fire({
+            text: "Tous les champs obligatoires doivent être remplis !",
+            icon: "error",
+            position: "center",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: false
+        });
         return;
     }
 
@@ -92,7 +104,6 @@ document.getElementById("avisForm").addEventListener("submit", function(event) {
     const utilisateurId = getId();
 
     if (!token || !utilisateurId) {
-        alert("Erreur : Token ou ID utilisateur manquant !");
         return;
     }
 
@@ -116,20 +127,38 @@ document.getElementById("avisForm").addEventListener("submit", function(event) {
     })
     .then(response => {
         if (response.ok) {
-            alert("Avis soumis avec succès !");
-            window.location.replace("/"); 
+            Swal.fire({
+                text: "Avis soumis avec succès !",
+                icon: "success",
+                position: "center",
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: false
+            }).then(() => window.location.replace("/")); 
         } else {
-            alert("Erreur lors de la soumission de l'avis.");
+            Swal.fire({
+                text: "Erreur lors de la soumission de l'avis.",
+                icon: "error",
+                position: "center",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: false
+            });
         }
     })
     .catch(error => {
-        console.error("Erreur lors de la soumission de l'avis :", error);
-        alert("Une erreur est survenue.");
+        Swal.fire({
+            text: "Une erreur est survenue.",
+            icon: "error",
+            position: "center",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: false
+        });
     });
 });
 
 setTimeout(function() {
-    console.log("DOM entièrement chargé (après setTimeout), récupération des covoiturages...");
     getCovoiturages(); 
 }, 100);  
 

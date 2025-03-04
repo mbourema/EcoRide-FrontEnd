@@ -47,7 +47,7 @@ function toggleSubmitButton() {
 
 // Fonction pour valider la ville de départ
 function villeDepart(input) {
-    const resultsContainer = document.getElementById("autocomplete-results1");
+    const resultsContainer = document.getElementById("autocomplete-results-depart");
     const VilleRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/;  // Ville doit commencer par une majuscule suivi de minuscules, espaces et apostrophes permis
     const VilleUser = input.value.trim(); 
     const query = input.value.trim(); 
@@ -81,7 +81,7 @@ function villeDepart(input) {
 
 // Fonction pour valider la ville d'arrivée
 function villeArrivee(input) {
-    const resultsContainer = document.getElementById("autocomplete-results2");
+    const resultsContainer = document.getElementById("autocomplete-results-arrivee");
     const VilleRegex = /^[A-Z][a-z]*([ -']?[a-z]+)*$/;  // Ville doit commencer par une majuscule suivi de minuscules, espaces et apostrophes permis
     const VilleUser = input.value.trim(); 
     const query = input.value.trim(); 

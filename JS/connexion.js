@@ -103,10 +103,10 @@ function checkCredentials(){
                 Swal.fire({
                     text: "Connexion réussie !",
                     icon: "success",
-                    position: "top-end",
+                    position: "center",
                     showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true
+                    timer: 2000,
+                    timerProgressBar: false
                 }).then(() => {
                     // Une fois l'alerte fermée, on continue avec la redirection
                     const token = result.api_token;

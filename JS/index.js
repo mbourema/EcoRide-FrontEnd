@@ -22,13 +22,13 @@ function validateVilleDepart() {
 
 // Fonction pour valider la ville d'arrivée
 function validateVilleArrivee() {
-    const isValid = villeDepart(inputVilleArrivee);
+    const isValid = villeArrivee(inputVilleArrivee);
     toggleSubmitButton();  // Vérifier si le bouton doit être activé ou non
 }
 
 // Fonction pour valider la date de départ
 function validateDateDepart() {
-    const isValid = villeArrivee(inputDateDepart);
+    const isValid = validateDate(inputDateDepart);
     toggleSubmitButton();  // Vérifier si le bouton doit être activé ou non
 }
 

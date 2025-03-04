@@ -143,7 +143,6 @@ function checkCredentials(){
         setCookie(nbCreditsCookieName, result.nbCredit, 7);
 
         setCookie(idConnected, result.id, 7);
-        window.location.replace("/");
     })
     .catch(error => console.log('error', error));   
 }

@@ -7,7 +7,6 @@ export async function effectuerPaiement(covoiturageId) {
     console.log("Token utilisé:", token);  
 
     if (!token || !utilisateurId) {
-        alert("Erreur : Token ou ID utilisateur manquant !");
         return;
     }
 
@@ -25,24 +24,41 @@ export async function effectuerPaiement(covoiturageId) {
         });
 
         
-        if (!response.ok) {
-            
+        if (!response.ok) {       
             if (response.status === 404) {
-                alert("Erreur : Crédits insuffisants pour effectuer le paiement.");
-            } else {
-                alert(`Erreur lors du paiement : ${response.status}`);
-            }
+                Swal.fire({
+                    text: "Erreur : Crédits insuffisants pour effectuer le paiement.",
+                    icon: "error",
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: false
+                });
+            } 
             return;
         }
 
         const paiement = await response.json();
-        alert("Paiement réussi ! Veuillez vous reconnecter pour mettre à jour vos l'affichage de vos crédits.");
 
+        Swal.fire({
+            text: "Paiement réussi ! Veuillez vous reconnecter pour mettre à jour vos l'affichage de vos crédits.",
+            icon: "success",
+            position: "center",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: false
+        });
         
         afficherDetailsPaiement(paiement.paiement_id);  
     } catch (error) {
-        console.error("Erreur lors du paiement :", error);
-        alert("Une erreur est survenue lors du paiement. Veuillez réessayer.");
+        Swal.fire({
+            text: "Une erreur est survenue lors du paiement. Veuillez réessayer.",
+            icon: "error",
+            position: "center",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: false
+        });
     }
 }
 
@@ -51,7 +67,6 @@ async function afficherDetailsPaiement(paiementId) {
     const token = getToken(); 
 
     if (!token) {
-        alert("Erreur : Token manquant !");
         return;
     }
 
@@ -69,7 +84,6 @@ async function afficherDetailsPaiement(paiementId) {
         }
 
         const paiement = await response.json();
-        console.log("Détails du paiement :", paiement);
 
         
         const checkElementInterval = setInterval(() => {
@@ -91,7 +105,6 @@ async function afficherDetailsPaiement(paiementId) {
 
     } catch (error) {
         console.error("Erreur lors de la récupération des détails du paiement :", error);
-        alert("Erreur lors de la récupération des détails du paiement.");
     }
 }
 
@@ -101,7 +114,6 @@ export async function afficherTousLesPaiements() {
     const utilisateurId = getId();  
 
     if (!token || !utilisateurId) {
-        alert("Erreur : Token ou ID utilisateur manquant !");
         return;
     }
 
@@ -115,7 +127,14 @@ export async function afficherTousLesPaiements() {
         });
 
         if (!response.ok) {
-            alert("Vous n'avez pas encore effectué de paiements.");
+            Swal.fire({
+                text: "Vous n'avez pas encore effectué de paiements.",
+                icon: "error",
+                position: "center",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: false
+            });
         }
 
         const paiements = await response.json();

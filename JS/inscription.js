@@ -282,7 +282,7 @@ function InscrireUtilisateur() {
                     icon: "success",
                     position: "center",
                     showConfirmButton: false,
-                    timer: 2000,
+                    timer: 3000,
                     timerProgressBar: false
                 }).then(() => {                   
                     document.location.href = "/connexion";

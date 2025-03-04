@@ -235,7 +235,14 @@ function InscrireUtilisateur() {
 
     // Vérifie l'URL de la photo si le rôle sélectionné nécessite une photo
     if ((selectedRole.includes(3)) && !photo) {
-        alert("Veuillez entrer une URL de photo de profil.");
+        Swal.fire({
+            text: "Veuillez entrer une URL de photo de profil.",
+            icon: "warning",
+            position: "center",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: false
+        })
     }
 
     // Création des en-têtes et de la requête
@@ -269,17 +276,38 @@ function InscrireUtilisateur() {
     fetch(apiUrl + "/api/utilisateurs/ajouter", requestOptions)
     .then(response => {
         if (response.ok) {
-            alert("Félicitations " + prenom + " , vous êtes maintenant inscrit et vous pouvez vous connecter.");
-            return response.json();
+            return response.json().then(result => {
+                Swal.fire({
+                    text: "Félicitations " + prenom + " , vous êtes maintenant inscrit et vous pouvez vous connecter.",
+                    icon: "success",
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: false
+                }).then(() => {                   
+                    document.location.href = "/connexion";
+                });
+            });
         } else {
-            alert("Erreur lors de l'inscription");
+            Swal.fire({
+                text: "Erreur lors de l'inscription.",
+                icon: "error",
+                position: "center",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: false
+            });
         }
     })
-    .then(result => {
-        document.location.href = "/connexion";
-    })
     .catch(error => {
-        alert('L\'inscription a échoué');
+        Swal.fire({
+            text: "L'inscription a échouée.",
+            icon: "error",
+            position: "center",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: false
+        });
     });
 }
 

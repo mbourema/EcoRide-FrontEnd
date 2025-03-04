@@ -4,7 +4,6 @@ import { apiUrl, getId, getToken } from "./index.js";
 export async function effectuerPaiement(covoiturageId) {
     const token = getToken();
     const utilisateurId = getId();
-    console.log("Token utilisé:", token);  
 
     if (!token || !utilisateurId) {
         return;

@@ -228,16 +228,37 @@ function AjouterVoiture() {
     fetch(apiUrl + "/api/voitures/ajouter", requestOptions)
     .then(response => {
         if (response.ok) {
-            alert("Félicitations, vous avez entré une nouvelle voiture.");
-            return response.json();
+            return response.json().then(result => {
+                Swal.fire({
+                    text: "Félicitations, vous avez entré une nouvelle voiture.",
+                    icon: "success",
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: false
+                }).then(() => {
+                    window.location.href= `/conducteur`;
+                });
+            });
         } else {
-            alert("Erreur lors de l'ajout de la voiture");
+            Swal.fire({
+                text: "Erreur lors de l'ajout de la voiture",
+                icon: "error",
+                position: "center",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: false
+            })
         }
     })
-    .then(result => {
-        window.location.href= `/conducteur`;
-    })
     .catch(error => {
-        alert('Erreur');
+        Swal.fire({
+            text: "Erreur lors de l'ajout de la voiture",
+            icon: "error",
+            position: "center",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: false
+        })
     });
 }

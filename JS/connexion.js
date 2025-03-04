@@ -127,8 +127,9 @@ function checkCredentials(){
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: false
-            })
-            location.reload(); 
+            }).then(() => {
+                location.reload();
+            }); 
         } else {
             inputEmail.classList.add("is-invalid");
             inputMotDePasse.classList.add("is-invalid");

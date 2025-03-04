@@ -244,6 +244,23 @@ async function getEnergieVoiture(voitureId) {
     }
 }
 
+function waitForElement(selector, timeout = 5000) {
+    return new Promise((resolve, reject) => {
+        const startTime = Date.now();
+
+        const checkElement = setInterval(() => {
+            const element = document.querySelector(selector);
+            if (element) {
+                clearInterval(checkElement);
+                resolve(element);
+            } else if (Date.now() - startTime > timeout) {
+                clearInterval(checkElement);
+                reject(new Error(`Timeout: L'élément ${selector} n'a pas été trouvé`));
+            }
+        }, 100);
+    });
+}
+
 // Fonction pour afficher les covoiturages dans la page
 async function afficherCovoiturages(covoiturages) {
     const containerCovoiturages = await waitForElement('.covoiturages .row'); // Sélecteur pour les éléments de covoiturages

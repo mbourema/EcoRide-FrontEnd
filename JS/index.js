@@ -205,7 +205,7 @@ async function getMoyenneNote(pseudo) {
             return "Pas de note pour le moment !";
         }
 
-        if (!response.ok) {
+        if (!response.ok & response.status !== 404) {
             throw new Error(`Erreur lors de la récupération des avis: ${response.status}`);
         }
 

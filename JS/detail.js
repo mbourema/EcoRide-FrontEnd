@@ -155,7 +155,7 @@ async function afficherDetails() {
                 avisContainer.appendChild(avisCard);
             });
         } else {
-            avisContainer.innerHTML += `<p class="text-center">Aucun avis pour ce conducteur pour l'instant.</p>`;
+            avisContainer.innerHTML += `<p class="text-center text-danger">Aucun avis pour ce conducteur pour l'instant.</p>`;
         }
     } else {
         // Si les paramètres sont invalides, on n'affiche rien du tout (pas de voyage)

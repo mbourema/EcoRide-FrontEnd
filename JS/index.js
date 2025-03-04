@@ -205,7 +205,7 @@ async function getMoyenneNote(pseudo) {
             return "Pas de note pour le moment !";
         }
 
-        if (!response.ok & response.status !== 404) {
+        if (!response.ok) {
             throw new Error(`Erreur lors de la récupération des avis: ${response.status}`);
         }
 
@@ -220,7 +220,9 @@ async function getMoyenneNote(pseudo) {
         return (totalNotes / avis.length).toFixed(1);
 
     } catch (error) {
-        console.error("Erreur lors de la récupération des avis :", error);
+        if (!error.message.includes('404')) {
+            console.error("Erreur lors de la récupération des avis:", error);
+        }
         return "Pas d'avis pour le moment !";
     }
 }

@@ -16,7 +16,7 @@ inputDateDepart.addEventListener("input", validateDateDepart);
 
 // Fonction pour valider la ville de départ
 function validateVilleDepart() {
-    const isValid = validateVille(inputVilleDepart);
+    const isValid = villeDepart(inputVilleDepart);
     toggleSubmitButton();  // Vérifier si le bouton doit être activé ou non
 }
 

@@ -296,16 +296,36 @@ function ProposerTrajet() {
     fetch(apiUrl + "/covoiturage/add", requestOptions)
     .then(response => {
         if (response.ok) {
-            alert("Félicitations, vous avez proposé un nouveau trajet.");
-            return response.json();
+            return response.json().then(result => {
+            Swal.fire({
+                text: "Félicitations, vous avez proposé un nouveau trajet.",
+                icon: "success",
+                position: "center",
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: false
+            })}).then (() => {
+                window.location.href= `/conducteur`;
+            });
         } else {
-            alert("Erreur lors de la proposition du trajet");
+            Swal.fire({
+                text: "Erreur lors de la proposition du trajet.",
+                icon: "error",
+                position: "center",
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: false
+            })
         }
     })
-    .then(result => {
-        window.location.href= `/conducteur`;
-    })
     .catch(error => {
-        alert('Erreur');
+        Swal.fire({
+            text: "Erreur lors de la proposition du trajet.",
+            icon: "error",
+            position: "center",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: false
+        })
     });
 }

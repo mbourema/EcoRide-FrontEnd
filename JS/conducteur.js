@@ -89,6 +89,7 @@ function loadCarpools() {
                         <p><strong>Lieu de départ : </strong>${carpool.lieu_depart}</p>
                         <p><strong>Date d'arrivée : </strong>${new Date(carpool.date_arrivee).toLocaleString()}</p>
                         <p><strong>Lieu d'arrivée : </strong>${carpool.lieu_arrivee}</p>
+                        <p><strong>Statut : </strong>${carpool.statut}</p>
                     </div>
                 `;
                 carpoolsListContainer.appendChild(carpoolElement);

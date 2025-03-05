@@ -220,9 +220,6 @@ async function getMoyenneNote(pseudo) {
         return (totalNotes / avis.length).toFixed(1);
 
     } catch (error) {
-        if (!error.message.includes('404')) {
-            console.error("Erreur lors de la récupération des avis:", error);
-        }
         return "Pas d'avis pour le moment !";
     }
 }

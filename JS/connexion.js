@@ -114,8 +114,7 @@ function checkCredentials(){
                     setCookie(roleCookieName, result.roles, 7);
                     setCookie(pseudoCookieName, result.pseudo, 7);
                     setCookie(nbCreditsCookieName, result.nbCredit, 7);
-                    setCookie(idConnected, result.id, 7);
-                    
+                    setCookie(idConnected, result.id, 7);                    
                     window.location.replace("/");
                 });
             });

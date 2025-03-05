@@ -341,6 +341,10 @@ async function afficherCovoiturages(covoiturages) {
     if (containerCovoiturages.innerHTML === '') {
         const noResultsMessage = document.createElement('p');
         noResultsMessage.textContent = 'Aucun covoiturage disponible pour ces critères !';
+        let saut = document.createElement('br');
+        for (i=0; i<6; i++){
+            saut += saut;
+        }
 
         noResultsMessage.style.cssText = `
             color: red;
@@ -351,6 +355,7 @@ async function afficherCovoiturages(covoiturages) {
         `;
 
         containerCovoiturages.appendChild(noResultsMessage);
+        containerCovoiturages.appendChild(saut);
     }
 }
 

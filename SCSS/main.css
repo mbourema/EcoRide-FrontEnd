@@ -11997,7 +11997,7 @@ html, body {
   min-height: 100vh; /* Hauteur minimale de la page = hauteur de l'écran */
 }
 
-.main-page {
+#main-page {
   flex: 1; /* Prend tout l'espace disponible pour pousser le footer en bas */
 }
 

@@ -11996,12 +11996,11 @@ header {
   z-index: 1000;
 }
 
-nav {
+.navbar {
   position: sticky !important;
   top: 0;
-  z-index: 1000;
+  z-index: 1050;
   background-color: white;
-  display: block;
 }
 
 .wrapper {

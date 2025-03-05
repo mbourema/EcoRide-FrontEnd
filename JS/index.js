@@ -342,7 +342,7 @@ async function afficherCovoiturages(covoiturages) {
         const noResultsMessage = document.createElement('p');
         noResultsMessage.textContent = 'Aucun covoiturage disponible pour ces critères !';
         let saut = document.createElement('br');
-        for (i=0; i<6; i++){
+        for (let i=0; i<6; i++){
             saut += saut;
         }
 

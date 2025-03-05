@@ -12000,7 +12000,7 @@ header {
   position: sticky !important;
   top: 0;
   z-index: 1050;
-  background-color: white;
+  background-color: red !important;
 }
 
 .wrapper {

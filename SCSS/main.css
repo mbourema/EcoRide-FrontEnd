@@ -11991,6 +11991,11 @@ html, body {
   margin: 0;
 }
 
+header {
+  position: relative;
+  z-index: 1000;
+}
+
 nav {
   position: sticky !important;
   top: 0;
@@ -12003,6 +12008,10 @@ nav {
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* Hauteur minimale de la page = hauteur de l'écran */
+}
+
+.wrapper, body {
+  overflow: visible !important;
 }
 
 #main-page {

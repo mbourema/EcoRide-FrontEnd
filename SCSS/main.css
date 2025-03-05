@@ -11986,6 +11986,21 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Hauteur minimale de la page = hauteur de l'écran */
+}
+
+.main-page {
+  flex: 1; /* Prend tout l'espace disponible pour pousser le footer en bas */
+}
+
 body {
   background-color: var(--ecogreen-light);
   margin: 0;

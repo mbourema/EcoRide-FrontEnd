@@ -340,20 +340,8 @@ async function afficherCovoiturages(covoiturages) {
 
     if (containerCovoiturages.innerHTML === '') {
         const noResultsMessage = document.createElement('p');
-        noResultsMessage.textContent = `Aucun covoiturage disponible pour ces critères !
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>`;
+        noResultsMessage.textContent = 'Aucun covoiturage disponible pour ces critères !';
+
 
         noResultsMessage.style.cssText = `
             color: red;

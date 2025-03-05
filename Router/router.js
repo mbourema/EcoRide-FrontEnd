@@ -2,6 +2,9 @@ import { getRole, isConnected, showAndHideElementsForRoles } from "../JS/index.j
 import Route from "./route.js";
 import { allRoutes, websiteName } from "./allRoutes.js";
 
+// Création d'une route pour la page 404 (page introuvable)
+const connexion = new Route("connexion", "Veuillez vous connecter pour accéder a cette page", "/Pages/connectezvous.html");
+
 // Fonction pour récupérer la route correspondant à une URL donnée
 const getRouteByUrl = (url) => {
   let currentRoute = null;
@@ -15,7 +18,7 @@ const getRouteByUrl = (url) => {
   if (currentRoute != null) {
     return currentRoute;
   } else {
-    window.location.href = `/connexion`;
+    return connexion;
   }
 };
 

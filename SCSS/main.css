@@ -11991,6 +11991,10 @@ html, body {
   margin: 0;
 }
 
+nav {
+  position: sticky;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;

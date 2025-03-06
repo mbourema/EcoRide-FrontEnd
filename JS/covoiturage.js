@@ -7,8 +7,6 @@ const inputLieuArrivee = document.getElementById("lieu_arrivee");
 const inputPlacesDisponibles = document.getElementById("places_disponibles");
 const inputPrixPersonne = document.getElementById("prix_personne");
 const inputVoiture = document.getElementById("voiture");
-const inputPseudoConducteur = document.getElementById("pseudo_conducteur");
-const inputEmailConducteur = document.getElementById("email_conducteur");
 const buttonProposerTrajet = document.querySelector("button[type='submit']");
 const formulaireCovoiturage = document.getElementById("covoiturageForm");
 
@@ -20,8 +18,6 @@ inputLieuArrivee.addEventListener("input", validateLieuArrivee);
 inputPlacesDisponibles.addEventListener("input", validatePlacesDisponibles);
 inputPrixPersonne.addEventListener("input", validatePrixPersonne);
 inputVoiture.addEventListener("input", validateVoiture);
-inputPseudoConducteur.addEventListener("input", validatePseudoConducteur);
-inputEmailConducteur.addEventListener("input", validateEmailConducteur);
 
 // Validation de la date de départ
 function validateDateDepart() {
@@ -152,31 +148,6 @@ function validateVoiture() {
     toggleSubmitButton();
 }
 
-// Validation du pseudo du conducteur
-function validatePseudoConducteur() {
-    if (inputPseudoConducteur.value.trim() === "") {
-        inputPseudoConducteur.classList.remove("is-valid");
-        inputPseudoConducteur.classList.add("is-invalid");
-    } else {
-        inputPseudoConducteur.classList.add("is-valid");
-        inputPseudoConducteur.classList.remove("is-invalid");
-    }
-    toggleSubmitButton();
-}
-
-// Validation de l'email du conducteur
-function validateEmailConducteur() {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    if (inputEmailConducteur.value.trim() === "" || !inputEmailConducteur.value.match(emailRegex)) {
-        inputEmailConducteur.classList.remove("is-valid");
-        inputEmailConducteur.classList.add("is-invalid");
-    } else {
-        inputEmailConducteur.classList.add("is-valid");
-        inputEmailConducteur.classList.remove("is-invalid");
-    }
-    toggleSubmitButton();
-}
-
 // Fonction pour activer/désactiver le bouton de soumission
 function toggleSubmitButton() {
     const isDateDepartValid = inputDateDepart.classList.contains("is-valid");
@@ -186,11 +157,9 @@ function toggleSubmitButton() {
     const isPlacesDisponiblesValid = inputPlacesDisponibles.classList.contains("is-valid");
     const isPrixPersonneValid = inputPrixPersonne.classList.contains("is-valid");
     const isVoitureValid = inputVoiture.classList.contains("is-valid");
-    const isPseudoConducteurValid = inputPseudoConducteur.classList.contains("is-valid");
-    const isEmailConducteurValid = inputEmailConducteur.classList.contains("is-valid");
 
     // Si tous les champs sont valides, on active le bouton
-    if (isDateDepartValid && isDateArriveeValid && isLieuDepartValid && isLieuArriveeValid && isPlacesDisponiblesValid && isPrixPersonneValid && isVoitureValid && isPseudoConducteurValid && isEmailConducteurValid) {
+    if (isDateDepartValid && isDateArriveeValid && isLieuDepartValid && isLieuArriveeValid && isPlacesDisponiblesValid && isPrixPersonneValid) {
         buttonProposerTrajet.disabled = false;
     } else {
         buttonProposerTrajet.disabled = true;
@@ -249,7 +218,26 @@ formulaireCovoiturage.addEventListener("submit", function(event) {
     ProposerTrajet();
 });
 
+
 function ProposerTrajet() {
+    const id = getId();
+    console.log(id);
+    const response = fetch(`${apiUrl}/api/utilisateurs/details/${id}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json", 
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(`Erreur lors de la récuération des détails de l'utilisateur : ${response.status}`);
+    }
+
+    const email =  response.email;
+    console.log(email);
+    const pseudo = response.pseudo;
+    console.log(pseudo);
+
     let dataForm = new FormData(formulaireCovoiturage);
     let dateDepart = sanitizeHtml(dataForm.get("date_depart"));
     let dateArrivee = sanitizeHtml(dataForm.get("date_arrivee"));
@@ -258,8 +246,8 @@ function ProposerTrajet() {
     let placesDisponibles = sanitizeHtml(dataForm.get("places_disponibles"));
     let prixPersonne = sanitizeHtml(dataForm.get("prix_personne"));
     let voiture = dataForm.get("voiture");
-    let pseudoConducteur = sanitizeHtml(dataForm.get("pseudo_conducteur"));
-    let emailConducteur = sanitizeHtml(dataForm.get("email_conducteur"));
+    let pseudoConducteur = email;
+    let emailConducteur = pseudo;
 
     // Création des en-têtes et de la requête
     let token = getToken();

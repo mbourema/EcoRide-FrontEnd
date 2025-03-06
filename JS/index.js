@@ -535,11 +535,11 @@ document.addEventListener("DOMContentLoaded", function() {
             const nbCreditRefresh = getCookie(nbCreditsCookieName);
             document.getElementById("pseudo_presentation").innerHTML = `Bienvenue <span class="text-danger">${pseudo}</span> !`;
             document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">${nbCreditRefresh}</span>`;
+            if (!nbCreditRefresh){
+                document.getElementById("pseudo_presentation").innerHTML = `Bienvenue <span class="text-danger">${pseudo}</span> !`;
+                document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">0</span>`;
+            }
         });
-        if (pseudo && !nbCreditRefresh){
-            document.getElementById("pseudo_presentation").innerHTML = `Bienvenue <span class="text-danger">${pseudo}</span> !`;
-            document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">0</span>`;
-        }
 }})
 
 

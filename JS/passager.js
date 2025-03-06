@@ -40,7 +40,7 @@ export async function effectuerPaiement(covoiturageId) {
         const paiement = await response.json();
 
         Swal.fire({
-            text: "Paiement réussi ! Veuillez vous reconnecter pour mettre à jour vos l'affichage de vos crédits.",
+            text: "Paiement réussi !",
             icon: "success",
             position: "center",
             showConfirmButton: false,

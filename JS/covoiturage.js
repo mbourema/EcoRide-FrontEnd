@@ -235,90 +235,90 @@ function ProposerTrajet() {
         return response.json();
     })
     .then(data => {
-        email = data.email;
-        pseudo = data.pseudo;
-    })
+        let email = data.email;
+        let pseudo = data.pseudo;
+
+        let dataForm = new FormData(formulaireCovoiturage);
+        let dateDepart = sanitizeHtml(dataForm.get("date_depart"));
+        let dateArrivee = sanitizeHtml(dataForm.get("date_arrivee"));
+        let lieuDepart = sanitizeHtml(dataForm.get("lieu_depart"));
+        let lieuArrivee = sanitizeHtml(dataForm.get("lieu_arrivee"));
+        let placesDisponibles = sanitizeHtml(dataForm.get("places_disponibles"));
+        let prixPersonne = sanitizeHtml(dataForm.get("prix_personne"));
+        let voiture = dataForm.get("voiture");
+        let pseudoConducteur = email;
+        let emailConducteur = pseudo;
+
+        // Création des en-têtes et de la requête
+        let token = getToken();
+        if (!token) {
+            console.error('Le jeton d\'authentification est manquant.');
+            return;
+        }
+
+        let myHeaders = new Headers();
+        myHeaders.append("X-AUTH-TOKEN", token);
+        myHeaders.append("Accept", "application/json");
+
+        let raw = JSON.stringify({
+            "date_depart": dateDepart,
+            "date_arrivee": dateArrivee,
+            "lieu_depart": lieuDepart,
+            "lieu_arrivee": lieuArrivee,
+            "nb_places": placesDisponibles,
+            "prix_personne": prixPersonne,
+            "voiture_id": voiture,
+            "conducteur_id": getId(),
+            "pseudo_conducteur": pseudoConducteur,
+            "email_conducteur": emailConducteur
+        });
+
+        let requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+        // Envoi de la requête
+        fetch(apiUrl + "/covoiturage/add", requestOptions)
+        .then(response => {
+            if (response.ok) {
+                return response.json().then(result => {
+                Swal.fire({
+                    text: "Félicitations, vous avez proposé un nouveau trajet.",
+                    icon: "success",
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: false
+                }).then (() => {
+                    window.location.href= `/conducteur`;
+                });
+            });
+            } else {
+                Swal.fire({
+                    text: "Erreur lors de la proposition du trajet.",
+                    icon: "error",
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: false
+                })
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                    text: "Erreur lors de la proposition du trajet.",
+                    icon: "error",
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: false
+                })
+        });
+        })
     .catch(error => {
         console.error("Une erreur est survenue :", error.message);
-    });
-
-    let dataForm = new FormData(formulaireCovoiturage);
-    let dateDepart = sanitizeHtml(dataForm.get("date_depart"));
-    let dateArrivee = sanitizeHtml(dataForm.get("date_arrivee"));
-    let lieuDepart = sanitizeHtml(dataForm.get("lieu_depart"));
-    let lieuArrivee = sanitizeHtml(dataForm.get("lieu_arrivee"));
-    let placesDisponibles = sanitizeHtml(dataForm.get("places_disponibles"));
-    let prixPersonne = sanitizeHtml(dataForm.get("prix_personne"));
-    let voiture = dataForm.get("voiture");
-    let pseudoConducteur = email;
-    let emailConducteur = pseudo;
-
-    // Création des en-têtes et de la requête
-    let token = getToken();
-    if (!token) {
-        console.error('Le jeton d\'authentification est manquant.');
-        return;
-    }
-
-    let myHeaders = new Headers();
-    myHeaders.append("X-AUTH-TOKEN", token);
-    myHeaders.append("Accept", "application/json");
-
-    let raw = JSON.stringify({
-        "date_depart": dateDepart,
-        "date_arrivee": dateArrivee,
-        "lieu_depart": lieuDepart,
-        "lieu_arrivee": lieuArrivee,
-        "nb_places": placesDisponibles,
-        "prix_personne": prixPersonne,
-        "voiture_id": voiture,
-        "conducteur_id": getId(),
-        "pseudo_conducteur": pseudoConducteur,
-        "email_conducteur": emailConducteur
-    });
-
-    let requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
-    };
-
-    // Envoi de la requête
-    fetch(apiUrl + "/covoiturage/add", requestOptions)
-    .then(response => {
-        if (response.ok) {
-            return response.json().then(result => {
-            Swal.fire({
-                text: "Félicitations, vous avez proposé un nouveau trajet.",
-                icon: "success",
-                position: "center",
-                showConfirmButton: false,
-                timer: 2000,
-                timerProgressBar: false
-            }).then (() => {
-                window.location.href= `/conducteur`;
-            });
-        });
-        } else {
-            Swal.fire({
-                text: "Erreur lors de la proposition du trajet.",
-                icon: "error",
-                position: "center",
-                showConfirmButton: false,
-                timer: 2000,
-                timerProgressBar: false
-            })
-        }
-    })
-    .catch(error => {
-        Swal.fire({
-                text: "Erreur lors de la proposition du trajet.",
-                icon: "error",
-                position: "center",
-                showConfirmButton: false,
-                timer: 2000,
-                timerProgressBar: false
-            })
     });
 }

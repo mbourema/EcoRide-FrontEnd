@@ -12,7 +12,7 @@ html, body {
     width: 100%;
     z-index: 1050;
     height: 100px;
-    background-color: red !important;
+    background-color: blue !important;
 }
 
 .wrapper {
@@ -24,6 +24,15 @@ html, body {
 #main-page {
     flex: 1; /* Prend tout l'espace disponible pour pousser le footer en bas */
     padding-top: 100px;
+}
+
+@media (max-width: 1423px) {
+    .navbar {
+        height: 150px;
+    }
+    #main-page {
+        padding-top: 150px;
+    }
 }
 
 body {

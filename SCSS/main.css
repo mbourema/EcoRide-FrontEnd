@@ -11992,7 +11992,7 @@ html, body {
 }
 
 body {
-  padding-top: 60px;
+  padding-top: 100px;
 }
 
 .navbar {
@@ -12001,6 +12001,7 @@ body {
   left: 0;
   width: 100%;
   z-index: 1050;
+  background-color: blue !important;
 }
 
 .wrapper {

@@ -50,7 +50,8 @@ export async function effectuerPaiement(covoiturageId) {
             eraseCookie(nbCreditsCookieName);
         }).then(() => {
             setCookie(nbCreditsCookieName, paiement.nbCredit, 7);
-            getCookie(nbCreditsCookieName);
+        }).then(() => {
+            window.location.replace("/detail");
         });
         
         afficherDetailsPaiement(paiement.paiement_id);  

@@ -11991,17 +11991,13 @@ html, body {
   margin: 0;
 }
 
-body {
-  padding-top: 100px;
-}
-
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1050;
-  background-color: blue !important;
+  background-color: red !important;
 }
 
 .wrapper {
@@ -12012,6 +12008,7 @@ body {
 
 #main-page {
   flex: 1; /* Prend tout l'espace disponible pour pousser le footer en bas */
+  padding-top: 100px;
 }
 
 body {

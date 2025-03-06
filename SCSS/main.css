@@ -11991,28 +11991,18 @@ html, body {
   margin: 0;
 }
 
-header {
-  position: relative;
-  z-index: 1000;
-}
-
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1050;
-  background-color: red !important;
 }
 
 .wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* Hauteur minimale de la page = hauteur de l'écran */
-}
-
-.wrapper, body {
-  overflow: visible !important;
 }
 
 #main-page {

@@ -504,22 +504,23 @@ export function sanitizeHtml(text){
     return tempHtml.innerHTML;
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+export function loadinformations() { 
     // Récupérer les informations des cookies
     const pseudo = getCookie(pseudoCookieName);
     const nbCredit = getCookie(nbCreditsCookieName);
 
     // Vérifier si les cookies sont présents
     if (pseudo && nbCredit) {
-        // Afficher les informations dans la navbar
         document.getElementById("pseudo_presentation").innerHTML = `Bienvenue <span class="text-danger">${pseudo}</span> !`;
         document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">${nbCredit}</span>`;
-    }
-    else if (pseudo && !nbCredit){
+    } else if (pseudo && !nbCredit) {
         document.getElementById("pseudo_presentation").innerHTML = `Bienvenue <span class="text-danger">${pseudo}</span> !`;
         document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">0</span>`;
     }
-});
+}
+
+document.addEventListener("DOMContentLoaded", loadinformations);
+
 
 
 

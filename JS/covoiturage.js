@@ -227,16 +227,20 @@ function ProposerTrajet() {
         headers: {
             "Content-Type": "application/json", 
         }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Erreur lors de la récupération des détails de l'utilisateur : ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data.email);
+        console.log(data.pseudo);
+    })
+    .catch(error => {
+        console.error("Une erreur est survenue :", error.message);
     });
-
-    if (!response.ok) {
-        throw new Error(`Erreur lors de la récuération des détails de l'utilisateur : ${response.status}`);
-    }
-
-    const email =  response.email;
-    console.log(email);
-    const pseudo = response.pseudo;
-    console.log(pseudo);
 
     let dataForm = new FormData(formulaireCovoiturage);
     let dateDepart = sanitizeHtml(dataForm.get("date_depart"));
@@ -246,8 +250,8 @@ function ProposerTrajet() {
     let placesDisponibles = sanitizeHtml(dataForm.get("places_disponibles"));
     let prixPersonne = sanitizeHtml(dataForm.get("prix_personne"));
     let voiture = dataForm.get("voiture");
-    let pseudoConducteur = email;
-    let emailConducteur = pseudo;
+    let pseudoConducteur = data.email;
+    let emailConducteur = data.pseudo;
 
     // Création des en-têtes et de la requête
     let token = getToken();

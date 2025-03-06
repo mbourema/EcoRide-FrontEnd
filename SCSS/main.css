@@ -11998,7 +11998,6 @@ html, body {
   width: 100%;
   z-index: 1050;
   height: 100px;
-  background-color: green !important;
 }
 
 .wrapper {
@@ -12026,6 +12025,14 @@ html, body {
   }
   #main-page {
     padding-top: 210px;
+  }
+}
+@media (max-width: 370px) {
+  .navbar {
+    height: 400px;
+  }
+  #main-page {
+    padding-top: 400px;
   }
 }
 body {

@@ -235,8 +235,8 @@ function ProposerTrajet() {
         return response.json();
     })
     .then(data => {
-        console.log(data.email);
-        console.log(data.pseudo);
+        email = data.email;
+        pseudo = data.pseudo;
     })
     .catch(error => {
         console.error("Une erreur est survenue :", error.message);
@@ -250,8 +250,8 @@ function ProposerTrajet() {
     let placesDisponibles = sanitizeHtml(dataForm.get("places_disponibles"));
     let prixPersonne = sanitizeHtml(dataForm.get("prix_personne"));
     let voiture = dataForm.get("voiture");
-    let pseudoConducteur = data.email;
-    let emailConducteur = data.pseudo;
+    let pseudoConducteur = email;
+    let emailConducteur = pseudo;
 
     // Création des en-têtes et de la requête
     let token = getToken();

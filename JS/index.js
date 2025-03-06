@@ -539,8 +539,8 @@ document.addEventListener("DOMContentLoaded", function() {
         if (pseudo && !nbCreditRefresh){
             document.getElementById("pseudo_presentation").innerHTML = `Bienvenue <span class="text-danger">${pseudo}</span> !`;
             document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">0</span>`;
-    }
-});
+        }
+}})
 
 
 

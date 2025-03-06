@@ -246,8 +246,8 @@ function ProposerTrajet() {
         let placesDisponibles = sanitizeHtml(dataForm.get("places_disponibles"));
         let prixPersonne = sanitizeHtml(dataForm.get("prix_personne"));
         let voiture = dataForm.get("voiture");
-        let pseudoConducteur = email;
-        let emailConducteur = pseudo;
+        let pseudoConducteur = pseudo;
+        let emailConducteur = email;
 
         // Création des en-têtes et de la requête
         let token = getToken();

@@ -1,4 +1,4 @@
-import { apiUrl, getId, getToken, eraseCookie, getCookie } from "./index.js";
+import { apiUrl, getId, getToken, eraseCookie, getCookie, nbCreditsCookieName } from "./index.js";
 
 // Fonction pour effectuer le paiement
 export async function effectuerPaiement(covoiturageId) {

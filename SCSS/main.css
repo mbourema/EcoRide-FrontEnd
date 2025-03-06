@@ -11997,6 +11997,8 @@ html, body {
   left: 0;
   width: 100%;
   z-index: 1050;
+  height: 100px;
+  background-color: red !important;
 }
 
 .wrapper {
@@ -12007,6 +12009,7 @@ html, body {
 
 #main-page {
   flex: 1; /* Prend tout l'espace disponible pour pousser le footer en bas */
+  padding-top: 100px;
 }
 
 body {

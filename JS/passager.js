@@ -1,4 +1,4 @@
-import { apiUrl, getId, getToken, eraseCookie, getCookie, nbCreditsCookieName, setCookie } from "./index.js";
+import { apiUrl, getId, getToken, eraseCookie, getCookie, nbCreditsCookieName, setCookie, loadinformations, pseudoCookieName } from "./index.js";
 
 // Fonction pour effectuer le paiement
 export async function effectuerPaiement(covoiturageId) {
@@ -51,7 +51,7 @@ export async function effectuerPaiement(covoiturageId) {
         }).then(() => {
             setCookie(nbCreditsCookieName, paiement.nbCredit, 7);
         }).then(() => {
-            window.location.replace("/detail");
+            loadinformations();
         });
         
         afficherDetailsPaiement(paiement.paiement_id);  

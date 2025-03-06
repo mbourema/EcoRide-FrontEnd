@@ -11997,6 +11997,7 @@ html, body {
   left: 0;
   width: 100%;
   z-index: 1050;
+  background-color: red !important;
 }
 
 .wrapper {

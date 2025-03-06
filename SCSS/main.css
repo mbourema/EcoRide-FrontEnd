@@ -11998,7 +11998,7 @@ html, body {
   width: 100%;
   z-index: 1050;
   height: 100px;
-  background-color: blue !important;
+  background-color: green !important;
 }
 
 .wrapper {
@@ -12018,6 +12018,14 @@ html, body {
   }
   #main-page {
     padding-top: 150px;
+  }
+}
+@media (max-width: 1320px) {
+  .navbar {
+    height: 200px;
+  }
+  #main-page {
+    padding-top: 200px;
   }
 }
 body {

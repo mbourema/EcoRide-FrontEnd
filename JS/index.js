@@ -519,7 +519,9 @@ export function loadinformations() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", loadinformations);
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(loadinformations, 1000); // Délai de 1000ms (1 seconde) avant d'exécuter loadinformations
+});
 
 
 

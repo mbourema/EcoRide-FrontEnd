@@ -1,4 +1,4 @@
-import { apiUrl, getId, getToken, eraseCookie, getCookie, nbCreditsCookieName, setCookie, loadinformations, pseudoCookieName } from "./index.js";
+import { apiUrl, getId, getToken, eraseCookie, nbCreditsCookieName } from "./index.js";
 
 // Fonction pour effectuer le paiement
 export async function effectuerPaiement(covoiturageId) {
@@ -46,14 +46,8 @@ export async function effectuerPaiement(covoiturageId) {
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: false
-        }).then(() => {
-            eraseCookie(nbCreditsCookieName);
-        }).then(() => {
-            setCookie(nbCreditsCookieName, paiement.nbCredit, 7);
-        }).then(() => {
-            loadinformations();
         });
-        
+        eraseCookie(nbCreditsCookieName);
         afficherDetailsPaiement(paiement.paiement_id);  
     } catch (error) {
         Swal.fire({

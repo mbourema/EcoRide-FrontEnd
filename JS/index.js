@@ -504,25 +504,28 @@ export function sanitizeHtml(text){
     return tempHtml.innerHTML;
 }
 
-export function loadinformations() { 
+document.addEventListener("DOMContentLoaded", function() {
     // Récupérer les informations des cookies
     const pseudo = getCookie(pseudoCookieName);
     const nbCredit = getCookie(nbCreditsCookieName);
 
     // Vérifier si les cookies sont présents
     if (pseudo && nbCredit) {
+        // Afficher les informations dans la navbar
         document.getElementById("pseudo_presentation").innerHTML = `Bienvenue <span class="text-danger">${pseudo}</span> !`;
         document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">${nbCredit}</span>`;
-    } else if (pseudo && !nbCredit) {
+    }
+    else if (pseudo && !nbCredit){
+        setCookie(nbCreditsCookieName, result.nbCredit, 7);
+        const nbCreditRefresh = getCookie(nbCreditsCookieName);
+        document.getElementById("pseudo_presentation").innerHTML = `Bienvenue <span class="text-danger">${pseudo}</span> !`;
+        document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">${nbCreditRefresh}</span>`;
+    }
+    else if (pseudo && !nbCreditRefresh){
         document.getElementById("pseudo_presentation").innerHTML = `Bienvenue <span class="text-danger">${pseudo}</span> !`;
         document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">0</span>`;
     }
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    setTimeout(loadinformations, 1000); // Délai de 1000ms (1 seconde) avant d'exécuter loadinformations
 });
-
 
 
 

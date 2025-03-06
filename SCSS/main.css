@@ -12022,10 +12022,10 @@ html, body {
 }
 @media (max-width: 1320px) {
   .navbar {
-    height: 200px;
+    height: 210px;
   }
   #main-page {
-    padding-top: 200px;
+    padding-top: 210px;
   }
 }
 body {
@@ -12146,6 +12146,12 @@ body {
 @media (max-width: 850px) {
   #infos_perso {
     margin-left: 0;
+  }
+  .navbar {
+    height: 370px;
+  }
+  #main-page {
+    padding-top: 370px;
   }
 }
 .filters {

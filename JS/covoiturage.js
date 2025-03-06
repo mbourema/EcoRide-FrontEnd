@@ -221,7 +221,6 @@ formulaireCovoiturage.addEventListener("submit", function(event) {
 
 function ProposerTrajet() {
     const id = getId();
-    console.log(id);
     const response = fetch(`${apiUrl}/api/utilisateurs/details/${id}`, {
         method: "GET",
         headers: {

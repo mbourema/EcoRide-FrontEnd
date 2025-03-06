@@ -516,10 +516,26 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">${nbCredit}</span>`;
     }
     else if (pseudo && !nbCredit){
-        setCookie(nbCreditsCookieName, result.nbCredit, 7);
-        const nbCreditRefresh = getCookie(nbCreditsCookieName);
-        document.getElementById("pseudo_presentation").innerHTML = `Bienvenue <span class="text-danger">${pseudo}</span> !`;
-        document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">${nbCreditRefresh}</span>`;
+        const id = getId();
+        const response = fetch(`${apiUrl}/api/utilisateurs/details/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json", 
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erreur lors de la récupération des détails de l'utilisateur : ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            let credit = data.nbCredit;
+            setCookie(nbCreditsCookieName, credit, 7);
+            const nbCreditRefresh = getCookie(nbCreditsCookieName);
+            document.getElementById("pseudo_presentation").innerHTML = `Bienvenue <span class="text-danger">${pseudo}</span> !`;
+            document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">${nbCreditRefresh}</span>`;
+        });
     }
     else if (pseudo && !nbCreditRefresh){
         document.getElementById("pseudo_presentation").innerHTML = `Bienvenue <span class="text-danger">${pseudo}</span> !`;

@@ -4,6 +4,7 @@ const inputEmail = document.getElementById("Email");
 const inputMotDePasse = document.getElementById("Mdp");
 const buttonConnection = document.getElementById("connexion");
 const formulaireConnexion = document.getElementById("connexionForm");
+const reinitialiser = document.getElementById("reinistialiser");
 
 inputEmail.addEventListener("input", validateEmail);
 inputMotDePasse.addEventListener("input", validateMotDePasse);
@@ -132,6 +133,7 @@ function checkCredentials(){
         } else {
             inputEmail.classList.add("is-invalid");
             inputMotDePasse.classList.add("is-invalid");
+            reinitialiser.classList.remove("d-none");
 
             inputEmail.addEventListener("input", function() {
                 if (inputEmail.value !== "") {
@@ -148,4 +150,8 @@ function checkCredentials(){
     })
     .catch(error => console.log('error', error));      
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    reinitialiser.classList.add("d-none"); // S'assurer qu'elle est bien cachée au début
+});
 

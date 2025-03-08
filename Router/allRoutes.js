@@ -12,6 +12,7 @@ export const allRoutes = [
     new Route("/inscription", "Espace Inscription", "/Pages/inscription.html", [], "/JS/inscription.js"),
     new Route("/connexion", "Espace Connexion", "/Pages/connexion.html", [], "/JS/connexion.js"),
     new Route("/mentions", "Mentions Légales", "/Pages/mentions.html", []),
+    new Route("/email", "Reinitialiser l'email", "/Pages/email.html", [], "/JS/email.js"),
     new Route("/voiture", "Ajouter Voiture", "/Pages/voiture.html", ["ROLE_CONDUCTEUR", "ROLE_ADMIN"], "/JS/voiture.js")
 ];
 

@@ -6,29 +6,34 @@ import { allRoutes, websiteName } from "./allRoutes.js";
 const connexion = new Route("connexion", "Veuillez vous connecter pour accéder a cette page", "/Pages/connectezvous.html");
 
 const getRouteByUrl = (url) => {
+  let currentRoute = null;
+
   // Vérifier si l'URL correspond exactement à une route existante
-  let currentRoute = allRoutes.find(route => route.url === url);
+  currentRoute = allRoutes.find(route => route.url === url);
+  
+  // Si route trouvée, ne pas faire de redirection, retourner la route
   if (currentRoute) {
-    return currentRoute; // Retourner la route valide
+    return currentRoute;
   }
 
-  // Nettoyer les segments de l'URL (enlever les vides)
+  // Nettoyer l'URL et récupérer les segments
   const urlParts = url.split("/").filter(part => part !== "");
 
-  // Vérifier si une route correspond à la base (1er segment)
-  const baseRouteExists = allRoutes.some(route => {
-    const routeParts = route.url.split("/").filter(part => part !== "");
-    return routeParts[0] === urlParts[0]; // Vérifie uniquement le premier segment
-  });
-
-  // 🔹 Si l'URL contient plusieurs segments et ne correspond à aucune route, rediriger vers connexion
-  if (urlParts.length > 1 || !baseRouteExists) {
-    return connexion;
+  // Si l'URL contient plusieurs segments, ou que la route de base n'existe pas, rediriger vers connexion
+  if (urlParts.length > 1 || !allRoutes.some(route => route.url === "/" + urlParts[0])) {
+    history.pushState({}, "Connexion", "/Pages/connectezvous.html");  // Change l'URL sans recharger la page
+    return connexion; // Retourner la page de connexion
   }
 
-  // 🔹 Si seul le premier segment existe mais que le reste est inconnu, rediriger vers connexion
   return connexion;
 };
+
+// Ajouter un écouteur pour l'événement popstate
+window.addEventListener('popstate', (event) => {
+  // Cette fonction sera appelée à chaque fois que l'utilisateur utilise les boutons de retour/avant
+  getRouteByUrl(window.location.pathname);
+});
+
 
 const LoadContentPage = async () => {
   const path = window.location.pathname;

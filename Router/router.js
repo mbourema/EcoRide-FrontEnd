@@ -5,12 +5,39 @@ import { allRoutes, websiteName } from "./allRoutes.js";
 // Création d'une route pour la page 404 (page introuvable)
 const connexion = new Route("connexion", "Veuillez vous connecter pour accéder a cette page", "/Pages/connectezvous.html");
 
-// Fonction pour récupérer la route correspondant à une URL donnée
 const getRouteByUrl = (url) => {
-  let cleanUrl = url.split("?")[0].split("#")[0];
-  let currentRoute = allRoutes.find((route) => route.url === cleanUrl);
-  return currentRoute || connexion;
+  let currentRoute = null;
+
+  // Vérifier si l'URL correspond exactement à une route définie
+  allRoutes.forEach((element) => {
+    if (element.url === url) {
+      currentRoute = element;
+    }
+  });
+
+  // Si une route exacte est trouvée, on la retourne
+  if (currentRoute !== null) {
+    return currentRoute;
+  }
+
+  // Vérifier si l'URL contient plusieurs segments
+  const urlParts = url.split("/").filter(part => part !== ""); // Enlever les vides
+
+  // Vérifier si une route avec plusieurs segments existe dans allRoutes
+  const routeExists = allRoutes.some(route => {
+    const routeParts = route.url.split("/").filter(part => part !== "");
+    return JSON.stringify(routeParts) === JSON.stringify(urlParts); 
+  });
+
+  // Si la route existe malgré plusieurs segments, on l'accepte
+  if (routeExists) {
+    return allRoutes.find(route => route.url === url);
+  }
+
+  // Sinon, redirection vers la route connexion
+  return connexion;
 };
+
 
 const LoadContentPage = async () => {
   const path = window.location.pathname;

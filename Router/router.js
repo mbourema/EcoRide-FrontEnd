@@ -15,23 +15,27 @@ const getRouteByUrl = (url) => {
     return currentRoute; // URL valide trouvée
   }
 
-  // Vérifier si l'URL contient plusieurs segments
-  const urlParts = url.split("/").filter(part => part !== ""); // Nettoyer les segments
+  // Vérifier si l'URL contient plusieurs segments (plus d'un "/")
+  const urlParts = url.split("/").filter(part => part !== "");
 
-  // Vérifier si le premier segment correspond à une route existante
+  // Si l'URL a plusieurs segments et ne correspond pas à une route valide → Redirection vers connexion
+  if (urlParts.length > 1) {
+    return connexion;
+  }
+
+  // Vérifier si la route de base (premier segment) existe
   const baseRouteExists = allRoutes.some(route => {
-    const routeParts = route.url.split("/").filter(part => part !== "");
-    return routeParts[0] === urlParts[0]; // Vérifier si la base existe
+    return route.url.split("/")[1] === urlParts[0]; // Vérifier l'existence du premier segment
   });
 
-  // Si le premier segment correspond mais que le reste ne correspond à rien, rediriger vers connexion
   if (baseRouteExists) {
     return connexion;
   }
 
-  // Sinon, rediriger vers connexion pour toute URL invalide
+  // Si aucune correspondance → Redirection vers connexion
   return connexion;
 };
+
 
 
 const LoadContentPage = async () => {

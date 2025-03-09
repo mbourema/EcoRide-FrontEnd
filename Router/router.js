@@ -15,18 +15,11 @@ const getRouteByUrl = (url) => {
     return currentRoute; // URL valide trouvée
   }
 
-  // Vérifier si l'URL contient plusieurs segments
-  const urlParts = url.split("/").filter(part => part !== ""); // Nettoyer les segments
+  // Vérifier si l'URL contient plusieurs segments (plus d'un "/")
+  const urlParts = url.split("/").filter(part => part !== "");
 
-  // Vérifier si le premier segment correspond à une route existante
-  const baseRouteExists = allRoutes.some(route => {
-    const routeParts = route.url.split("/").filter(part => part !== "");
-    return routeParts[0] === urlParts[0]; // Vérifier si la base existe
-  });
-
-  // Si le premier segment correspond mais que le reste ne correspond à rien, rediriger vers connexion
-  if (baseRouteExists) {
-    return connexion;
+  if (urlParts.length > 1) {
+    return connexion; // Rediriger toute URL avec plusieurs segments non reconnue
   }
 
   // Sinon, rediriger vers connexion pour toute URL invalide

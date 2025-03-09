@@ -7,19 +7,9 @@ const connexion = new Route("connexion", "Veuillez vous connecter pour accéder 
 
 // Fonction pour récupérer la route correspondant à une URL donnée
 const getRouteByUrl = (url) => {
-  let currentRoute = null;
-  // Parcours de toutes les routes pour trouver la correspondance
-  allRoutes.forEach((element) => {
-    if (element.url == url) {
-      currentRoute = element;
-    }
-  });
-  // Si aucune correspondance n'est trouvée, on retourne la route 404
-  if (currentRoute != null) {
-    return currentRoute;
-  } else {
-    return connexion;
-  }
+  let cleanUrl = url.split("?")[0].split("#")[0];
+  let currentRoute = allRoutes.find((route) => route.url === cleanUrl);
+  return currentRoute || connexion;
 };
 
 const LoadContentPage = async () => {

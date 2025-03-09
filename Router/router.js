@@ -5,35 +5,22 @@ import { allRoutes, websiteName } from "./allRoutes.js";
 // Création d'une route pour la page 404 (page introuvable)
 const connexion = new Route("connexion", "Veuillez vous connecter pour accéder a cette page", "/Pages/connectezvous.html");
 
+// Fonction pour récupérer la route correspondant à une URL donnée
 const getRouteByUrl = (url) => {
   let currentRoute = null;
-
-  // Vérifier si l'URL correspond exactement à une route existante
-  currentRoute = allRoutes.find(route => route.url === url);
-  
-  // Si route trouvée, ne pas faire de redirection, retourner la route
-  if (currentRoute) {
+  // Parcours de toutes les routes pour trouver la correspondance
+  allRoutes.forEach((element) => {
+    if (element.url == url) {
+      currentRoute = element;
+    }
+  });
+  // Si aucune correspondance n'est trouvée, on retourne la route 404
+  if (currentRoute != null) {
     return currentRoute;
+  } else {
+    return connexion;
   }
-
-  // Nettoyer l'URL et récupérer les segments
-  const urlParts = url.split("/").filter(part => part !== "");
-
-  // Si l'URL contient plusieurs segments, ou que la route de base n'existe pas, rediriger vers connexion
-  if (urlParts.length > 1 || !allRoutes.some(route => route.url === "/" + urlParts[0])) {
-    history.pushState({}, "Connexion", "/Pages/connectezvous.html");  // Change l'URL sans recharger la page
-    return connexion; // Retourner la page de connexion
-  }
-
-  return connexion;
 };
-
-// Ajouter un écouteur pour l'événement popstate
-window.addEventListener('popstate', (event) => {
-  // Cette fonction sera appelée à chaque fois que l'utilisateur utilise les boutons de retour/avant
-  getRouteByUrl(window.location.pathname);
-});
-
 
 const LoadContentPage = async () => {
   const path = window.location.pathname;

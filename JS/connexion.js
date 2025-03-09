@@ -7,7 +7,6 @@ const formulaireConnexion = document.getElementById("connexionForm");
 const reinitialiser = document.getElementById("reinistialiser");
 
 inputEmail.addEventListener("input", validateEmail);
-inputMotDePasse.addEventListener("input", validateMotDePasse);
 
 
 function validateEmail() {
@@ -15,18 +14,10 @@ function validateEmail() {
     toggleSubmitButton(); 
 }
 
-
-function validateMotDePasse() {
-    const isValid = validateMotDePasseRegex(inputMotDePasse);
-    toggleSubmitButton(); 
-}
-
-
 function toggleSubmitButton() {
     const isEmailValid = inputEmail.classList.contains("is-valid");
-    const isMotDePasseValid = inputMotDePasse.classList.contains("is-valid");
 
-    if (isEmailValid && isMotDePasseValid) {
+    if (isEmailValid) {
         buttonConnection.disabled = false;
     } else {
         buttonConnection.disabled = true;
@@ -55,27 +46,6 @@ function validateEmailRegex(input) {
     }
 }
 
-function validateMotDePasseRegex(input) {
-    const MDPRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
-    const MDPUser = input.value.trim();  
-
-    if (MDPUser === "") {
-        input.classList.remove("is-invalid");
-        input.classList.remove("is-valid");
-        return false; 
-    }
-
-    if (MDPUser.match(MDPRegex)) {
-        input.classList.add("is-valid");
-        input.classList.remove("is-invalid");
-        return true;
-    } else {
-        input.classList.remove("is-valid");
-        input.classList.add("is-invalid");
-        return false; 
-    }
-}
-
 
 buttonConnection.addEventListener("click", function(event) {
     event.preventDefault(); // Empêcher l'envoi du formulaire par défaut
@@ -88,7 +58,7 @@ function checkCredentials(){
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     let raw = JSON.stringify({
-        "email": sanitizeHtml(dataForm.get("Email")),
+        "email": dataForm.get("Email"),
         "mdp": dataForm.get("Mdp")
     });
     let requestOptions = {

@@ -70,7 +70,7 @@ function sendmail(){
                     showConfirmButton: false,
                     timer: 2000,
                     timerProgressBar: false
-                })
+                }).then(()=> {location.reload();});
             } else if (response.status === 404) {
                 inputEmailReinitialiser.classList.add("is-invalid");   
                 inputEmailReinitialiser.addEventListener("input", function() {

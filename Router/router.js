@@ -6,37 +6,29 @@ import { allRoutes, websiteName } from "./allRoutes.js";
 const connexion = new Route("connexion", "Veuillez vous connecter pour accéder a cette page", "/Pages/connectezvous.html");
 
 const getRouteByUrl = (url) => {
-  let currentRoute = null;
-
   // Vérifier si l'URL correspond exactement à une route existante
-  currentRoute = allRoutes.find(route => route.url === url);
-
+  let currentRoute = allRoutes.find(route => route.url === url);
   if (currentRoute) {
-    return currentRoute; // URL valide trouvée
+    return currentRoute; // Retourner la route valide
   }
 
-  // Vérifier si l'URL contient plusieurs segments (plus d'un "/")
+  // Nettoyer les segments de l'URL (enlever les vides)
   const urlParts = url.split("/").filter(part => part !== "");
 
-  // Si l'URL a plusieurs segments et ne correspond pas à une route valide → Redirection vers connexion
-  if (urlParts.length > 1) {
-    return connexion;
-  }
-
-  // Vérifier si la route de base (premier segment) existe
+  // Vérifier si une route correspond à la base (1er segment)
   const baseRouteExists = allRoutes.some(route => {
-    return route.url.split("/")[1] === urlParts[0]; // Vérifier l'existence du premier segment
+    const routeParts = route.url.split("/").filter(part => part !== "");
+    return routeParts[0] === urlParts[0]; // Vérifie uniquement le premier segment
   });
 
-  if (baseRouteExists) {
+  // 🔹 Si l'URL contient plusieurs segments et ne correspond à aucune route, rediriger vers connexion
+  if (urlParts.length > 1 || !baseRouteExists) {
     return connexion;
   }
 
-  // Si aucune correspondance → Redirection vers connexion
+  // 🔹 Si seul le premier segment existe mais que le reste est inconnu, rediriger vers connexion
   return connexion;
 };
-
-
 
 const LoadContentPage = async () => {
   const path = window.location.pathname;

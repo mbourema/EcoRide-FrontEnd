@@ -8,33 +8,28 @@ const connexion = new Route("connexion", "Veuillez vous connecter pour accéder 
 const getRouteByUrl = (url) => {
   let currentRoute = null;
 
-  // Vérifier si l'URL correspond exactement à une route définie
-  allRoutes.forEach((element) => {
-    if (element.url === url) {
-      currentRoute = element;
-    }
-  });
+  // Vérifier si l'URL correspond exactement à une route existante
+  currentRoute = allRoutes.find(route => route.url === url);
 
-  // Si une route exacte est trouvée, on la retourne
-  if (currentRoute !== null) {
-    return currentRoute;
+  if (currentRoute) {
+    return currentRoute; // URL valide trouvée
   }
 
   // Vérifier si l'URL contient plusieurs segments
-  const urlParts = url.split("/").filter(part => part !== ""); // Enlever les vides
+  const urlParts = url.split("/").filter(part => part !== ""); // Nettoyer les segments
 
-  // Vérifier si une route avec plusieurs segments existe dans allRoutes
-  const routeExists = allRoutes.some(route => {
+  // Vérifier si le premier segment correspond à une route existante
+  const baseRouteExists = allRoutes.some(route => {
     const routeParts = route.url.split("/").filter(part => part !== "");
-    return JSON.stringify(routeParts) === JSON.stringify(urlParts); 
+    return routeParts[0] === urlParts[0]; // Vérifier si la base existe
   });
 
-  // Si la route existe malgré plusieurs segments, on l'accepte
-  if (routeExists) {
-    return allRoutes.find(route => route.url === url);
+  // Si le premier segment correspond mais que le reste ne correspond à rien, rediriger vers connexion
+  if (baseRouteExists) {
+    return connexion;
   }
 
-  // Sinon, redirection vers la route connexion
+  // Sinon, rediriger vers connexion pour toute URL invalide
   return connexion;
 };
 

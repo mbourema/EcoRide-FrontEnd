@@ -247,7 +247,7 @@ body {
         margin-left: 0;
     }
     .navbar {
-        height: 370px;
+        height: auto;
     }
     #main-page {
         padding-top: 370px;
@@ -258,6 +258,10 @@ body {
     .filter-form {
         flex-direction: column;
         align-items: center;
+    }
+
+    .navbar {
+        height: auto;
     }
 
     .filter-form .form-control {
@@ -290,11 +294,15 @@ body {
         width: 80%;
         max-width: 100%;
     }
+
+    #main-page {
+        padding-top: 450px;
+    }
 }
 
 @media (max-width: 370px) {
     .navbar {
-        height: 500px;
+        height: auto;
     }
     #main-page {
         padding-top: 500px;

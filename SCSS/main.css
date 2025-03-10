@@ -11988,6 +11988,7 @@ textarea.form-control-lg {
 }
 html, body {
   height: 100%;
+  width: 100%;
   margin: 0;
 }
 
@@ -12213,7 +12214,7 @@ body {
     margin-left: 0;
   }
   .navbar {
-    height: 370px;
+    height: auto;
   }
   #main-page {
     padding-top: 370px;
@@ -12223,6 +12224,9 @@ body {
   .filter-form {
     flex-direction: column;
     align-items: center;
+  }
+  .navbar {
+    height: auto;
   }
   .filter-form .form-control {
     width: 100%;
@@ -12249,10 +12253,13 @@ body {
     width: 80%;
     max-width: 100%;
   }
+  #main-page {
+    padding-top: 450px;
+  }
 }
 @media (max-width: 370px) {
   .navbar {
-    height: 500px;
+    height: auto;
   }
   #main-page {
     padding-top: 500px;

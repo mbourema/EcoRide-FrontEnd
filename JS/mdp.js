@@ -40,3 +40,51 @@ function toggleSubmitButton() {
         buttonReinitialiserMDP.disabled = true;
     }
 }
+
+buttonReinitialiserMDP.addEventListener("click", function(event) {
+    event.preventDefault();
+    changeMDP();
+});
+
+
+function changeMDP(){
+    let dataForm = new FormData(formulaireReinitialisationMDP);
+    let url = new URLSearchParams(window.location.search);
+    let token = url.split("?")[1];
+    let raw = JSON.stringify({
+        "mdp": dataForm.get("MDPreinitialiser"),
+    });
+    let requestOptions = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: raw,
+        redirect: 'follow'
+    };
+    fetch(apiUrl + `/api/utilisateurs/reset-password/${token}`, requestOptions)
+        .then(response => {
+            if (response.ok) {
+                Swal.fire({
+                    text: "Votre mot de passe a été modifié !",
+                    icon: "success",
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: false
+                }).then(()=> {document.location.href = "/connexion";});
+            } else if (response.status === 400) {
+                Swal.fire({
+                    text: "Lien de réinitialisation expiré !",
+                    icon: "error",
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: false
+                })
+            }        
+        })
+        .catch(error => console.log('error', error));
+}
+

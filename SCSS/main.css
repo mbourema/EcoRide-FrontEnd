@@ -11991,15 +11991,12 @@ html, body {
   margin: 0;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  max-width: 100vw; /* Empêche tout dépassement */
+  overflow-x: hidden;
   z-index: 1050;
   height: 120px;
 }

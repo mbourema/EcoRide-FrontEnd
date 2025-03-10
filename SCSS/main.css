@@ -11989,11 +11989,7 @@ textarea.form-control-lg {
 html, body {
   height: 100%;
   margin: 0;
-}
-
-.container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
-  padding-left: 0;
-  padding-right: 0;
+  overflow-x: hidden;
 }
 
 .navbar {

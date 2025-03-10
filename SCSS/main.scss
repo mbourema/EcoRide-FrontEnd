@@ -5,11 +5,16 @@ html, body {
     margin: 0;
 }
 
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
-    width: auto;
+    width: 100%;
     z-index: 1050;
     height: 120px;
 }

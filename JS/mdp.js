@@ -49,8 +49,7 @@ buttonReinitialiserMDP.addEventListener("click", function(event) {
 
 function changeMDP(){
     let dataForm = new FormData(formulaireReinitialisationMDP);
-    let url = new URLSearchParams(window.location.search);
-    let token = url.split("?")[1];
+    let token = window.location.search.substring(1);
     let raw = JSON.stringify({
         "mdp": dataForm.get("MDPreinitialiser"),
     });

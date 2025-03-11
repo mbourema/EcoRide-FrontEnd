@@ -52,7 +52,7 @@ function villeDepart() {
     const VilleUser = inputVilleDepart.value.trim(); 
     const query = inputVilleDepart.value.trim(); 
 
-    if (query.length >= 2) { 
+    if (query.length >= 3) { 
         fetch(`https://geo.api.gouv.fr/communes?nom=${query}&fields=nom,code&boost=population&limit=5`)
             .then(response => response.json())
             .then(data => {

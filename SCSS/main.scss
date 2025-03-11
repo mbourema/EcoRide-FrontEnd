@@ -254,6 +254,7 @@ body {
     }
     .navbar {
         height: 370px;
+        position: static;
     }
     #main-page {
         padding-top: 370px;
@@ -296,11 +297,15 @@ body {
         width: 80%;
         max-width: 100%;
     }
+    .navbar{
+        position: static;
+    }
 }
 
 @media (max-width: 370px) {
     .navbar {
         height: 500px;
+        position: static;
     }
     #main-page {
         padding-top: 500px;

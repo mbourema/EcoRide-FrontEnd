@@ -12004,15 +12004,11 @@ html, body {
   height: 120px;
 }
 
-header {
-  margin: 0;
-  padding: 0;
-}
-
 .wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* Hauteur minimale de la page = hauteur de l'écran */
+  max-width: 100%;
 }
 
 #main-page {

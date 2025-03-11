@@ -100,7 +100,7 @@ function displayResults(villes, resultsContainer, inputField) {
 
     villes.forEach(ville => {
         let li = document.createElement("li");
-        li.textContent = `${ville.nom} (${ville.code})`;
+        li.textContent = `${ville.nom}`;
         li.classList.add("autocomplete-item");
         li.addEventListener("click", () => {
             inputField.value = ville.nom;

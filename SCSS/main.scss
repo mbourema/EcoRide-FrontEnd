@@ -30,7 +30,7 @@ html, body {
 #main-page {
     flex: 1; /* Prend tout l'espace disponible pour pousser le footer en bas */
     padding-top: 120px;
-    width: 100%;
+    width: 100vw;
 }
 
 body {
@@ -49,8 +49,6 @@ body {
 
 .hero-scene{
     position: relative;
-    margin: 0;
-    padding: 0;
     &::before{
         content:"";
         position: absolute;

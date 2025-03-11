@@ -12222,6 +12222,9 @@ body {
     position: absolute;
     height: 370px;
   }
+  #main-page {
+    padding-top: 370px;
+  }
 }
 @media (max-width: 768px) {
   .filter-form {
@@ -12257,12 +12260,13 @@ body {
     position: absolute;
   }
   #main-page {
-    padding-top: 0px;
+    padding-top: 370px;
   }
 }
 @media (max-width: 370px) {
   .navbar {
     position: absolute;
     height: 500px;
+    padding-top: 500px;
   }
 }/*# sourceMappingURL=main.css.map */

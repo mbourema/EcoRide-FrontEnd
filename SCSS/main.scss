@@ -256,6 +256,9 @@ body {
         position: absolute;
         height: 370px;
     }
+    #main-page {
+        padding-top: 370px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -298,7 +301,7 @@ body {
         position: absolute;
     }
     #main-page {
-        padding-top: 0px;
+        padding-top: 370px;
     }
 }
 
@@ -306,6 +309,7 @@ body {
     .navbar {
         position: absolute;
         height: 500px;
+        padding-top: 500px;
     }
 }
 

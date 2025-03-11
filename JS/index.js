@@ -52,7 +52,7 @@ function villeDepart() {
     const VilleUser = inputVilleDepart.value.trim(); 
     const query = inputVilleDepart.value.trim(); 
 
-    if (query.length >= 2) { 
+    if (query.length >= 3) { 
         fetch(`https://geo.api.gouv.fr/communes?nom=${query}&fields=nom,code&boost=population&limit=5`)
             .then(response => response.json())
             .then(data => {
@@ -86,7 +86,7 @@ function villeArrivee() {
     const VilleUser = inputVilleArrivee.value.trim(); 
     const query = inputVilleArrivee.value.trim(); 
 
-    if (query.length >= 2) { 
+    if (query.length >= 3) { 
         fetch(`https://geo.api.gouv.fr/communes?nom=${query}&fields=nom,code&boost=population&limit=5`)
             .then(response => response.json())
             .then(data => {
@@ -118,7 +118,7 @@ function displayResults(villes, resultsContainer, inputField) {
 
     villes.forEach(ville => {
         let li = document.createElement("li");
-        li.textContent = `${ville.nom} (${ville.code})`;
+        li.textContent = `${ville.nom}`;
         li.classList.add("autocomplete-item");
         li.addEventListener("click", () => {
             inputField.value = ville.nom;

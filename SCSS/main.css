@@ -12013,6 +12013,7 @@ html, body {
 #main-page {
   flex: 1; /* Prend tout l'espace disponible pour pousser le footer en bas */
   padding-top: 120px;
+  width: 100%;
 }
 
 body {

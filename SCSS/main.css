@@ -12222,6 +12222,9 @@ body {
     position: static;
     height: 370px;
   }
+  #main-page {
+    padding-top: auto;
+  }
 }
 @media (max-width: 768px) {
   .filter-form {
@@ -12257,12 +12260,15 @@ body {
     position: static;
   }
   #main-page {
-    padding-top: 0px;
+    padding-top: auto;
   }
 }
 @media (max-width: 370px) {
   .navbar {
     position: static;
     height: 500px;
+  }
+  #main-page {
+    padding-top: auto;
   }
 }/*# sourceMappingURL=main.css.map */

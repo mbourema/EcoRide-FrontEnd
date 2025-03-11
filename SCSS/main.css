@@ -12004,6 +12004,11 @@ html, body {
   height: 120px;
 }
 
+header {
+  margin: 0;
+  padding: 0;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;

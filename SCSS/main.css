@@ -12219,11 +12219,8 @@ body {
     margin-left: 0;
   }
   .navbar {
-    position: static;
+    position: absolute;
     height: 370px;
-  }
-  #main-page {
-    padding-top: auto;
   }
 }
 @media (max-width: 768px) {
@@ -12257,18 +12254,15 @@ body {
     max-width: 100%;
   }
   .navbar {
-    position: static;
+    position: absolute;
   }
   #main-page {
-    padding-top: auto;
+    padding-top: 0px;
   }
 }
 @media (max-width: 370px) {
   .navbar {
-    position: static;
+    position: absolute;
     height: 500px;
-  }
-  #main-page {
-    padding-top: auto;
   }
 }/*# sourceMappingURL=main.css.map */

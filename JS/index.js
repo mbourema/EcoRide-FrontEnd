@@ -234,7 +234,6 @@ async function getEnergieVoiture(voitureId) {
         if (!response.ok) {
             throw new Error(`Erreur lors de la récupération de l'énergie: ${response.status}`);
         }
-
         const voiture = await response.json();
         return voiture.energie || "Non spécifié"; // Retourne l'énergie ou un message par défaut
     } catch (error) {
@@ -246,7 +245,6 @@ async function getEnergieVoiture(voitureId) {
 function waitForElement(selector, timeout = 5000) {
     return new Promise((resolve, reject) => {
         const startTime = Date.now();
-
         const checkElement = setInterval(() => {
             const element = document.querySelector(selector);
             if (element) {
@@ -307,7 +305,7 @@ async function afficherCovoiturages(covoiturages) {
             const card = document.createElement('div');
             card.classList.add('col');
             card.innerHTML = `
-                <div class="card p-3 d-flex flex-row align-items-center rounded-3 bg-ecogreen shadow-sm mb-3">
+                <div class="card p-3 d-flex flex-column flex-md-row align-items-center rounded-3 bg-ecogreen shadow-sm mb-3">
                     <div class="covoit-info flex-grow-1">
                         <p><strong>Pseudo :</strong> <span>${covoiturage.pseudo_conducteur}</span></p>
                         <p><strong>Note moyenne :</strong> <span>${moyenneNote}</span></p>

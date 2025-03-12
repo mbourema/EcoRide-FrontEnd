@@ -12188,6 +12188,15 @@ body {
   background-color: #f0f0f0;
 }
 
+@media (max-width: 1450px) {
+  .navbar {
+    position: absolute;
+    height: 140px;
+  }
+  #main-page {
+    padding-top: 140px;
+  }
+}
 @media (max-width: 1423px) {
   .navbar {
     height: 150px;
@@ -12267,6 +12276,8 @@ body {
   .navbar {
     position: absolute;
     height: 500px;
+  }
+  #main-page {
     padding-top: 500px;
   }
 }/*# sourceMappingURL=main.css.map */

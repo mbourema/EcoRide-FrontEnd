@@ -12191,14 +12191,6 @@ body {
 @media (max-width: 1450px) {
   .navbar {
     position: absolute;
-    height: 140px;
-  }
-  #main-page {
-    padding-top: 140px;
-  }
-}
-@media (max-width: 1423px) {
-  .navbar {
     height: 150px;
   }
   #main-page {

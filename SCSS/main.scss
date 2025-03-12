@@ -217,6 +217,15 @@ body {
 }
 
 // media-queries
+@media (max-width: 1450px) {
+    .navbar {
+        position: absolute;
+        height: 140px;
+    }
+    #main-page {
+        padding-top: 140px;
+    }
+}
 
 @media (max-width: 1423px) {
     .navbar {
@@ -309,11 +318,9 @@ body {
     .navbar {
         position: absolute;
         height: 500px;
-        padding-top: 500px;
     }
-    #champs-navbar {
-        padding: 0;
-        margin: 0;
+    #main-page {
+        padding-top: 500px;
     }
 }
 

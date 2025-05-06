@@ -74,8 +74,6 @@ const LoadContentPage = async () => {
   showAndHideElementsForRoles();
 };
 
-
-
 // Fonction pour gérer les événements de routage (clic sur les liens)
 const routeEvent = (event) => {
 
@@ -90,10 +88,6 @@ const routeEvent = (event) => {
   
   LoadContentPage();
 };
-
-
 window.onpopstate = LoadContentPage;
-
 window.route = routeEvent;
-
 LoadContentPage();

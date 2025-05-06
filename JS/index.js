@@ -488,7 +488,7 @@ export function showAndHideElementsForRoles(){
                 if(!userConnected || !role.includes("ROLE_PASSAGER")){
                     element.classList.add("d-none");
                 }
-                
+               
         }
     })
 }

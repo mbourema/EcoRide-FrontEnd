@@ -461,32 +461,32 @@ export function showAndHideElementsForRoles(){
     allElementsToEdit.forEach(element =>{
         switch(element.dataset.show){
             case 'disconnected': 
-                if(userConnected){
-                    element.classList.add("d-none");
+                if(!userConnected){
+                    element.classList.remove("d-none");
                 }
                 break;
             case 'connected': 
-                if(!userConnected){
-                    element.classList.add("d-none");
+                if(userConnected){
+                    element.classList.remove("d-none");
                 }
                 break;
             case 'admin': 
-                if(!userConnected || !role.includes("ROLE_ADMIN")){
-                    element.classList.add("d-none");
+                if(userConnected && role.includes("ROLE_ADMIN")){
+                    element.classList.remove("d-none");
                 }
                 break;
             case 'employe': 
-                if(!userConnected || !role.includes("ROLE_EMPLOYE")){
-                    element.classList.add("d-none");
+                if(userConnected && role.includes("ROLE_EMPLOYE")){
+                    element.classList.remove("d-none");
                 }
                 break;
             case 'conducteur':
-                if(!userConnected || !role.includes("ROLE_CONDUCTEUR")){
-                    element.classList.add("d-none");
+                if(userConnected && role.includes("ROLE_CONDUCTEUR")){
+                    element.classList.remove("d-none");
                 }
             case 'passager':
-                if(!userConnected || !role.includes("ROLE_PASSAGER")){
-                    element.classList.add("d-none");
+                if(userConnected || role.includes("ROLE_PASSAGER")){
+                    element.classList.remove("d-none");
                 }
                
         }

@@ -26,12 +26,6 @@ const LoadContentPage = async () => {
   const path = window.location.pathname;
   const actualRoute = getRouteByUrl(path);
 
-  if (!actualRoute) { 
-    console.error(`Aucune route trouvée pour le chemin : ${path}`);
-    window.location.replace("/accueil"); // Redirige vers l'accueil si la route n'existe pas
-    return;
-  }
-
   const allRolesArray = actualRoute.authorize || []; // Assure que c'est un tableau
 
   if (allRolesArray.length > 0) {

@@ -487,10 +487,12 @@ export function showAndHideElementsForRoles(){
                 if(userConnected && role.includes("ROLE_CONDUCTEUR")){
                     element.classList.remove("d-none");
                 }
+                break;
             case 'passager':
                 if(userConnected || role.includes("ROLE_PASSAGER")){
                     element.classList.remove("d-none");
                 }
+                break;
                
         }
     })

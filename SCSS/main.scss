@@ -80,7 +80,8 @@ body {
 .presentation {
     display: flex;
     flex-direction: column;
-    gap: 20%;
+    justify-content: space-between;
+    height: 100vh;
 }
 
 .text-image {

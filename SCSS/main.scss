@@ -28,9 +28,9 @@ html, body {
 }
 
 #main-page {
-    flex: 1; /* Prend tout l'espace disponible pour pousser le footer en bas */
     padding-top: 120px;
     width: 100vw;
+    flex:1;
 }
 
 body {
@@ -77,11 +77,13 @@ body {
 // Page d'accueil
 
 /* Mise en page normale (Desktop par défaut) */
+
 .presentation {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100vh;
+    height : 55vh;
+    width: 100%;
 }
 
 .text-image {

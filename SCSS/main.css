@@ -12014,9 +12014,9 @@ html, body {
 }
 
 #main-page {
-  flex: 1; /* Prend tout l'espace disponible pour pousser le footer en bas */
   padding-top: 120px;
   width: 100vw;
+  flex: 1;
 }
 
 body {
@@ -12063,7 +12063,9 @@ body {
 .presentation {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: space-between;
+  height: 55vh;
+  width: 100%;
 }
 
 .text-image {

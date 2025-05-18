@@ -1,20 +1,15 @@
-import { apiUrl, getId, getToken, eraseCookie, nbCreditsCookieName } from "./index.js";
+import { apiUrl, getId, eraseCookie, nbCreditsCookieName } from "./index.js";
 
 // Fonction pour effectuer le paiement
 export async function effectuerPaiement(covoiturageId) {
-    const token = getToken();
     const utilisateurId = getId();
-
-    if (!token || !utilisateurId) {
-        return;
-    }
 
     try {
         const response = await fetch(apiUrl + "/paiement/add", {
             method: "POST",
+            credentials: "include",
             headers: {
-                "Content-Type": "application/json",
-                "X-AUTH-TOKEN": token
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 utilisateur_id: utilisateurId,
@@ -63,18 +58,13 @@ export async function effectuerPaiement(covoiturageId) {
 
 // Fonction pour afficher les détails du paiement dans la page passager
 async function afficherDetailsPaiement(paiementId) {
-    const token = getToken(); 
-
-    if (!token) {
-        return;
-    }
 
     try {
         const response = await fetch(`${apiUrl}/paiement/${paiementId}`, {
             method: "GET",
+            credentials: "include",
             headers: {
-                "Content-Type": "application/json",
-                "X-AUTH-TOKEN": token  
+                "Content-Type": "application/json"
             }
         });
 
@@ -109,19 +99,14 @@ async function afficherDetailsPaiement(paiementId) {
 
 // Fonction pour récupérer et afficher tous les paiements de l'utilisateur
 export async function afficherTousLesPaiements() {
-    const token = getToken();  
     const utilisateurId = getId();  
-
-    if (!token || !utilisateurId) {
-        return;
-    }
 
     try {
         const response = await fetch(`${apiUrl}/paiements`, {
             method: "GET",
+            credentials: "include",
             headers: {
-                "Content-Type": "application/json",
-                "X-AUTH-TOKEN": token  
+                "Content-Type": "application/json"
             }
         });
 

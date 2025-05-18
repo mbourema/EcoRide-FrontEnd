@@ -1,4 +1,4 @@
-import { apiUrl, getId, getToken, sanitizeHtml } from "./index.js";
+import { apiUrl, getId, sanitizeHtml } from "./index.js";
 
 const inputDateDepart = document.getElementById("date_depart");
 const inputDateArrivee = document.getElementById("date_arrivee");
@@ -168,17 +168,12 @@ function toggleSubmitButton() {
 
 // Fonction pour charger dynamiquement les voitures de l'utilisateur
 function loadCars() {
-    let token = getToken();
-    if (!token) {
-        console.error('Le jeton d\'authentification est manquant.');
-        return;
-    }
 
     // Récupérer les voitures via l'API
     fetch(apiUrl + "/api/voitures/liste", {
         method: 'GET',
+        credentials: 'include',
         headers: {
-            'X-AUTH-TOKEN': token,
             'Accept': 'application/json'
         }
     })
@@ -223,6 +218,7 @@ function ProposerTrajet() {
     const id = getId();
     const response = fetch(`${apiUrl}/api/utilisateurs/details/${id}`, {
         method: "GET",
+        credentials: 'include',
         headers: {
             "Content-Type": "application/json", 
         }
@@ -248,15 +244,7 @@ function ProposerTrajet() {
         let pseudoConducteur = pseudo;
         let emailConducteur = email;
 
-        // Création des en-têtes et de la requête
-        let token = getToken();
-        if (!token) {
-            console.error('Le jeton d\'authentification est manquant.');
-            return;
-        }
-
         let myHeaders = new Headers();
-        myHeaders.append("X-AUTH-TOKEN", token);
         myHeaders.append("Accept", "application/json");
 
         let raw = JSON.stringify({
@@ -274,6 +262,7 @@ function ProposerTrajet() {
 
         let requestOptions = {
             method: "POST",
+            credentials: 'include',
             headers: myHeaders,
             body: raw,
             redirect: "follow"

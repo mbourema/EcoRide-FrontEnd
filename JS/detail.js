@@ -22,7 +22,11 @@ function areDetailsValid(params) {
 async function getConducteurDetails(conducteurId) {
     const urlConducteur = `${apiUrl}/api/utilisateurs/details/${conducteurId}`;
     try {
-        const response = await fetch(urlConducteur);
+        const response = await fetch(urlConducteur, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'}
+        });
         if (!response.ok) {
             throw new Error(`Erreur lors de la récupération des informations du conducteur: ${response.status}`);
         }
@@ -37,7 +41,11 @@ async function getConducteurDetails(conducteurId) {
 async function getVoitureDetails(voitureId) {
     const urlVoiture = `${apiUrl}/api/voitures/details/${voitureId}`;
     try {
-        const response = await fetch(urlVoiture);
+        const response = await fetch(urlVoiture, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'}
+        });
         if (!response.ok) {
             throw new Error(`Erreur lors de la récupération des informations du véhicule: ${response.status}`);
         }
@@ -52,7 +60,11 @@ async function getVoitureDetails(voitureId) {
 async function getMarqueDetails(voitureId) {
     const urlMarque = `${apiUrl}/marque/${voitureId}`;
     try {
-        const response = await fetch(urlMarque);
+        const response = await fetch(urlMarque, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'}
+        });
         if (!response.ok) {
             throw new Error(`Erreur lors de la récupération des informations de la marque: ${response.status}`);
         }
@@ -67,7 +79,11 @@ async function getMarqueDetails(voitureId) {
 async function getAvisConducteur(pseudo) {
     const urlAvis = `${apiUrl}/avis/fulllist/conducteur/${pseudo}`;
     try {
-        const response = await fetch(urlAvis);
+        const response = await fetch(urlAvis, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'}
+        });
         if (response.status === 404) {
             return null;  // Aucun avis trouvé
         }

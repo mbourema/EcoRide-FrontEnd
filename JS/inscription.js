@@ -92,6 +92,7 @@ function validateEmail() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     fetch(apiUrl + "/api/utilisateurs/liste", {
         method: 'GET',
+        credentials: 'include',
         headers: {
             'Accept': 'application/json'
         }
@@ -129,6 +130,7 @@ function validateTelephone() {
 function validatePseudo() {
     fetch(apiUrl + "/api/utilisateurs/liste", {
         method: 'GET',
+        credentials: 'include',
         headers: {
             'Accept': 'application/json'
         }
@@ -269,6 +271,7 @@ function InscrireUtilisateur() {
         method: "POST",
         headers: myHeaders,
         body: raw,
+        credentials: 'include',
         redirect: "follow"
     };
 

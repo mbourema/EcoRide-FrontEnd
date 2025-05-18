@@ -1,4 +1,4 @@
-import { setCookie, roleCookieName, pseudoCookieName, nbCreditsCookieName, apiUrl, setToken, idConnected, sanitizeHtml } from "./index.js";
+import { setCookie, roleCookieName, pseudoCookieName, nbCreditsCookieName, apiUrl, idConnected, sanitizeHtml } from "./index.js";
 
 const inputEmail = document.getElementById("Email");
 const inputMotDePasse = document.getElementById("Mdp");
@@ -65,6 +65,7 @@ function checkCredentials(){
         method: 'POST',
         headers: myHeaders,
         body: raw,
+        credentials: 'include',
         redirect: 'follow'
     };
     fetch(apiUrl + "/api/utilisateurs/connexion", requestOptions)
@@ -79,9 +80,6 @@ function checkCredentials(){
                     timer: 2000,
                     timerProgressBar: false
                 }).then(() => {
-                    // Une fois l'alerte fermée, on continue avec la redirection
-                    const token = result.api_token;
-                    setToken(token);
                     setCookie(roleCookieName, result.roles, 7);
                     setCookie(pseudoCookieName, result.pseudo, 7);
                     setCookie(nbCreditsCookieName, result.nbCredit, 7);

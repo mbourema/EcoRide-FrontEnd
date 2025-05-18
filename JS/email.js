@@ -56,6 +56,7 @@ function sendmail(){
     });
     let requestOptions = {
         method: 'POST',
+        credentials: 'include',
         headers: myHeaders,
         body: raw,
         redirect: 'follow'

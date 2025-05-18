@@ -1,7 +1,6 @@
-const tokenCookieName = "accesstoken";
 const signOutBtn = document.getElementById("SignoutBtn");
-export const roleCookieName = "role";
 export const pseudoCookieName = "pseudo";
+export const roleCookieName = "role";
 export const nbCreditsCookieName = "crédits";
 export const idConnected = "id";
 export const apiUrl = "https://obscure-stream-41149-67f60faa3f9f.herokuapp.com";
@@ -198,8 +197,11 @@ async function getMoyenneNote(pseudo) {
     const urlAvis = `${apiUrl}/avis/fulllist/conducteur/${pseudo}`;
 
     try {
-        const response = await fetch(urlAvis);
-
+        const response = await fetch(urlAvis, {
+            method: 'GET',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json'}
+        });
         // Vérification AVANT d'essayer d'analyser la réponse en JSON
         if (response.status === 404) {
             return "Pas de note pour le moment !";
@@ -230,7 +232,11 @@ async function getEnergieVoiture(voitureId) {
     const urlVoiture = `${apiUrl}/api/voitures/details/${voitureId}`;
 
     try {
-        const response = await fetch(urlVoiture);
+        const response = await fetch(urlVoiture, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'}
+        });
         if (!response.ok) {
             throw new Error(`Erreur lors de la récupération de l'énergie: ${response.status}`);
         }
@@ -361,7 +367,11 @@ document.addEventListener("DOMContentLoaded", function() {
     if (searchParams.villeDepart && searchParams.villeArrivee && searchParams.dateDepart) {
         const url = `${apiUrl}/covoiturage/list?ville_depart=${searchParams.villeDepart}&ville_arrivee=${searchParams.villeArrivee}&date_depart=${searchParams.dateDepart}`;
 
-        fetch(url)
+        fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'}
+        })
             .then(response => response.json())
             .then(data => {
                 afficherCovoiturages(data);
@@ -396,16 +406,6 @@ export function getCookie(name) {
     return null;
 }
 
-//Création du cookie jeton
-export function setToken(token){
-    setCookie(tokenCookieName, token, 7);
-}
-
-//Obtenir la valeur du jeton de connexion
-export function getToken(){
-    return getCookie(tokenCookieName);
-}
-
 //Obtenir la valeur du cookie role
 export function getRole(){
     return getCookie(roleCookieName);
@@ -429,9 +429,7 @@ export function eraseCookie(name) {
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
-// Fonction pour gérer la déconnexion à l'aide de la suppression du cookie token et du cookie role
 function signout(){
-    eraseCookie(tokenCookieName);
     eraseCookie(roleCookieName);
     eraseCookie(pseudoCookieName);
     eraseCookie(nbCreditsCookieName);
@@ -444,7 +442,7 @@ signOutBtn.addEventListener("click", signout);
 
 // Fonction qui vérifie si on est connexté sur le site par la présence ou non du cookie jeton
 export function isConnected(){
-    if(getToken() == null || getToken == undefined){
+    if(getPseudo() == null || getPseudo == undefined){
         return false;
     }
     else{
@@ -484,10 +482,12 @@ export function showAndHideElementsForRoles(){
                 if(userConnected && role.includes("ROLE_CONDUCTEUR")){
                     element.classList.remove("d-none");
                 }
+                break;
             case 'passager':
                 if(userConnected || role.includes("ROLE_PASSAGER")){
                     element.classList.remove("d-none");
                 }
+                break;
                
         }
     })
@@ -515,11 +515,12 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     else if (pseudo && !nbCredit){
         const id = getId();
-        const response = fetch(`${apiUrl}/api/utilisateurs/details/${id}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json", 
-            }
+        const response = fetch(`${apiUrl}/api/utilisateurs/details/${id}`,{
+            method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
         })
         .then(response => {
             if (!response.ok) {

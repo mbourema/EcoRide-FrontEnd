@@ -1,17 +1,12 @@
-import { apiUrl, getId, getToken } from "./index.js";
+import { apiUrl, getId } from "./index.js";
 
 // Fonction pour charger les voitures de l'utilisateur
 function loadCars() {
-    const token = getToken();
-    if (!token) {
-        console.error('Le jeton d\'authentification est manquant.');
-        return;
-    }
 
     fetch(apiUrl + "/api/voitures/liste", {
         method: 'GET',
+        credentials: 'include',
         headers: {
-            'X-AUTH-TOKEN': token,
             'Accept': 'application/json'
         }
     })
@@ -52,16 +47,11 @@ function loadCars() {
 
 // Fonction pour charger les covoiturages de l'utilisateur
 function loadCarpools() {
-    const token = getToken();
-    if (!token) {
-        console.error('Le jeton d\'authentification est manquant.');
-        return;
-    }
 
     fetch(apiUrl + "/covoiturage/list", {
         method: 'GET',
+        credentials: 'include',
         headers: {
-            'X-AUTH-TOKEN': token,
             'Accept': 'application/json'
         }
     })

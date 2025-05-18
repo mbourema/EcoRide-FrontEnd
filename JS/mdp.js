@@ -55,6 +55,7 @@ function changeMDP(){
     });
     let requestOptions = {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

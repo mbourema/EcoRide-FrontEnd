@@ -458,6 +458,9 @@ export function showAndHideElementsForRoles(){
     let allElementsToEdit = document.querySelectorAll('[data-show]');
     allElementsToEdit.forEach(element =>{
         switch(element.dataset.show){
+            case 'display' :
+                element.classList.remove("d-none");
+                break;
             case 'disconnected': 
                 if(!userConnected){
                     element.classList.remove("d-none");

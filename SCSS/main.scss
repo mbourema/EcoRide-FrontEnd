@@ -306,6 +306,13 @@ body {
     #main-page {
         padding-top: 370px;
     }
+
+    .presentation {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height : 100%;
+    }
 }
 
 @media (max-width: 370px) {

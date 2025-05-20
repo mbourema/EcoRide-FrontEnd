@@ -9,7 +9,6 @@ const inputVilleDepart = document.getElementById("VilleDepart");
 const inputVilleArrivee = document.getElementById("VilleArrivee");
 const inputDateDepart = document.getElementById("DateDepart");
 const buttonRechercher = document.getElementById("Rechercher");
-export {rolesfixe};
 
 inputVilleDepart.addEventListener("input", validateVilleDepart);
 inputVilleArrivee.addEventListener("input", validateVilleArrivee);

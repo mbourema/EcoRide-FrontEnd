@@ -428,7 +428,7 @@ export function getId(){
     return getCookie(idConnected);
 }
 
-rolesfixe = getRole();
+let rolesfixe = getRole();
 
 // Supprimer un cookie à partir de son nom
 export function eraseCookie(name) {  

@@ -428,6 +428,8 @@ export function getId(){
     return getCookie(idConnected);
 }
 
+rolesfixe = getRole();
+
 // Supprimer un cookie à partir de son nom
 export function eraseCookie(name) {  
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';

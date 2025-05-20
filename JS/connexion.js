@@ -1,7 +1,5 @@
 import { setCookie, tokenCookieName, roleCookieName, pseudoCookieName, nbCreditsCookieName, apiUrl, idConnected, sanitizeHtml, getRole } from "./index.js";
 
-export let rolesfixe;
-
 const inputEmail = document.getElementById("Email");
 const inputMotDePasse = document.getElementById("Mdp");
 const buttonConnection = document.getElementById("connexion");
@@ -84,7 +82,6 @@ function checkCredentials(){
                 }).then(() => {
                     setCookie(tokenCookieName, result.api_token, 7)
                     setCookie(roleCookieName, result.roles, 7);
-                    rolesfixe = getRole();
                     setCookie(pseudoCookieName, result.pseudo, 7);
                     setCookie(nbCreditsCookieName, result.nbCredit, 7);
                     setCookie(idConnected, result.id, 7);                    

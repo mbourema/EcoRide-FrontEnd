@@ -1,7 +1,6 @@
 import { isConnected, showAndHideElementsForRoles } from "../JS/index.js";
 import Route from "./route.js";
 import { allRoutes, websiteName } from "./allRoutes.js";
-import { rolesfixe } from "../JS/connexion.js";
 
 // Création d'une route pour la page 404 (page introuvable)
 const connexion = new Route("connexion", "Veuillez vous connecter pour accéder a cette page", "/Pages/connectezvous.html");

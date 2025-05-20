@@ -1,4 +1,4 @@
-import {apiUrl, getId, sanitizeHtml} from "./index.js";
+import {apiUrl, getId, getToken, sanitizeHtml} from "./index.js";
 
 const inputMarque = document.getElementById("marque");
 const inputModele = document.getElementById("modele");
@@ -193,7 +193,13 @@ function AjouterVoiture() {
         energie = "Electrique";
     }
     
+    let token = getToken();
+        if (!token) {
+            console.error('Le jeton d\'authentification est manquant.');
+            return;
+        }
     let myHeaders = new Headers();
+    myHeaders.append("X-AUTH-TOKEN", token);
     myHeaders.append("Accept", "application/json"); 
 
     let raw = JSON.stringify({

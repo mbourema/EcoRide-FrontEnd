@@ -1,4 +1,5 @@
 const signOutBtn = document.getElementById("SignoutBtn");
+export const tokenCookieName = "accesstoken";
 export const pseudoCookieName = "pseudo";
 export const roleCookieName = "role";
 export const nbCreditsCookieName = "crédits";
@@ -406,7 +407,11 @@ export function getCookie(name) {
     return null;
 }
 
-//Obtenir la valeur du cookie role
+//Obtenir la valeur du jeton de connexion
+export function getToken(){
+    return getCookie(tokenCookieName);
+}
+
 export function getRole(){
     return getCookie(roleCookieName);
 }
@@ -423,6 +428,7 @@ export function getId(){
     return getCookie(idConnected);
 }
 
+export let rolesfixe = getRole();
 
 // Supprimer un cookie à partir de son nom
 export function eraseCookie(name) {  
@@ -430,6 +436,7 @@ export function eraseCookie(name) {
 }
 
 function signout(){
+    eraseCookie(tokenCookieName);
     eraseCookie(roleCookieName);
     eraseCookie(pseudoCookieName);
     eraseCookie(nbCreditsCookieName);

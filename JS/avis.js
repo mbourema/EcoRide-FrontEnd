@@ -1,10 +1,15 @@
-import { apiUrl, getId, sanitizeHtml } from "./index.js";
+import { apiUrl, getToken, getId, sanitizeHtml } from "./index.js";
 
 
 
 // Fonction pour récupérer les covoiturages via les paiements de l'utilisateur
 async function getCovoiturages() {
+    const token = getToken();
     const utilisateurId = getId();
+
+    if (!token || !utilisateurId) {
+        return;
+    }
 
     try {
         // Récupération des paiements
@@ -12,7 +17,8 @@ async function getCovoiturages() {
             method: "GET",
             credentials: 'include',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "X-AUTH-TOKEN": token
             }
         });
 
@@ -95,7 +101,12 @@ document.getElementById("avisForm").addEventListener("submit", function(event) {
         return;
     }
 
+    const token = getToken();
     const utilisateurId = getId();
+
+    if (!token || !utilisateurId) {
+        return;
+    }
 
     const body = {
         "utilisateur_id_passager": utilisateurId,
@@ -111,7 +122,8 @@ document.getElementById("avisForm").addEventListener("submit", function(event) {
         method: "POST",
         credentials: "include",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "X-AUTH-TOKEN": token
         },
         body: JSON.stringify(body)
     })

@@ -1,4 +1,4 @@
-import { setCookie, roleCookieName, pseudoCookieName, nbCreditsCookieName, apiUrl, idConnected, sanitizeHtml } from "./index.js";
+import { setCookie, tokenCookieName, roleCookieName, pseudoCookieName, nbCreditsCookieName, apiUrl, idConnected, sanitizeHtml } from "./index.js";
 
 const inputEmail = document.getElementById("Email");
 const inputMotDePasse = document.getElementById("Mdp");
@@ -80,6 +80,7 @@ function checkCredentials(){
                     timer: 2000,
                     timerProgressBar: false
                 }).then(() => {
+                    setCookie(tokenCookieName, result.api_token, 7)
                     setCookie(roleCookieName, result.roles, 7);
                     setCookie(pseudoCookieName, result.pseudo, 7);
                     setCookie(nbCreditsCookieName, result.nbCredit, 7);

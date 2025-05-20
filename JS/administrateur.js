@@ -1,7 +1,11 @@
-import { apiUrl } from "./index.js";
+import { apiUrl, getToken } from "./index.js";
 
 // Fonction pour récupérer le total des crédits récupérés par la plateforme
 async function getTotalCredits() {
+    const token = getToken();  // Récupère le token d'authentification
+    if (!token) {
+        return;
+    }
 
     try {
         // Requête pour récupérer tous les paiements
@@ -9,7 +13,8 @@ async function getTotalCredits() {
             method: "GET",
             credentials: 'include',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "X-AUTH-TOKEN": token
             }
         });
 

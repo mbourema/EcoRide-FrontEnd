@@ -1,4 +1,4 @@
-import { getRole, isConnected, showAndHideElementsForRoles } from "../JS/index.js";
+import { rolesfixe, isConnected, showAndHideElementsForRoles } from "../JS/index.js";
 import Route from "./route.js";
 import { allRoutes, websiteName } from "./allRoutes.js";
 
@@ -35,7 +35,7 @@ const LoadContentPage = async () => {
         return;
       }
     } else {
-      const roleUser = getRole();
+      const roleUser = rolesfixe;
       if (!roleUser) {
         window.location.replace("/accueil");
         return;

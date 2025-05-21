@@ -1,4 +1,4 @@
-import { isConnected, showAndHideElementsForRoles, getToken } from "../JS/index.js";
+import { isConnected, showAndHideElementsForRoles, getToken, apiUrl } from "../JS/index.js";
 import Route from "./route.js";
 import { allRoutes, websiteName } from "./allRoutes.js";
 

@@ -61,6 +61,9 @@ const LoadContentPage = async () => {
         return;
       }
     }
+  } else if (allRolesArray.length > 0 && !isConnected()) {
+    window.location.replace("/connexion");
+    return;
   }
 
   // Récupération du contenu HTML de la route

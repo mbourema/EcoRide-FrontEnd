@@ -143,7 +143,6 @@ export async function afficherTousLesPaiements() {
 
         // Filtrer les paiements pour n'afficher que ceux de l'utilisateur connecté
         const paiementsUtilisateur = paiements.filter(paiement => paiement.utilisateur_id === Number(utilisateurId));
-        console.log("Liste des paiements :", paiementsUtilisateur);
         const checkElementInterval = setInterval(() => {
             const paiementContainer = document.querySelector("#paiement_details");
             if (paiementContainer) {

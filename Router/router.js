@@ -1,4 +1,4 @@
-import { isConnected, showAndHideElementsForRoles } from "../JS/index.js";
+import { isConnected, showAndHideElementsForRoles, getToken } from "../JS/index.js";
 import Route from "./route.js";
 import { allRoutes, websiteName } from "./allRoutes.js";
 
@@ -35,7 +35,24 @@ const LoadContentPage = async () => {
         return;
       }
     } else {
-      const roleUser = rolesfixe;
+      const api_token = getToken();
+      const vrairoles = fetch(`${apiUrl}/api/utilisateurs/details/${api_token}`,{
+                          method: 'GET',
+                          credentials: 'include',
+                          headers: {
+                            'Content-Type': 'application/json',
+                            'X-AUTH-TOKEN': api_token
+                          }
+                        }).then(response => {
+                          if (!response.ok) {
+                            throw new Error(`Erreur lors de la récupération des détails de l'utilisateur : ${response.status}`);
+                          }
+                          return response.json();
+                        }).then(data => {
+                          return data.roles;
+                        });
+      console.log(vrairoles);
+      const roleUser = vrairoles;
       if (!roleUser) {
         window.location.replace("/accueil");
         return;

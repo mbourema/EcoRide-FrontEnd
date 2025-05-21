@@ -428,8 +428,6 @@ export function getId(){
     return getCookie(idConnected);
 }
 
-let rolesfixe = getRole();
-
 // Supprimer un cookie à partir de son nom
 export function eraseCookie(name) {  
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -524,8 +522,8 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">${nbCredit}</span>`;
     }
     else if (pseudo && !nbCredit){
-        const id = getId();
-        const response = fetch(`${apiUrl}/api/utilisateurs/details/${id}`,{
+        const api_token = getToken();
+        const response = fetch(`${apiUrl}/api/utilisateurs/details/${api_token}`,{
             method: 'GET',
                 credentials: 'include',
                 headers: {

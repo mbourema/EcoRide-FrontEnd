@@ -13,7 +13,7 @@ export const allRoutes = [
     new Route("/connexion", "Espace Connexion", "/Pages/connexion.html", [], "/JS/connexion.js"),
     new Route("/mentions", "Mentions Légales", "/Pages/mentions.html", []),
     new Route("/email", "Reinitialiser le mot de passe", "/Pages/email.html", [], "/JS/email.js"),
-    new Route("/mdp", "Entrer un nouveu mdp", "/Pages/mdp.html", [], "/JS/mdp.js"),
+    new Route("/mdp", "Entrer un nouveau mdp", "/Pages/mdp.html", [], "/JS/mdp.js"),
     new Route("/voiture", "Ajouter Voiture", "/Pages/voiture.html", ["ROLE_CONDUCTEUR", "ROLE_ADMIN"], "/JS/voiture.js")
 ];
 

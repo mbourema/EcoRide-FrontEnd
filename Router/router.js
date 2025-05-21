@@ -58,8 +58,7 @@ const LoadContentPage = async () => {
         return;
       }
 
-      const userRoles = roleUser.split(",");
-      if (!userRoles.some(role => allRolesArray.includes(role))) {
+      if (!roleUser.some(role => allRolesArray.includes(role))) {
         window.location.replace("/accueil");
         return;
       }

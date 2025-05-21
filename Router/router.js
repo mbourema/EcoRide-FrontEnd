@@ -36,7 +36,7 @@ const LoadContentPage = async () => {
       }
     } else {
       const api_token = getToken();
-      const vrairoles = fetch(`${apiUrl}/api/utilisateurs/details/${api_token}`,{
+      const vrairoles = await fetch(`${apiUrl}/api/utilisateurs/details/${api_token}`,{
                           method: 'GET',
                           credentials: 'include',
                           headers: {

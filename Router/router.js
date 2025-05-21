@@ -28,12 +28,10 @@ const LoadContentPage = async () => {
 
   const allRolesArray = actualRoute.authorize || []; // Assure que c'est un tableau
 
-  if (allRolesArray.length > 0) {
+  if (allRolesArray.length > 0 && isConnected()) {
     if (allRolesArray.includes("disconnected")) {
-      if (isConnected()) {
-        window.location.replace("/accueil");
-        return;
-      }
+      window.location.replace("/accueil");
+      return;
     } else {
       const api_token = getToken();
       const vrairoles = await fetch(`${apiUrl}/api/utilisateurs/details/${api_token}`,{

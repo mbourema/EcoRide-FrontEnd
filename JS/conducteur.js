@@ -104,10 +104,74 @@ function loadCarpools() {
 loadCars();
 loadCarpools();
 
-// Fonction pour gérer l'affichage des boutons "Démarrer" et "Arrivée"
-function boutonDemarrerArriver() {
-    const demarrerDiv = document.getElementById("demarrer");
-    const arriveeDiv = document.getElementById("arrivee");
+// Fonction pour récupérer les covoiturages du conducteur ayant fais l'objet de paiements
+async function getPayedCovoiturages() {
+    const token = getToken();
+    const utilisateurId = getId();
+
+    if (!token || !utilisateurId) {
+        return;
+    }
+
+    try {
+        // Récupération des paiements
+        const response = await fetch(`${apiUrl}/paiements`, {
+            method: "GET",
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/json",
+                "X-AUTH-TOKEN": token
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erreur récupération des paiements : ${response.status}`);
+        }
+
+        const paiements = await response.json();
+        
+        // Filtrage des paiements pour n'afficher que ceux qui concernent le conducteur
+        const paiementsConducteur = paiements.filter(paiement => paiement.conducteur_id === Number(utilisateurId));
+
+        // Passer les paiements filtrés à la fonction populateCovoiturageSelect
+        populatePayedCovoiturageSelect(paiementsConducteur);
+    } catch (error) {
+        Swal.fire({
+            text: "Erreur lors de la récupération des paiements",
+            icon: "error",
+            position: "center",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: false
+        });
+    }
+}
+
+// Fonction pour remplir la liste déroulante des covoiturages avec la date de paiement
+function populatePayedCovoiturageSelect(paiementsUtilisateur) {
+    const select = document.getElementById("paiementSelect");
+
+    // On s'assure qu'il y a des paiements à afficher
+    if (paiementsUtilisateur.length === 0) {
+        select.innerHTML = `<option value="">Aucun covoiturage payé</option>`;
+        return;
+    }
+
+    paiementsUtilisateur.forEach(paiement => {
+        const option = document.createElement("option");
+        option.value = paiement.covoiturage_id; // Garder l'id du covoiturage comme valeur
+        option.textContent = `Covoiturage ID: ${paiement.covoiturage_id} - Passager : ${paiement.pseudo_utilisateur} - Montant : ${paiement.montant}`;
+        select.appendChild(option);
+    });
+}
+
+getPayedCovoiturages(); 
+
+
+const demarrerDiv = document.getElementById("demarrer");
+const arriveeDiv = document.getElementById("arrivee");
+
+function boutonDemarrer() {
 
     if (!demarrerDiv || !arriveeDiv) {
         console.error("Les éléments nécessaires ne sont pas trouvés dans le DOM.");
@@ -121,9 +185,13 @@ function boutonDemarrerArriver() {
 // Récupération du bouton et ajout de l'événement au clic
 const startButton = document.getElementById("startButton");
 if (startButton) {
-    startButton.addEventListener("click", boutonDemarrerArriver);
+    startButton.addEventListener("click", boutonDemarrer);
 } else {
     console.error("Le bouton 'Démarrer votre covoiturage' est introuvable.");
+}
+
+function boutonArriver() {
+    
 }
 
 

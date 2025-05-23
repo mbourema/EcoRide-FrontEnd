@@ -50,13 +50,13 @@ async function getCovoiturages() {
 function populateCovoiturageSelect(paiementsUtilisateur) {
     const select = document.getElementById("covoiturageSelect");
 
-    // Assurez-vous qu'il y ait des paiements à afficher
+    // On s'assure qu'il y a des paiements à afficher
     if (paiementsUtilisateur.length === 0) {
         select.innerHTML = `<option value="">Aucun covoiturage disponible</option>`;
         return;
     }
 
-    // Ajouter chaque date de paiement dans le select
+    // Ajout de chaque date de paiement dans le select
     paiementsUtilisateur.forEach(paiement => {
         const option = document.createElement("option");
         option.value = paiement.covoiturage_id; // Garder l'id du covoiturage comme valeur
@@ -64,9 +64,6 @@ function populateCovoiturageSelect(paiementsUtilisateur) {
         select.appendChild(option);
     });
 }
-
-
-
 
 // Gérer l'affichage ou non du champ justification en fonction de la case à cocher
 document.getElementById("signaler").addEventListener("change", function() {
@@ -160,9 +157,8 @@ document.getElementById("avisForm").addEventListener("submit", function(event) {
     });
 });
 
-setTimeout(function() {
-    getCovoiturages(); 
-}, 100);  
+getCovoiturages(); 
+
 
 
 

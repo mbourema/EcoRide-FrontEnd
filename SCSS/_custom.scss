@@ -1,4 +1,3 @@
-
 @import url("https://fonts.googleapis.com/css2?family=Grechen+Fuemen&display=swap");
 $secondary : #DAC058;
 $ecogreen : #7FDCC3;
@@ -22,6 +21,10 @@ $grid-breakpoints: (
 
 .bg-ecogreen {
     background-color: $ecogreen !important;
+}
+
+.w-300 {
+    width: 300px !important;
 }
 
 .bg-ecogreen_light {

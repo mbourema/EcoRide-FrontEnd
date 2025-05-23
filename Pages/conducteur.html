@@ -4,7 +4,7 @@
     </div>
 </div>
 <div class="mt-4 text-center">
-    <div class="mb-2">
+    <div>
         Souhaitez-vous ajouter une voiture ? 
         <a href="/voiture" class="btn btn-link">Cliquez ici</a>
     </div>
@@ -13,8 +13,23 @@
         <a href="/covoiturage" class="btn btn-link">Cliquez ici</a>
     </div>
     <br>
+
+    <form id="PaiementsForm" class="login-form w-300 mx-auto">
+            <!-- Sélection du covoiturage payé -->
+            <div class="my-2">
+                <label for="paiementSelect" class="form-label">Choisissez un covoiturage payé</label>
+                <select id="paiementSelect" class="form-select" required>
+                    <option value="">Sélectionnez un covoiturage payé</option>
+                    <!-- Options générées par JavaScript -->
+                </select>
+                <div class="invalid-feedback">
+                    Veuillez sélectionner un covoiturage payé.
+                </div>
+            </div>
+    </form>
+
     <div id="demarrer">
-        Souhaitez-vous démarrer un covoiturage ? Appuyez sur ce bouton :
+        Souhaitez-vous démarrer le covoiturage ?
         <button id="startButton" class="btn btn-success">Démarrer votre covoiturage</button>
     </div>
     

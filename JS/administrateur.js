@@ -33,7 +33,7 @@ async function getTotalCredits() {
 
         function calculnbcredit(paiements){
             let totalCreditsPlateforme = 0;
-            paiements.forEach((paiement) => totalCreditsPlateforme += paiement.credit_roral_plateforme);
+            paiements.forEach((paiement) => totalCreditsPlateforme += paiement.credit_total_plateforme);
             return totalCreditsPlateforme;
         }
 

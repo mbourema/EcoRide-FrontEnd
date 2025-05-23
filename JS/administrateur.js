@@ -31,16 +31,17 @@ async function getTotalCredits() {
 
         const paiements = await response.json();
 
-        // Additionner toutes les valeurs de la colonne credit_total_platefome en convertissant en nombre
-        const totalCredits = paiements.reduce((total, paiement) => {
-            // Convertir credit_total_plateforme en nombre (0 si la conversion échoue)
-            const credit = parseFloat(paiement.credit_total_platefome) || 0; // Si ce n'est pas un nombre, on prend 0
-            
-            return total + credit;
-        }, 0);
+        function calculnbcredit(paiements){
+            totalCreditsPlateforme = 0;
+            paiements.forEach((paiement) => totalCreditsPlateforme += paiement.credit_roral_plateforme);
+            return totalCreditsPlateforme;
+        }
+
+        const totalCreditsPlateforme = calculnbcredit(paiements);
         
         // Affichage du total des crédits dans la page
-        displayTotalCredits(totalCredits);
+        displayTotalCredits(totalCreditsPlateforme);
+        
     } catch (error) {
         console.error("Erreur lors de la récupération des paiements :", error);
     }

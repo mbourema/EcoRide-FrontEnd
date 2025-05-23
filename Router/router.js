@@ -49,7 +49,6 @@ const LoadContentPage = async () => {
                         }).then(data => {
                           return data.roles;
                         });
-      console.log(vrairoles);
       const roleUser = vrairoles;
       if (!roleUser) {
         window.location.replace("/accueil");

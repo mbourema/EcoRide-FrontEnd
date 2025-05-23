@@ -32,7 +32,7 @@ async function getTotalCredits() {
         const paiements = await response.json();
 
         function calculnbcredit(paiements){
-            const totalCreditsPlateforme = 0;
+            let totalCreditsPlateforme = 0;
             paiements.forEach((paiement) => totalCreditsPlateforme += paiement.credit_roral_plateforme);
             return totalCreditsPlateforme;
         }

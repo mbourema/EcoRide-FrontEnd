@@ -32,7 +32,7 @@ async function getTotalCredits() {
         const paiements = await response.json();
 
         function calculnbcredit(paiements){
-            totalCreditsPlateforme = 0;
+            const totalCreditsPlateforme = 0;
             paiements.forEach((paiement) => totalCreditsPlateforme += paiement.credit_roral_plateforme);
             return totalCreditsPlateforme;
         }
@@ -41,7 +41,7 @@ async function getTotalCredits() {
         
         // Affichage du total des crédits dans la page
         displayTotalCredits(totalCreditsPlateforme);
-        
+
     } catch (error) {
         console.error("Erreur lors de la récupération des paiements :", error);
     }

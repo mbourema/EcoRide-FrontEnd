@@ -57,7 +57,7 @@ function populateCovoiturageSelect(paiementsUtilisateur) {
     paiementsUtilisateur.forEach(paiement => {
         const option = document.createElement("option");
         option.value = paiement.covoiturage_id; // Garder l'id du covoiturage comme valeur
-        option.textContent = `Pseudo conducteur: ${paiement.covoiturage_id} - Date du paiement : ${paiement.pseudo_conducteur_id}`; // Affiche la date de paiement
+        option.textContent = `Pseudo conducteur: ${paiement.pseudo_conducteur_id} - Date du paiement : ${paiement.date_paiement}`; // Affiche la date de paiement
         select.appendChild(option);
     });
 }

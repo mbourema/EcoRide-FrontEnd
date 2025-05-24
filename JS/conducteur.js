@@ -4,7 +4,6 @@ import { apiUrl, getId, getToken } from "./index.js";
 function loadCars() {
     const token = getToken();
     if (!token) {
-        console.error('Le jeton d\'authentification est manquant.');
         return;
     }
 
@@ -135,6 +134,7 @@ async function getPayedCovoiturages() {
 
         // Passer les paiements filtrés à la fonction populateCovoiturageSelect
         populatePayedCovoiturageSelect(paiementsConducteur);
+
     } catch (error) {
         Swal.fire({
             text: "Erreur lors de la récupération des paiements",
@@ -159,14 +159,13 @@ function populatePayedCovoiturageSelect(paiementsUtilisateur) {
 
     paiementsUtilisateur.forEach(paiement => {
         const option = document.createElement("option");
-        option.value = paiement.covoiturage_id; // Garder l'id du covoiturage comme valeur
-        option.textContent = `Covoiturage ID: ${paiement.covoiturage_id} - Passager : ${paiement.pseudo_utilisateur} - Montant : ${paiement.montant}`;
+        option.value = paiement.paiement_id; // Garder l'id du covoiturage comme valeur
+        option.textContent = `Covoiturage ID: ${paiement.covoiturage_id} - Passager : ${paiement.pseudo_utilisateur} - Paiement ID : ${paiement.paiement_id}`;
         select.appendChild(option);
     });
 }
 
 getPayedCovoiturages(); 
-
 
 const demarrerDiv = document.getElementById("demarrer");
 const arriveeDiv = document.getElementById("arrivee");
@@ -190,8 +189,59 @@ if (startButton) {
     console.error("Le bouton 'Démarrer votre covoiturage' est introuvable.");
 }
 
-function boutonArriver() {
-    
+async function boutonArriver() {
+    const ID = document.getElementById("paiementSelect").value;
+    const token = getToken();
+
+    if (!token || !ID) {
+        console.error("Le jeton d'authentification ou l'ID du covoiturage payé est manquant.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`${apiUrl}/paiement/confirmation/${ID}`, {
+            method: "GET",
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/json",
+                "X-AUTH-TOKEN": token
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erreur lors de la validation de l'arrivée : ${response.status}`);
+        }
+
+        Swal.fire({
+            text: "Arrivée validée avec succès !",
+            icon: "success",
+            position: "center",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: false
+        }).then(() => {
+            window.location.reload();
+        });
+
+    } catch (error) {
+        console.error("Erreur lors de la validation de l'arrivée :", error);
+        Swal.fire({
+            text: "Erreur lors de la validation de l'arrivée",
+            icon: "error",
+            position: "center",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: false
+        });
+    }
+}
+
+
+const endButton = document.getElementById("arriveeButton");
+if (endButton) {
+    endButton.addEventListener("click", boutonArriver);
+} else {
+    console.error("Le bouton 'Arrivé' est introuvable.");
 }
 
 

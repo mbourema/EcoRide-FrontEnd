@@ -108,6 +108,11 @@ function displayResults(villes, resultsContainer, inputField) {
             inputField.classList.add("is-valid");
             inputField.classList.remove("is-invalid");
         });
+        document.addEventListener("click", function(event) {
+        if (!resultsContainer.contains(event.target) && event.target !== inputField) {
+            resultsContainer.innerHTML = ""; // Effacer les résultats si on clique en dehors
+        }
+        });
         resultsContainer.appendChild(li);
     });
 }

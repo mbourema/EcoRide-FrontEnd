@@ -1,7 +1,5 @@
 import { apiUrl, getToken, getId, sanitizeHtml } from "./index.js";
 
-
-
 // Fonction pour récupérer les covoiturages via les paiements de l'utilisateur
 async function getCovoiturages() {
     const token = getToken();
@@ -30,7 +28,6 @@ async function getCovoiturages() {
         
         // Filtrage des paiements pour n'afficher que ceux de l'utilisateur connecté
         const paiementsUtilisateur = paiements.filter(paiement => paiement.utilisateur_id === Number(utilisateurId));
-        console.log("Liste des paiements de l'utilisateur :", paiementsUtilisateur);
 
         // Passer les paiements filtrés à la fonction populateCovoiturageSelect
         populateCovoiturageSelect(paiementsUtilisateur);
@@ -60,7 +57,7 @@ function populateCovoiturageSelect(paiementsUtilisateur) {
     paiementsUtilisateur.forEach(paiement => {
         const option = document.createElement("option");
         option.value = paiement.covoiturage_id; // Garder l'id du covoiturage comme valeur
-        option.textContent = `Covoiturage ID: ${paiement.covoiturage_id} - Date du paiement : ${paiement.date_paiement}`; // Affiche la date de paiement
+        option.textContent = `Pseudo conducteur: ${paiement.covoiturage_id} - Date du paiement : ${paiement.pseudo_conducteur_id}`; // Affiche la date de paiement
         select.appendChild(option);
     });
 }

@@ -444,7 +444,6 @@ function signout(){
     eraseCookie(pseudoCookieName);
     eraseCookie(nbCreditsCookieName);
     eraseCookie(idConnected);
-    localStorage.removeItem("redirectAfterLogin");
     window.location.reload();
 }
 

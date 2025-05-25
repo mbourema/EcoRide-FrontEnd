@@ -60,8 +60,12 @@ const LoadContentPage = async () => {
         return;
       }
     }
-  } else if (allRolesArray.length > 0 && !isConnected()) {
-    localStorage.setItem("redirectAfterLogin", path);
+  } else if (allRolesArray.length > 0 && !isConnected() && path !== "/avis") {
+      window.location.replace("/connexion");
+      return;
+  } else if (path === "/avis" && !isConnected()) {
+    // Si l'utilisateur n'est pas connecté et essaie d'accéder à la page des avis, on le redirige vers la page de connexion
+    localStorage.setItem("redirectAfterLogin", "/avis");
     window.location.replace("/connexion");
     return;
   }

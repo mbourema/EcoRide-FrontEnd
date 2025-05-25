@@ -84,8 +84,15 @@ function checkCredentials(){
                     setCookie(roleCookieName, result.roles, 7);
                     setCookie(pseudoCookieName, result.pseudo, 7);
                     setCookie(nbCreditsCookieName, result.nbCredit, 7);
-                    setCookie(idConnected, result.id, 7);                    
-                    window.location.replace("/");
+                    setCookie(idConnected, result.id, 7);    
+                    const allowedRoutes = ["/avis", "/accueil", "/administrateur", "/conducteur", "/covoiturage", "/covoiturages", "/detail", "/employe", "/voiture", "/mentions", "/inscription", "/email", "/mdp", "/connexion", "/"];                
+                    const redirectUrl = localStorage.getItem("redirectAfterLogin");
+                    if (redirectUrl && allowedRoutes.includes(redirectUrl)) {
+                        localStorage.removeItem("redirectAfterLogin");
+                        window.location.replace(redirectUrl);
+                    } else {
+                        window.location.replace("/");
+                    }
                 });
             });
         } else if (response.status === 429) {

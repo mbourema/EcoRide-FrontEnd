@@ -61,6 +61,7 @@ const LoadContentPage = async () => {
       }
     }
   } else if (allRolesArray.length > 0 && !isConnected()) {
+    localStorage.setItem("redirectAfterLogin", path);
     window.location.replace("/connexion");
     return;
   }

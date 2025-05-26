@@ -80,14 +80,7 @@ async function loadAvis() {
                 `;
                 avisListContainer.appendChild(avisElement);
                 // Ajouter un événement au bouton "Détails"
-            });
-        }
-    } catch (error) {
-        console.error('Erreur lors de la récupération des avis :', error);
-    }
-}
-
-document.getElementById(`validate-${avis.paiement_id}`).addEventListener("click", async function () {
+                document.getElementById(`validate-${avis.paiement_id}`).addEventListener("click", async function () {
                     const ID = avis.paiement_id;
                     const validation = await fetch(`${apiUrl}/paiement/${ID}`, {
                         method: 'PATCH',
@@ -105,6 +98,12 @@ document.getElementById(`validate-${avis.paiement_id}`).addEventListener("click"
                         alert("Erreur lors de la validation du paiement.");
                     }
             });
+            });
+        }
+    } catch (error) {
+        console.error('Erreur lors de la récupération des avis :', error);
+    }
+}
 
 // Appel de la fonction
 loadAvis();

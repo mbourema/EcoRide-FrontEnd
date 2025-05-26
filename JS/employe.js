@@ -1,52 +1,91 @@
 import { apiUrl, getToken } from "./index.js";
 
-// Fonction pour charger les voitures de l'utilisateur
-function loadAvis() {
+
+async function loadPaiementsEnCours() {
+    const token = getToken();
+    if (!token) {
+        return [];
+    }
+    try {
+        const response = await fetch(apiUrl + "/paiements", {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'X-AUTH-TOKEN': token,
+                'Accept': 'application/json'
+            }
+        });
+
+        const data = await response.json();
+        const userPaiements = data.filter(paiement => paiement.avancement === "En cours");
+
+        const covoiturageIdList = userPaiements.map(p => p.covoiturage_id);
+        console.log(covoiturageIdList);
+
+        return covoiturageIdList;
+
+    } catch (error) {
+        console.error('Erreur lors de la récupération des paiements :', error);
+        return [];
+    }
+}
+
+
+async function loadAvis() {
     const token = getToken();
     if (!token) {
         return;
     }
 
-    fetch(apiUrl + "/paiements", {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-            'X-AUTH-TOKEN': token,
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        const userAvis = data.filter(paiement => paiement.avancement === "En cours");
-        
+    const covoiturageIdList = await loadPaiementsEnCours();
+
+    try {
+        const response = await fetch(apiUrl + "/avis/fulllist", {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'X-AUTH-TOKEN': token,
+                'Accept': 'application/json'
+            }
+        });
+
+        const data = await response.json();
+
+        // Vérifie si l'ID est dans la liste
+        const userAvis = data.filter(avis => covoiturageIdList.includes(avis.covoiturage_id));
         const avisTitle = document.querySelector('#AvisSection h2');
         const avisListContainer = document.getElementById('AvisList');
+        avisListContainer.innerHTML = '';
 
-        avisListContainer.innerHTML = ''; // Vider la liste avant d'ajouter les nouveaux avis
-        
         if (userAvis.length > 0) {
-            avisTitle.style.display = 'block'; // Afficher le titre au moment du chargement des données
-            
-            userAvis.forEach(paiement => {
+            avisTitle.style.display = 'block';
+            userAvis.forEach(avis => {
                 const avisElement = document.createElement('div');
                 avisElement.classList.add('col');
                 avisElement.innerHTML = `
                     <div class="card p-3 d-flex flex-column align-items-start rounded-3 shadow-sm mb-3 bg-ecogreen_light">
-                        <p><strong>ID du paiement : </strong>${paiement.paiement_id}</p>
-                        <p><strong>Pseudo du passager : </strong>${paiement.pseudo_utilisateur}</p>
-                        <p><strong>ID du covoiturage : </strong>${paiement.covoiturage_id}</p>
-                        <p><strong>Pseudo du conducteur : </strong>${paiement.pseudo_conducteur_id}</p>
-                        <p><strong>Montant : </strong>${paiement.montant}</p>
-                        <p><strong>Date du paiement : </strong>${paiement.date_paiement}</p>
+                        <p><strong>Pseudo du passager : </strong>${avis.pseudo_passager}</p>
+                        <p><strong>Email du passager : </strong>${avis.email_passager}</p>
+                        <p><strong>Pseudo du conducteur : </strong>${avis.pseudo_conducteur}</p>
+                        <p><strong>Email du conducteur : </strong>${avis.email_conducteur}</p>
+                        <p><strong>Date de départ : </strong>${avis.date_depart}</p>
+                        <p><strong>Date d'arrivée : </strong>${avis.date_arrivee}</p>
+                        <p><strong>Note : </strong>${avis.note}</p>
+                        <p><strong>Commentaire : </strong>${avis.commentaire ?? 'Aucun'}</p>
+                        <p><strong>Signalement : </strong>${avis.signalement ?? 'Non'}</p>
+                        <p><strong>Justification : </strong>${avis.justification ?? 'Aucune'}</p>
+                        <div class="text-center">
+                            <button id="validate-${avis.paiement_id}" class="btn btn-secondary mt-2">Valider le paiement ${avis.paiement_id}</button>
+                        </div>
                     </div>
                 `;
                 avisListContainer.appendChild(avisElement);
             });
         }
-    })
-    .catch(error => console.error('Erreur lors de la récupération des paiements :', error));
+    } catch (error) {
+        console.error('Erreur lors de la récupération des avis :', error);
+    }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    loadAvis();
-});
+// Appel de la fonction
+loadAvis();

@@ -99,7 +99,7 @@ async function loadAvis() {
                             icon: "success",
                             position: "center",
                             showConfirmButton: false,
-                            timer: 2000,
+                            timer: 3000,
                             timerProgressBar: false
                         }).then(() => {window.location.reload();});
                     } else {
@@ -108,7 +108,7 @@ async function loadAvis() {
                             icon: "error",
                             position: "center",
                             showConfirmButton: false,
-                            timer: 2000,
+                            timer: 3000,
                             timerProgressBar: false
                         });
                     }

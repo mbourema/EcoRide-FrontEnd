@@ -62,7 +62,7 @@ function displayTotalCredits(totalCredits) {
         `;
     } else {
         creditTotalElement.innerHTML = `
-            <h2>Nombre total de crédits récupérés par la plateforme : ${totalCredits}€</h2>
+            <h2>Nombre total de crédits récupérés par la plateforme : ${totalCredits}</h2>
         `;
     }
 }

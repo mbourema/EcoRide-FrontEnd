@@ -20,7 +20,6 @@ async function loadPaiementsEnCours() {
         const userPaiements = data.filter(paiement => paiement.avancement === "En cours");
 
         const covoiturageIdList = userPaiements.map(p => p.covoiturage_id);
-        console.log(covoiturageIdList);
 
         return covoiturageIdList;
 
@@ -80,12 +79,32 @@ async function loadAvis() {
                     </div>
                 `;
                 avisListContainer.appendChild(avisElement);
+                // Ajouter un événement au bouton "Détails"
             });
         }
     } catch (error) {
         console.error('Erreur lors de la récupération des avis :', error);
     }
 }
+
+document.getElementById(`validate-${avis.paiement_id}`).addEventListener("click", async function () {
+                    const ID = avis.paiement_id;
+                    const validation = await fetch(`${apiUrl}/paiement/${ID}`, {
+                        method: 'PATCH',
+                        credentials: 'include',
+                        headers: {
+                            'X-AUTH-TOKEN': token,
+                            'Accept': 'application/json'
+                        }
+
+                    });
+                    if (validation.ok) {
+                        alert("Paiement validé avec succès !");
+                        loadAvis(); // Recharge les avis après validation
+                    } else {
+                        alert("Erreur lors de la validation du paiement.");
+                    }
+            });
 
 // Appel de la fonction
 loadAvis();

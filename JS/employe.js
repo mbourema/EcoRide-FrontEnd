@@ -74,7 +74,7 @@ async function loadAvis() {
                         <p><strong>Signalement : </strong>${avis.signalement ?? 'Non'}</p>
                         <p><strong>Justification : </strong>${avis.justification ?? 'Aucune'}</p>
                         <div class="text-center">
-                            <button id="validate-${avis.paiement_id}" class="btn btn-secondary mt-2">Valider le paiement ${avis.paiement_id}</button>
+                            <button id="validate-${avis.paiement_id}" class="btn btn-secondary mt-2">Valider le paiement</button>
                         </div>
                     </div>
                 `;

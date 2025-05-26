@@ -302,7 +302,8 @@ async function afficherCovoiturages(covoiturages) {
         if (
             formateText(covoiturage.lieu_depart) === formateText(searchParams.villeDepart) &&
             formateText(covoiturage.lieu_arrivee) === formateText(searchParams.villeArrivee) &&
-            isCloseEnough(dateDepartCovoiturage, dateDepartUser)
+            isCloseEnough(dateDepartCovoiturage, dateDepartUser) &&
+            covoiturage.nb_places >= 0
         ) {
             // Récupérer la note moyenne du conducteur
             const moyenneNote = await getMoyenneNote(covoiturage.pseudo_conducteur);
@@ -321,7 +322,7 @@ async function afficherCovoiturages(covoiturages) {
                     <div class="covoit-info flex-grow-1">
                         <p><strong>Pseudo :</strong> <span>${covoiturage.pseudo_conducteur}</span></p>
                         <p><strong>Note moyenne :</strong> <span>${moyenneNote}</span></p>
-                        <p><strong>Prix :</strong> ${covoiturage.prix_personne} €</p>
+                        <p><strong>Prix :</strong> ${covoiturage.prix_personne}</p>
                         <p><strong>Places disponibles :</strong> ${covoiturage.nb_places}</p>
                         <p><strong>Type véhicule :</strong> ${energieVoiture}</p>
                         <p><strong>Durée du trajet :</strong> ${dureeMinutes} min</p>

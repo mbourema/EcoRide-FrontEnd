@@ -58,7 +58,9 @@ async function getVoitureDetails(voitureId) {
 
 // Fonction pour récupérer la marque du véhicule
 async function getMarqueDetails(voitureId) {
-    const urlMarque = `${apiUrl}/marque/${voitureId}`;
+    const detailVoiture = getVoitureDetails(voitureId);
+    const marqueId = detailVoiture.marque.id;
+    const urlMarque = `${apiUrl}/marque/${marqueId}`;
     try {
         const response = await fetch(urlMarque, {
             method: 'GET',

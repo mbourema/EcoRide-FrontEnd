@@ -303,7 +303,7 @@ async function afficherCovoiturages(covoiturages) {
             formateText(covoiturage.lieu_depart) === formateText(searchParams.villeDepart) &&
             formateText(covoiturage.lieu_arrivee) === formateText(searchParams.villeArrivee) &&
             isCloseEnough(dateDepartCovoiturage, dateDepartUser) &&
-            covoiturage.nb_places >= 0
+            covoiturage.nb_places > 0
         ) {
             // Récupérer la note moyenne du conducteur
             const moyenneNote = await getMoyenneNote(covoiturage.pseudo_conducteur);

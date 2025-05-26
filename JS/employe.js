@@ -79,7 +79,7 @@ async function loadAvis() {
                     </div>
                 `;
                 avisListContainer.appendChild(avisElement);
-                // Ajouter un événement au bouton "Détails"
+
                 document.getElementById(`validate-${avis.paiement_id}`).addEventListener("click", async function () {
                     const ID = avis.paiement_id;
                     const validation = await fetch(`${apiUrl}/paiement/${ID}`, {
@@ -88,16 +88,32 @@ async function loadAvis() {
                         headers: {
                             'X-AUTH-TOKEN': token,
                             'Accept': 'application/json'
-                        }
-
+                        },
+                        body: JSON.stringify({
+                            avancement: "OK"
+                        })
                     });
                     if (validation.ok) {
-                        alert("Paiement validé avec succès !");
-                        loadAvis(); // Recharge les avis après validation
+                        Swal.fire({
+                            text: "Paiement validé",
+                            icon: "success",
+                            position: "center",
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: false
+                        });
+                        window.location.href = "/employe";
                     } else {
-                        alert("Erreur lors de la validation du paiement.");
+                        Swal.fire({
+                            text: "Erreur lors de la validation du paiement",
+                            icon: "error",
+                            position: "center",
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: false
+                        });
                     }
-            });
+                });
             });
         }
     } catch (error) {

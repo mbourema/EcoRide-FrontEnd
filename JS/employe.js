@@ -19,9 +19,9 @@ async function loadPaiementsEnCours() {
         const data = await response.json();
         const userPaiements = data.filter(paiement => paiement.avancement === "En cours");
 
-        const covoiturageIdList = userPaiements.map(p => p.covoiturage_id);
+        const paiementIdList = userPaiements.map(p => p.paiement_id);
 
-        return covoiturageIdList;
+        return paiementIdList;
 
     } catch (error) {
         console.error('Erreur lors de la récupération des paiements :', error);
@@ -36,7 +36,7 @@ async function loadAvis() {
         return;
     }
 
-    const covoiturageIdList = await loadPaiementsEnCours();
+    const paiementIdList = await loadPaiementsEnCours();
 
     try {
         const response = await fetch(apiUrl + "/avis/fulllist", {
@@ -51,7 +51,7 @@ async function loadAvis() {
         const data = await response.json();
 
         // Vérifie si l'ID est dans la liste
-        const userAvis = data.filter(avis => covoiturageIdList.includes(avis.covoiturage_id));
+        const userAvis = data.filter(avis => paiementIdList.includes(avis.paiement_id));
         const avisTitle = document.querySelector('#AvisSection h2');
         const avisListContainer = document.getElementById('AvisList');
         avisListContainer.innerHTML = '';
@@ -101,8 +101,7 @@ async function loadAvis() {
                             showConfirmButton: false,
                             timer: 2000,
                             timerProgressBar: false
-                        });
-                        window.location.href = "/employe";
+                        }).then(() => {window.location.reload();});
                     } else {
                         Swal.fire({
                             text: "Erreur lors de la validation du paiement",

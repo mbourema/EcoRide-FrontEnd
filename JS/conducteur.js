@@ -236,7 +236,6 @@ async function boutonArriver() {
     }
 }
 
-const annulerButton = document.getElementById("annulerButton");
 
 async function boutonAnnuler() {
     const ID = document.getElementById("paiementSelect").value;
@@ -288,6 +287,12 @@ async function boutonAnnuler() {
     }
 }
 
+const annulerButton = document.getElementById("annulerButton");
+if (annulerButton) {
+    annulerButton.addEventListener("click", boutonAnnuler);
+} else {
+    console.error("Le bouton 'Arrivé' est introuvable.");
+}
 
 const endButton = document.getElementById("arriveeButton");
 if (endButton) {

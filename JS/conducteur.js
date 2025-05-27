@@ -239,7 +239,9 @@ async function boutonArriver() {
 
 async function boutonAnnuler() {
     const ID = document.getElementById("paiementSelect").value;
+    console.log(ID);
     const token = getToken();
+    console.log(token);
 
     if (!token || !ID) {
         console.error("Le jeton d'authentification ou l'ID du covoiturage payé est manquant.");
@@ -248,7 +250,7 @@ async function boutonAnnuler() {
 
     try {
         const response = await fetch(`${apiUrl}/paiement/${ID}`, {
-            method: "GET",
+            method: "PATCH",
             credentials: 'include',
             headers: {
                 "Content-Type": "application/json",

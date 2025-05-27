@@ -154,9 +154,19 @@ function validateAdresse() {
 }
 
 function validateNaissance() {
-    const isValid = inputNaissance.value.trim() !== "";
+    const userDate = new Date(inputNaissance.value.trim());
+    const currentDate = new Date();
+    userDate.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0); 
+    
+    // Calcule la date d'anniversaire des 18 ans
+    const date18 = new Date(userDate);
+    date18.setFullYear(userDate.getFullYear() + 18);
+    
+    const isValid = currentDate >= date18;
     toggleInputValidation(inputNaissance, isValid);
 }
+
 
 function validatePhoto() {
     const photoURL = inputPhoto.value.trim(); 

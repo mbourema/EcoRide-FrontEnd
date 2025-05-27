@@ -58,7 +58,7 @@ async function getVoitureDetails(voitureId) {
 
 // Fonction pour récupérer la marque du véhicule
 async function getMarqueDetails(voitureId) {
-    const detailVoiture = getVoitureDetails(voitureId);
+    const detailVoiture = await getVoitureDetails(voitureId);
     const marqueId = detailVoiture.marque.id;
     const urlMarque = `${apiUrl}/marque/${marqueId}`;
     try {
@@ -92,7 +92,9 @@ async function getAvisConducteur(pseudo) {
         if (!response.ok) {
             throw new Error(`Erreur lors de la récupération des avis: ${response.status}`);
         }
-        return await response.json();
+        const allAvis = await response.json();
+        const avis = allAvis.filter(avis => avis.avancement === "OK");
+        return avis;
     } catch (error) {
         console.error("Erreur lors de la récupération des avis :", error);
         return null;

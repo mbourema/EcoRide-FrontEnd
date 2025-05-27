@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <input id="date_arrivee" name="date_arrivee" type="datetime-local" class="form-control" required>
                     <div class="invalid-feedback">
-                        Veuillez remplir la date et l'heure d'arrivée.
+                        Veuillez une date et heure d'arrivée postérieur à la date et l'heure de départ.
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                 <div class="form-group">
                     <input id="prix_personne" name="prix_personne" type="number" class="form-control" placeholder="Prix par personne" required min="0" step="0.01">
                     <div class="invalid-feedback">
-                        Veuillez indiquer un prix par personne.
+                        Veuillez indiquer un prix d'au moins 3 crédits au voyage.
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-warning w-100">Proposer un trajet</button>
+            <button id="proposer" type="submit" class="btn btn-warning w-100">Proposer un trajet</button>
         </form>
     </section>
 </div>

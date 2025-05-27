@@ -7,7 +7,7 @@ const inputLieuArrivee = document.getElementById("lieu_arrivee");
 const inputPlacesDisponibles = document.getElementById("places_disponibles");
 const inputPrixPersonne = document.getElementById("prix_personne");
 const inputVoiture = document.getElementById("voiture");
-const buttonProposerTrajet = document.querySelector("button[type='submit']");
+const buttonProposerTrajet = document.getElementById("proposer");
 const formulaireCovoiturage = document.getElementById("covoiturageForm");
 
 // Ajout des événements pour la validation des champs
@@ -131,7 +131,7 @@ function validatePlacesDisponibles() {
 
 // Validation du prix par personne
 function validatePrixPersonne() {
-    if (inputPrixPersonne.value.trim() === "" || inputPrixPersonne.value <= 0) {
+    if (inputPrixPersonne.value.trim() === "" || inputPrixPersonne.value <= 2) {
         inputPrixPersonne.classList.remove("is-valid");
         inputPrixPersonne.classList.add("is-invalid");
     } else {
@@ -164,7 +164,7 @@ function toggleSubmitButton() {
     const isVoitureValid = inputVoiture.classList.contains("is-valid");
 
     // Si tous les champs sont valides, on active le bouton
-    if (isDateDepartValid && isDateArriveeValid && isLieuDepartValid && isLieuArriveeValid && isPlacesDisponiblesValid && isPrixPersonneValid) {
+    if (isDateDepartValid && isDateArriveeValid && isLieuDepartValid && isLieuArriveeValid && isPlacesDisponiblesValid && isPrixPersonneValid && isVoitureValid) {
         buttonProposerTrajet.disabled = false;
     } else {
         buttonProposerTrajet.disabled = true;

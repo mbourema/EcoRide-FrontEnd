@@ -93,7 +93,7 @@ export async function afficherTousLesPaiements() {
 
         const paiements = await response.json();
 
-        const paiementsUtilisateur = paiements.filter(paiement => paiement.utilisateur_id === Number(utilisateurId) && paiement.avancement !== "OK");
+        const paiementsUtilisateur = paiements.filter(paiement => paiement.utilisateur_id === Number(utilisateurId) && paiement.avancement === "En cours");
 
         const checkElementInterval = setInterval(() => {
             const paiementContainer = document.querySelector("#paiement_details");

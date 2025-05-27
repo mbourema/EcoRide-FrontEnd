@@ -9,4 +9,48 @@
             <h2>Chargement du total des crédits...</h2>
         </div>
     </section>
+    <div class="mt-4 text-center row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+            <div class="card p-3 d-flex flex-column flex-md-row align-items-center rounded-3 bg-ecogreen shadow-sm mb-3">
+                <form id="employeForm" class="login-form w-300 mx-auto">
+                        <!-- Sélection d'un employé du site -->
+                        <div class="my-2">
+                            <label for="employeSelect" class="form-label">Sélectionnez un employé du site</label>
+                            <select id="employeSelect" class="form-select" required>
+                                <option value="">Sélectionnez un employé du site</option>
+                                <!-- Options générées par JavaScript -->
+                            </select>
+                            <div class="invalid-feedback">
+                                Veuillez sélectionner un employé du site.
+                            </div>
+                        </div>
+                </form>
+                <div id="supprimmerEmploye">
+                    Supprimer cet employé :
+                    <button id="startButton" class="btn btn-success">Suppression</button>
+                </div> 
+            </div>
+        </div>
+        <div class="col">
+            <div class="card p-3 d-flex flex-column flex-md-row align-items-center rounded-3 bg-ecogreen shadow-sm mb-3">
+                <form id="utilisateurForm" class="login-form w-300 mx-auto">
+                        <!-- Sélection d'un employé du site -->
+                        <div class="my-2">
+                            <label for="utilisateurSelect" class="form-label">Sélectionnez un utilisateur du site</label>
+                            <select id="utilisateurSelect" class="form-select" required>
+                                <option value="">Sélectionnez un utilisateur du site</option>
+                                <!-- Options générées par JavaScript -->
+                            </select>
+                            <div class="invalid-feedback">
+                                Veuillez sélectionner un utilisateur du site.
+                            </div>
+                        </div>
+                </form>
+                <div id="supprimmerUtilisateur">
+                    Supprimer cet utilisateur :
+                    <button id="startButton" class="btn btn-success">Suppression</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

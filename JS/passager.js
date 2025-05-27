@@ -143,6 +143,7 @@ export async function afficherTousLesPaiements() {
                                         timer: 3000,
                                         timerProgressBar: false
                                     }).then(() => {
+                                        eraseCookie(nbCreditsCookieName);
                                         window.location.reload();
                                     });
                                 } else {

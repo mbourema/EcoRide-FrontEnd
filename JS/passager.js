@@ -46,8 +46,10 @@ export async function effectuerPaiement(covoiturageId) {
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: false
+        }).then(() => {
+            eraseCookie(nbCreditsCookieName);
+            window.location.replace("/");
         });
-        eraseCookie(nbCreditsCookieName);
     } catch (error) {
         Swal.fire({
             text: "Une erreur est survenue lors du paiement. Veuillez réessayer.",

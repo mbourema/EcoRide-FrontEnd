@@ -109,9 +109,9 @@ export async function afficherTousLesPaiements() {
                                     <p><strong>Date :</strong> ${paiement.date_paiement}</p>
                                     <p><strong>Avancement :</strong> ${paiement.avancement}</p>
                                 </div>
-                            </div>
-                            <div class="text-center">
-                                <button id="annule-${paiement.paiement_id}" class="btn btn-secondary mt-2">Annuler le voyage</button>
+                                <div class="text-center">
+                                    <button id="annule-${paiement.paiement_id}" class="btn btn-secondary mt-2">Annuler le voyage</button>
+                                </div>
                             </div>
                         `;
                     });

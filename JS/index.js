@@ -219,6 +219,7 @@ async function getMoyenneNote(pseudo) {
 
         // Vérification si la réponse contient bien du JSON avant de parser
         const allAvis = await response.json();
+        console.log(allAvis);
         const avis = allAvis.filter(avis => avis.avancement === "OK");
         if (!Array.isArray(avis) || avis.length === 0) {
             return "Pas de note pour le moment !";

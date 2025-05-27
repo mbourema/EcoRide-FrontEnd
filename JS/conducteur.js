@@ -130,7 +130,7 @@ async function getPayedCovoiturages() {
         const paiements = await response.json();
         
         // Filtrage des paiements pour n'afficher que ceux qui concernent le conducteur
-        const paiementsConducteur = paiements.filter(paiement => paiement.conducteur_id === Number(utilisateurId));
+        const paiementsConducteur = paiements.filter(paiement => paiement.conducteur_id === Number(utilisateurId) && paiement.avancement === "En cours");
 
         // Passer les paiements filtrés à la fonction populateCovoiturageSelect
         populatePayedCovoiturageSelect(paiementsConducteur);
@@ -225,6 +225,58 @@ async function boutonArriver() {
 
     } catch (error) {
         console.error("Erreur lors de la validation de l'arrivée :", error);
+        Swal.fire({
+            text: "Erreur lors de la validation de l'arrivée",
+            icon: "error",
+            position: "center",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: false
+        });
+    }
+}
+
+const annulerButton = document.getElementById("annulerButton");
+
+async function boutonAnnuler() {
+    const ID = document.getElementById("paiementSelect").value;
+    const token = getToken();
+
+    if (!token || !ID) {
+        console.error("Le jeton d'authentification ou l'ID du covoiturage payé est manquant.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`${apiUrl}/paiement/${ID}`, {
+            method: "GET",
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/json",
+                "X-AUTH-TOKEN": token
+            },
+            body: JSON.stringify({
+                avancement: "Annule par conducteur"
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erreur lors de l'annulation du voyage : ${response.status}`);
+        }
+
+        Swal.fire({
+            text: "Voyage annulé avec succès !",
+            icon: "success",
+            position: "center",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: false
+        }).then(() => {
+            window.location.reload();
+        });
+
+    } catch (error) {
+        console.error("Erreur lors de l'annulation du voyage' :", error);
         Swal.fire({
             text: "Erreur lors de la validation de l'arrivée",
             icon: "error",

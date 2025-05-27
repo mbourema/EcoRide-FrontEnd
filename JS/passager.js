@@ -48,7 +48,6 @@ export async function effectuerPaiement(covoiturageId) {
             timerProgressBar: false
         });
         eraseCookie(nbCreditsCookieName);
-        afficherDetailsPaiement(paiement.paiement_id);  
     } catch (error) {
         Swal.fire({
             text: "Une erreur est survenue lors du paiement. Veuillez réessayer.",
@@ -58,53 +57,6 @@ export async function effectuerPaiement(covoiturageId) {
             timer: 3000,
             timerProgressBar: false
         });
-    }
-}
-
-// Fonction pour afficher les détails du paiement dans la page passager
-async function afficherDetailsPaiement(paiementId) {
-    const token = getToken(); 
-
-    if (!token) {
-        return;
-    }
-
-    try {
-        const response = await fetch(`${apiUrl}/paiement/${paiementId}`, {
-            method: "GET",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-                "X-AUTH-TOKEN": token  
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`Erreur récupération paiement : ${response.status}`);
-        }
-
-        const paiement = await response.json();
-
-        
-        const checkElementInterval = setInterval(() => {
-            const paiementContainer = document.querySelector("#paiement_details");
-            if (paiementContainer) {
-                paiementContainer.innerHTML = ` 
-                    <h2 class="text-center mb-3">Commandes</h2>
-                    <div class="card p-3 d-flex flex-row align-items-center rounded-3 bg-ecogreen shadow-sm mb-3">
-                        <div class="paiement-info flex-grow-1">
-                            <p><strong>Montant :</strong> ${paiement.montant}€</p>
-                            <p><strong>Date :</strong> ${paiement.date_paiement}</p>
-                            <p><strong>Avancement :</strong> ${paiement.avancement}</p>
-                        </div>
-                    </div>
-                `;
-                clearInterval(checkElementInterval);  
-            } 
-        }, 100);  
-
-    } catch (error) {
-        console.error("Erreur lors de la récupération des détails du paiement :", error);
     }
 }
 

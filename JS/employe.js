@@ -49,8 +49,6 @@ async function loadAvis() {
         });
 
         const data = await response.json();
-        console.log(data);
-        console.log(paiementIdList);
 
         // Vérifie si l'ID est dans la liste
         const userAvis = data.filter(avis => paiementIdList.includes(avis.paiement_id));

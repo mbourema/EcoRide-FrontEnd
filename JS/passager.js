@@ -111,7 +111,43 @@ export async function afficherTousLesPaiements() {
                                     <p><strong>Avancement :</strong> ${paiement.avancement}</p>
                                 </div>
                             </div>
+                            <div class="text-center">
+                            <button id="annule-${paiement.paiement_id}" class="btn btn-secondary mt-2">Annuler le voyage</button>
+                            </div>
                         `;
+                        document.getElementById(`annule-${paiement.paiement_id}`).addEventListener("click", async function () {
+                        const ID = paiement.paiement_id;
+                        const validation = await fetch(`${apiUrl}/paiement/${ID}`, {
+                            method: 'PATCH',
+                            credentials: 'include',
+                            headers: {
+                                'X-AUTH-TOKEN': token,
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                avancement: "Annule par passager"
+                            })
+                        });
+                        if (validation.ok) {
+                            Swal.fire({
+                                text: "Paiement annulé avec succès",
+                                icon: "success",
+                                position: "center",
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: false
+                            }).then(() => {window.location.reload();});
+                        } else {
+                            Swal.fire({
+                                text: "Erreur lors de l'annulation du paiement",
+                                icon: "error",
+                                position: "center",
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: false
+                            });
+                        }
+                    });
                     });
 
                     paiementContainer.innerHTML = paiementHtml;

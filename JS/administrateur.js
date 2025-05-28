@@ -125,7 +125,7 @@ function populateUtilisateurEmployeSelect(utilisateurs) {
     utilisateurs.forEach(utilisateur => {
         const option = document.createElement("option");
         option.value = utilisateur.id; // Garder l'id de l'employé comme valeur
-        option.textContent = `Employe ID: ${utilisateur.id} - Pseudo : ${utilisateur.pseudo} - Paiement ID : ${utilisateur.email}`;
+        option.textContent = `Employe ID: ${utilisateur.id} - Pseudo : ${utilisateur.pseudo} - Email : ${utilisateur.email}`;
         select.appendChild(option);
     });
 }
@@ -143,7 +143,7 @@ function populateUtilisateurUsersSelect(utilisateurs) {
     utilisateurs.forEach(utilisateur => {
         const option = document.createElement("option");
         option.value = utilisateur.id; // Garder l'id de l'utilisateur comme valeur
-        option.textContent = `Utilisateur ID: ${utilisateur.id} - Pseudo : ${utilisateur.pseudo} - Paiement ID : ${utilisateur.email}`;
+        option.textContent = `Utilisateur ID: ${utilisateur.id} - Pseudo : ${utilisateur.pseudo} - Email : ${utilisateur.email}`;
         select.appendChild(option);
     });
 }
@@ -151,18 +151,19 @@ function populateUtilisateurUsersSelect(utilisateurs) {
 getTotalCredits();
 getUsers(); 
 
-async function boutonSupprimerUtilisateur(type) {
+function generateRandomString(length) {
+    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
+}
 
+async function suspendreUtilisateur(type) {
     let ID;
 
-    if (type === 1){
-        ID = document.getElementById("employeSelect").value; 
-    }
-    else if (type === 2){
+    if (type === 1) {
+        ID = document.getElementById("employeSelect").value;
+    } else if (type === 2) {
         ID = document.getElementById("utilisateurSelect").value;
     }
-
-    console.log(ID);
 
     const token = getToken();
 
@@ -171,22 +172,31 @@ async function boutonSupprimerUtilisateur(type) {
         return;
     }
 
+    // Générer email et mot de passe aléatoires
+    const emailAleatoire = `${generateRandomString(10)}@suspendu.local`;
+    const mdpAleatoire = generateRandomString(16);
+
     try {
-        const response = await fetch(`${apiUrl}/api/utilisateurs/supprimer/${ID}`, {
-            method: "DELETE",
+        const response = await fetch(`${apiUrl}/api/utilisateurs/modifier/${ID}`, {
+            method: "PUT",
             credentials: 'include',
             headers: {
                 "Content-Type": "application/json",
                 "X-AUTH-TOKEN": token
             },
+            body: JSON.stringify({
+                email: emailAleatoire,
+                mdp: mdpAleatoire
+            })
         });
 
         if (!response.ok) {
-            throw new Error(`Erreur lors de la suppression du compte : ${response.status}`);
+            const errorText = await response.text();
+            throw new Error(`Erreur lors de la suspension du compte : ${response.status} - ${errorText}`);
         }
 
         Swal.fire({
-            text: "Compte supprimmé avec succès !",
+            text: "Compte suspendu avec succès !",
             icon: "success",
             position: "center",
             showConfirmButton: false,
@@ -197,9 +207,9 @@ async function boutonSupprimerUtilisateur(type) {
         });
 
     } catch (error) {
-        console.error("Erreur lors de la suppression du compte' :", error);
+        console.error("Erreur lors de la suspension du compte :", error);
         Swal.fire({
-            text: "Erreur lors de la suppression du compte",
+            text: "Erreur lors de la suspension du compte",
             icon: "error",
             position: "center",
             showConfirmButton: false,
@@ -209,18 +219,19 @@ async function boutonSupprimerUtilisateur(type) {
     }
 }
 
-const supprimerEmployeButton = document.getElementById("supprimmerEmployeButton");
-if (supprimerEmployeButton) {
-    supprimerEmployeButton.addEventListener("click", () => boutonSupprimerUtilisateur(1));
+
+const suspendreEmployeButton = document.getElementById("suspendreEmployeButton");
+if (suspendreEmployeButton) {
+    suspendreEmployeButton.addEventListener("click", () => suspendreUtilisateur(1));
 } else {
-    console.error("Le bouton de suppression d'employé est introuvable.");
+    console.error("Le bouton de suspension d'employé est introuvable.");
 }
 
-const supprimerUtilisateurButton = document.getElementById("supprimmerUtilisateurButton");
-if (supprimerUtilisateurButton) {
-    supprimerUtilisateurButton.addEventListener("click", () => boutonSupprimerUtilisateur(2));
+const suspendreUtilisateurButton = document.getElementById("suspendreUtilisateurButton");
+if (suspendreUtilisateurButton) {
+    suspendreUtilisateurButton.addEventListener("click", () => suspendreUtilisateur(2));
 } else {
-    console.error("Le bouton de suppression d'utilisateur est introuvable.");
+    console.error("Le bouton de suspension d'utilisateur est introuvable.");
 }
 
 

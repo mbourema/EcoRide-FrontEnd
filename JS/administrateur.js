@@ -234,6 +234,123 @@ if (suspendreUtilisateurButton) {
     console.error("Le bouton de suspension d'utilisateur est introuvable.");
 }
 
+async function afficherGraphiqueCovoiturages() {
+    const token = getToken();
+    if (!token) return;
+
+    const response = await fetch(`${apiUrl}/covoiturage/list`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+            "X-AUTH-TOKEN": token
+        }
+    });
+
+    const data = await response.json();
+
+    const counts = {};
+    const cutoffDate = getLastNDaysDate(7); // date limite
+
+    data.forEach(item => {
+        if (item.created_at) {
+            const jour = item.created_at.split(" ")[0];
+            if (jour >= cutoffDate) {
+                counts[jour] = (counts[jour] || 0) + 1;
+            }
+        }
+    });
+
+    const labels = Object.keys(counts).sort();
+    const values = labels.map(label => counts[label]);
+
+    const ctx = document.getElementById("graphCovoiturages").getContext("2d");
+    new Chart(ctx, {
+        type: "line",
+        data: {
+            labels,
+            datasets: [{
+                label: "Nombre de covoiturages (7 derniers jours)",
+                data: values,
+                borderColor: "rgb(75, 192, 192)",
+                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            scales: {
+                x: { title: { display: true, text: "Date" } },
+                y: { title: { display: true, text: "Nombre" }, beginAtZero: true }
+            }
+        }
+    });
+}
+
+
+async function afficherGraphiqueCredits() {
+    const token = getToken();
+    if (!token) return;
+
+    const response = await fetch(`${apiUrl}/paiements`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+            "X-AUTH-TOKEN": token
+        }
+    });
+
+    const data = await response.json();
+
+    const dailyCredits = {};
+    const cutoffDate = getLastNDaysDate(7); // date limite
+
+    data.forEach(item => {
+        if (item.date_paiement) {
+            const jour = item.date_paiement.split(" ")[0];
+            if (jour >= cutoffDate) {
+                dailyCredits[jour] = (dailyCredits[jour] || 0) + item.credit_total_plateforme;
+            }
+        }
+    });
+
+    const labels = Object.keys(dailyCredits).sort();
+    const values = labels.map(label => dailyCredits[label]);
+
+    const ctx = document.getElementById("graphCredits").getContext("2d");
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels,
+            datasets: [{
+                label: "Crédits gagnés (7 derniers jours)",
+                data: values,
+                backgroundColor: "rgba(255, 206, 86, 0.6)",
+                borderColor: "rgba(255, 206, 86, 1)",
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                x: { title: { display: true, text: "Date" } },
+                y: { title: { display: true, text: "Crédits" }, beginAtZero: true }
+            }
+        }
+    });
+}
+
+function getLastNDaysDate(n) {
+    const date = new Date();
+    date.setDate(date.getDate() - n);
+    return date.toISOString().split("T")[0]; // Format YYYY-MM-DD
+}
+
+
+afficherGraphiqueCovoiturages();
+afficherGraphiqueCredits();
+
+
 
 
   

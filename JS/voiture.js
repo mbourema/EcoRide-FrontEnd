@@ -85,15 +85,31 @@ function validateCouleur() {
 
 // Validation de la date de première immatriculation
 function validateDateImmatriculation() {
-    if (inputDateImmatriculation.value.trim() === "") {
+    const valeur = inputDateImmatriculation.value.trim();
+
+    // Vérifie que la valeur n'est pas vide et que la date est dans le passé
+    if (valeur === "") {
         inputDateImmatriculation.classList.remove("is-valid");
         inputDateImmatriculation.classList.add("is-invalid");
     } else {
-        inputDateImmatriculation.classList.add("is-valid");
-        inputDateImmatriculation.classList.remove("is-invalid");
+        const dateImmat = new Date(valeur);
+        const today = new Date();
+
+        dateImmat.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+
+        if (dateImmat < today) {
+            inputDateImmatriculation.classList.add("is-valid");
+            inputDateImmatriculation.classList.remove("is-invalid");
+        } else {
+            inputDateImmatriculation.classList.remove("is-valid");
+            inputDateImmatriculation.classList.add("is-invalid");
+        }
     }
+
     toggleSubmitButton();
 }
+
 
 // Validation du nombre de places
 function validatePlaces() {

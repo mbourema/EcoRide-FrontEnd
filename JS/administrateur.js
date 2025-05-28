@@ -151,5 +151,79 @@ function populateUtilisateurUsersSelect(utilisateurs) {
 getTotalCredits();
 getUsers(); 
 
+async function boutonSupprimerUtilisateur(type) {
+
+    let ID;
+
+    if (type === 1){
+        ID = document.getElementById("employeSelect").value; 
+    }
+    else if (type === 2){
+        ID = document.getElementById("utilisateurSelect").value;
+    }
+
+    console.log(ID);
+
+    const token = getToken();
+
+    if (!token || !ID) {
+        console.error("Le jeton d'authentification ou l'ID de l'utilisateur est manquant.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`${apiUrl}/api/utilisateurs/supprimer/${ID}`, {
+            method: "DELETE",
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/json",
+                "X-AUTH-TOKEN": token
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erreur lors de la suppression du compte : ${response.status}`);
+        }
+
+        Swal.fire({
+            text: "Compte supprimmé avec succès !",
+            icon: "success",
+            position: "center",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: false
+        }).then(() => {
+            window.location.reload();
+        });
+
+    } catch (error) {
+        console.error("Erreur lors de la suppression du compte' :", error);
+        Swal.fire({
+            text: "Erreur lors de la suppression du compte",
+            icon: "error",
+            position: "center",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: false
+        });
+    }
+}
+
+const supprimerEmployeButton = document.getElementById("supprimmerEmployeButton");
+if (supprimerEmployeButton) {
+    supprimerEmployeButton.addEventListener("click", () => boutonSupprimerUtilisateur(1));
+} else {
+    console.error("Le bouton de suppression d'employé est introuvable.");
+}
+
+const supprimerUtilisateurButton = document.getElementById("supprimmerUtilisateurButton");
+if (supprimerUtilisateurButton) {
+    supprimerUtilisateurButton.addEventListener("click", () => boutonSupprimerUtilisateur(2));
+} else {
+    console.error("Le bouton de suppression d'utilisateur est introuvable.");
+}
+
+
+
   
 

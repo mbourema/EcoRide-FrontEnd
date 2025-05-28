@@ -174,6 +174,8 @@ async function afficherDetails() {
                 `;
                 avisContainer.appendChild(avisCard);
             });
+        } else {
+            avisContainer.innerHTML += `<p class="text-center text-danger">Aucun avis pour ce conducteur pour l'instant.</p>`;
         }
     } else {
         afficherTousLesPaiements();

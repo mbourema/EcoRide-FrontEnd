@@ -369,7 +369,7 @@ async function afficherCovoiturages(covoiturages) {
 
 
 // Exécuter la recherche des covoiturages après le chargement de la page
-document.addEventListener("DOMContentLoaded", function() {
+function rechercheCovoiturages() {
     const searchParams = getSearchParams();
 
     if (searchParams.villeDepart && searchParams.villeArrivee && searchParams.dateDepart) {
@@ -388,7 +388,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.error("Erreur de requête API", error);
             });
     }
-});
+};
+rechercheCovoiturages();
 
 
 // Créer un cookie à partir de son nom, de sa valeur et de sa durée d'expiration en jours
@@ -517,7 +518,7 @@ export function sanitizeHtml(text){
     return tempHtml.innerHTML;
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+function afficherInfosUser() {
     // Récupérer les informations des cookies
     const pseudo = getCookie(pseudoCookieName);
     const nbCredit = getCookie(nbCreditsCookieName);
@@ -554,7 +555,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById('nbcredit').innerHTML = `Votre nombre de crédits : <span class="text-danger">0</span>`;
             }
         });
-}})
+}}
+
+afficherInfosUser();
 
 
 

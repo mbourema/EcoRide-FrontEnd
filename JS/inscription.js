@@ -5,7 +5,6 @@ let selectedRole = null;
 const formInscription = document.getElementById("inscriptionForm");
 const fumeurCheckbox = document.getElementById("fumeur");
 const animauxCheckbox = document.getElementById("animaux");
-const preferencesPerso = document.getElementById("preferences");
 
 function setupInscriptionPage() {
     const roleButtons = document.querySelectorAll("#roleSelection button");

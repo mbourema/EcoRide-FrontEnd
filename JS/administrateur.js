@@ -70,9 +70,8 @@ function displayTotalCredits(totalCredits) {
 // Fonction pour récupérer les utilisateurs et les employés du site
 async function getUsers() {
     const token = getToken();
-    const utilisateurId = getId();
 
-    if (!token || !utilisateurId) {
+    if (!token) {
         return;
     }
 
@@ -149,9 +148,8 @@ function populateUtilisateurUsersSelect(utilisateurs) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    getTotalCredits();
-    getUsers();
-});
+getTotalCredits();
+getUsers(); 
+
   
 

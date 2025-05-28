@@ -177,12 +177,7 @@ export async function afficherTousLesPaiements() {
     }
 }
 
-
-
-// Appel de la fonction lorsque le DOM est complètement chargé
-document.addEventListener('DOMContentLoaded', function() {
-    afficherTousLesPaiements();
-});
+afficherTousLesPaiements();
 
 
 

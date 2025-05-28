@@ -127,7 +127,3 @@ function checkCredentials(){
     .catch(error => console.log('error', error));      
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    reinitialiser.classList.add("d-none"); // S'assurer qu'elle est bien cachée au début
-});
-

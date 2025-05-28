@@ -184,21 +184,8 @@ async function afficherDetails() {
     }
 }
 
-// Exécuter la fonction après chargement du DOM
-document.addEventListener("DOMContentLoaded", afficherDetails);
 
-// Fonction d'attente pour s'assurer que le DOM est chargé
-function attendreChargementDOM() {
-    if (document.readyState === "complete") {
-        afficherDetails();
-    } else {
-        console.log("DOM pas encore prêt, nouvelle vérification dans 500ms...");
-        setTimeout(attendreChargementDOM, 500);
-    }
-}
-
-// Lancer la vérification du DOM
-attendreChargementDOM();
+afficherDetails();
 
 
 

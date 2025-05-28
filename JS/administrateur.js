@@ -67,6 +67,91 @@ function displayTotalCredits(totalCredits) {
     }
 }
 
-setTimeout(function() {
-    getTotalCredits(); 
-}, 100);  
+// Fonction pour récupérer les utilisateurs et les employés du site
+async function getUsers() {
+    const token = getToken();
+    const utilisateurId = getId();
+
+    if (!token || !utilisateurId) {
+        return;
+    }
+
+    try {
+        // Récupération des paiements
+        const response = await fetch(`${apiUrl}/api/utilisateurs/liste`, {
+            method: "GET",
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/json",
+                "X-AUTH-TOKEN": token
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erreur récupération des utilisateurs du site : ${response.status}`);
+        }
+
+        const utilisateurs = await response.json();
+        
+        // Filtrage des paiements pour n'afficher que ceux qui concernent le conducteur
+        const utilisateursEmploye = utilisateurs.filter(utilisateur => utilisateur.roles.includes("ROLE_EMPLOYE"));
+        const utilisateursUsers = utilisateurs.filter(utilisateur => !utilisateur.roles.includes("ROLE_EMPLOYE") && !utilisateur.roles.includes("ROLE_ADMIN"));
+
+        // Passer les paiements filtrés à la fonction populateCovoiturageSelect
+        populateUtilisateurEmployeSelect(utilisateursEmploye);
+        populateUtilisateurUsersSelect(utilisateursUsers);
+
+    } catch (error) {
+        Swal.fire({
+            text: "Erreur lors de la récupération des utilisateurs",
+            icon: "error",
+            position: "center",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: false
+        });
+    }
+}
+
+// Fonction pour remplir la liste déroulante des employés du site
+function populateUtilisateurEmployeSelect(utilisateurs) {
+    const select = document.getElementById("employeSelect");
+
+    // On s'assure qu'il y a des employés à afficher
+    if (utilisateurs.length === 0) {
+        select.innerHTML = `<option value="">Aucun employé présent dans le site</option>`;
+        return;
+    }
+
+    utilisateurs.forEach(utilisateur => {
+        const option = document.createElement("option");
+        option.value = utilisateur.id; // Garder l'id de l'employé comme valeur
+        option.textContent = `Employe ID: ${utilisateur.id} - Pseudo : ${utilisateur.pseudo} - Paiement ID : ${utilisateur.email}`;
+        select.appendChild(option);
+    });
+}
+
+// Fonction pour remplir la liste déroulante des utilisateurs du site
+function populateUtilisateurUsersSelect(utilisateurs) {
+    const select = document.getElementById("utilisateurSelect");
+
+    // On s'assure qu'il y a des utilisateurs à afficher
+    if (utilisateurs.length === 0) {
+        select.innerHTML = `<option value="">Aucun utilisateur présent dans le site</option>`;
+        return;
+    }
+
+    utilisateurs.forEach(utilisateur => {
+        const option = document.createElement("option");
+        option.value = utilisateur.id; // Garder l'id de l'utilisateur comme valeur
+        option.textContent = `Utilisateur ID: ${utilisateur.id} - Pseudo : ${utilisateur.pseudo} - Paiement ID : ${utilisateur.email}`;
+        select.appendChild(option);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    getTotalCredits();
+    getUsers();
+});
+  
+

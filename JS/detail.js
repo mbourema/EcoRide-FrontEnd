@@ -1,6 +1,6 @@
 import { effectuerPaiement, afficherTousLesPaiements } from './passager.js';
 
-const apiUrl = "https://obscure-stream-41149-67f60faa3f9f.herokuapp.com";
+const apiUrl = "http://127.0.0.1:8000";
 
 // Fonction pour récupérer les paramètres de l'URL
 function getDetailParams() {
